@@ -1,7 +1,7 @@
 Commands:
-php artisan migrate:fresh --seed
-php artisan db:seed --class=UserSeeder
-php artisan serv
+- php artisan migrate:fresh --seed
+- php artisan db:seed --class=UserSeeder
+- php artisan serv
 
 
 <hr>
