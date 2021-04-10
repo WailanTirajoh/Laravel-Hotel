@@ -1,13 +1,8 @@
 # Laravel Hotel
-<hr>
-
 ## Init Commands:
 - php artisan migrate:fresh --seed
 - php artisan db:seed --class=UserSeeder
 - php artisan serv
-
-
-<hr>
 
 ## Alur Laravel Hotel
 
