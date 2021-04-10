@@ -1,0 +1,145 @@
+{
+  "_from": "sweetalert2",
+  "_id": "sweetalert2@10.16.0",
+  "_inBundle": false,
+  "_integrity": "sha512-qJp4nIpx0MPDnAdY6MurwH/mAovfCzWo07hFoQ41C46XGLpNkxiqBbJDNdhGfMFwbDY1e9jfttNFxe5IsrkEtA==",
+  "_location": "/sweetalert2",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "sweetalert2",
+    "name": "sweetalert2",
+    "escapedName": "sweetalert2",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/sweetalert2/-/sweetalert2-10.16.0.tgz",
+  "_shasum": "33d527af90689baab1078bf447b1986b796d4c75",
+  "_spec": "sweetalert2",
+  "_where": "C:\\Users\\Wailan\\Desktop\\sweetalert",
+  "author": {
+    "name": "Limon Monte",
+    "email": "limon.monte@protonmail.com",
+    "url": "https://limonte.github.io"
+  },
+  "browser": "dist/sweetalert2.all.js",
+  "bugs": {
+    "url": "https://github.com/sweetalert2/sweetalert2/issues"
+  },
+  "bundleDependencies": false,
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "dist/sweetalert2.all.min.js",
+        "maxSize": "20kB"
+      }
+    ]
+  },
+  "contributors": [
+    {
+      "name": "Giuseppe Verni",
+      "url": "https://github.com/gverni"
+    },
+    {
+      "name": "Matthew Francis Brunetti",
+      "email": "zenflow87@gmail.com",
+      "url": "https://github.com/zenflow"
+    },
+    {
+      "name": "Morgan Touverey-Quilling",
+      "email": "mtouverey@alembic-dev.com",
+      "url": "https://github.com/toverux"
+    },
+    {
+      "name": "Sam Turrell",
+      "email": "sam@samturrell.co.uk",
+      "url": "https://github.com/samturrell"
+    },
+    {
+      "name": "Joseph Schultz",
+      "url": "https://github.com/acupofjose"
+    },
+    {
+      "name": "Johan Fagerberg",
+      "url": "https://github.com/birjolaxew"
+    }
+  ],
+  "deprecated": false,
+  "description": "A beautiful, responsive, customizable and accessible (WAI-ARIA) replacement for JavaScript's popup boxes, supported fork of sweetalert",
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-transform-object-assign": "^7.12.13",
+    "@babel/preset-env": "^7.13.12",
+    "@rollup/plugin-json": "^4.0.2",
+    "@sweetalert2/eslint-config": "^1.0.0",
+    "@sweetalert2/execute": "^1.0.0",
+    "@sweetalert2/stylelint-config": "^1.1.5",
+    "babel-plugin-array-includes": "^2.0.3",
+    "browser-sync": "^2.26.14",
+    "cypress": "6.2.1",
+    "eslint": "^7.23.0",
+    "eslint-plugin-cypress": "^2.8.1",
+    "eslint-plugin-no-unsanitized": "^3.1.4",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^7.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-css2js": "^1.1.2",
+    "gulp-if": "^3.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-rollup": "^2.16.2",
+    "gulp-uglify": "^3.0.0",
+    "jquery": "^3.6.0",
+    "merge2": "^1.2.3",
+    "replace-in-file": "^6.0.0",
+    "rollup": "^2.44.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "sass": "^1.22.1",
+    "sinon": "^9.0.0",
+    "stylelint": "^13.12.0",
+    "typescript": "^4.2.3"
+  },
+  "files": [
+    "dist",
+    "src",
+    "sweetalert2.d.ts"
+  ],
+  "funding": {
+    "url": "https://sweetalert2.github.io/#donations"
+  },
+  "homepage": "https://sweetalert2.github.io/",
+  "keywords": [
+    "sweetalert",
+    "sweetalert2",
+    "alert",
+    "modal",
+    "popup",
+    "prompt",
+    "confirm",
+    "toast",
+    "accessible"
+  ],
+  "license": "MIT",
+  "main": "dist/sweetalert2.all.js",
+  "module": "src/sweetalert2.js",
+  "name": "sweetalert2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sweetalert2/sweetalert2.git"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "cypress:open": "cypress open",
+    "lint": "stylelint src && eslint src test cypress tools *.js *.ts",
+    "start": "gulp develop --continue-on-error --skip-minification --skip-standalone",
+    "test": "cypress run --headless"
+  },
+  "types": "sweetalert2.d.ts",
+  "version": "10.16.0"
+}
