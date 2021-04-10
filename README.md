@@ -1,7 +1,7 @@
 # Laravel Hotel
 
 ## ERD
-![alt text](https://github.com/WailanTirajoh/laravel_hotel/erd.png?raw=true)
+![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/erd.PNG?raw=true)
 
 ## Init DB
 - DB Name: hotel_app
