@@ -1,9 +1,15 @@
 # Laravel Hotel
+
+## Init DB
+- DB Name: hotel_app
 ## Init Commands:
 - php artisan migrate:fresh --seed
 - php artisan db:seed --class=UserSeeder
 - php artisan serv
 
+## Login:
+- Email: admin@admin.com
+- Password: admin
 ## Alur Laravel Hotel
 
 - Pelanggan Daftar ke Admin
