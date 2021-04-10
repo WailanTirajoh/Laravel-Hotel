@@ -10,16 +10,16 @@
     <link rel="icon" href="{{asset('img/logo/sip.png')}}">
 
     <!-- Bootstrap CSS -->
-    <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"
+    <link href="{{asset('package/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('style/js/style.css')}}">
 
     {{-- Sweet Alert --}}
-    <link rel="stylesheet" href="{{asset('sweetalert2/dist/sweetalert2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('package/sweetalert2/dist/sweetalert2.min.css')}}">
     <title>@yield('title')</title>
 
     {{-- Toastr --}}
-    <link href="{{asset('toastr/toastr/build/toastr.css')}}" rel="stylesheet"/>
+    <link href="{{asset('package/toastr/toastr/build/toastr.css')}}" rel="stylesheet"/>
 
     @yield('head')
 </head>
@@ -54,7 +54,7 @@
         </div>
     </main>
 
-    <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"
+    <script src="{{asset('package/bootstrap/js/bootstrap.bundle.min.js')}}"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
     </script>
 
@@ -74,9 +74,9 @@
     })
     </script>
     {{-- Sweet Alert 2 JS --}}
-    <script src="{{asset('sweetalert2/dist/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('package/sweetalert2/dist/sweetalert2.min.js')}}"></script>
     {{-- Toastr JS --}}
-    <script src="{{('toastr/toastr/build/toastr.min.js')}}"></script>
+    <script src="{{('package/toastr/toastr/build/toastr.min.js')}}"></script>
     <script>
         @if (Session::has('success'))
             toastr.success("{{Session::get('success')}}","Success")
