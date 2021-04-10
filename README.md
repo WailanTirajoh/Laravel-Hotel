@@ -10,9 +10,11 @@
 - Isi identitas diri pelanggan (berdasarkan KTP)
     - Diisi oleh Admin
 - Pesan kamar (berapa orang?)
-    - Diisi oleh Admin berdasarkan permintaan pelanggan -> kamar direkomendasikan oleh sistem berdasarkan nilai yang diinput.
+    - Diisi oleh Admin berdasarkan permintaan pelanggan
+        - kamar direkomendasikan oleh sistem berdasarkan nilai yang diinput.
 - Pilih kamar berdasarkan banyak orang
-    - Diisi oleh Admin berdasarkan permintaan pelanggan -> Pilih tipe kamar, fasilitas, dan harga.
+    - Diisi oleh Admin berdasarkan permintaan pelanggan
+        - Pilih tipe kamar, fasilitas, dan harga.
 - Masuk dan Selesai kapan?
     - Diisi oleh Admin berdasarkan kesepakatan Check In, dan Check Out sementara untuk kalkulasi harga (dapat bertambah jika bermalam lebih lama)
 - DP awal
