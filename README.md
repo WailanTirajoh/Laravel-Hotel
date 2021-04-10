@@ -1,8 +1,5 @@
 # Laravel Hotel
 
-## ERD
-![alt text](https://github.com/WailanTirajoh/laravel_hotel/erd.png?raw=true)
-
 ## Init DB
 - DB Name: hotel_app
 ## Init Commands:
@@ -13,6 +10,9 @@
 ## Login:
 - Email: admin@admin.com
 - Password: admin
+
+## ERD
+![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/erd.PNG?raw=true)
 ## Alur Laravel Hotel
 
 - Pelanggan Daftar ke Admin
