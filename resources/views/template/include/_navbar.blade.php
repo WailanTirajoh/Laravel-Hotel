@@ -20,7 +20,10 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <li><button class="dropdown-item" type="submit">Logout</button></li>
+                    </form>
                 </ul>
             </div>
         </div>

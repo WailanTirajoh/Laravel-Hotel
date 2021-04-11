@@ -46,8 +46,9 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
 
     // Home
     Route::view('/', 'home')->name('home');
+
     // Auth
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 
