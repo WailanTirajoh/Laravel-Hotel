@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,15 +26,8 @@ class UserController extends Controller
         return view('user.search', ['users' => $users, 'search' => $request->search]);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required',
-            'role' => 'required|in:Super,Admin'
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -51,7 +45,6 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
-        // dd($request->all());
         if ($user->role == "Customer") {
             $request->validate([
                 'name' => 'required',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,14 +26,10 @@ class CustomerController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'address' => 'required|max:255',
-            'job' => 'required',
-            'birthdate' => 'required|date',
+            'email' => 'required|unique:users,email'
         ]);
 
         $user = User::create([
@@ -58,18 +55,8 @@ class CustomerController extends Controller
         return view('customer.edit', ['customer' => $customer]);
     }
 
-    public function update(Customer $customer, Request $request)
+    public function update(Customer $customer, StoreCustomerRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            // 'email' => 'required|unique:users,email',
-            'address' => 'required|max:255',
-            'job' => 'required',
-            'birthdate' => 'required|date',
-        ]);
-
-        // $user = User::find($customer->user->id);
-        // $user->update($request->only(['email']));
         $customer->update($request->all());
         return redirect('customer')->with('success', 'customer ' . $customer->name . ' udpated!');
     }
