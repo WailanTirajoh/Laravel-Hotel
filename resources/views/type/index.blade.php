@@ -81,7 +81,7 @@
 </div>
 <div class="row justify-content-md-center mt-3">
     <div class="col-sm-10 d-flex justify-content-md-center">
-        {{ $types->onEachSide(2)->links("pagination::bootstrap-4") }}
+        {{ $types->onEachSide(2)->links('template.paginationlinks') }}
     </div>
 </div>
 

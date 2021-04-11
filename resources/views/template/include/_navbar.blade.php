@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand navbar-light px-1 bg-white shadow-sm" style="height: 55px">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="{{asset('img/logo/sip.png')}}" alt="" width="40" height="40"
+            <img src="{{ asset('img/logo/sip.png') }}" alt="" width="40" height="40"
                 class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -17,11 +17,12 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#">Profil</a></li>
                     <li><a class="dropdown-item" href="#">Activity</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
-

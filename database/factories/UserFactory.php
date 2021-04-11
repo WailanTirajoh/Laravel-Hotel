@@ -24,7 +24,6 @@ class UserFactory extends Factory
     {
         $roles = array(
             'Admin',
-            'Customer',
         );
         return [
             'name' => $this->faker->name,
