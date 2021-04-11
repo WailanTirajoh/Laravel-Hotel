@@ -8,7 +8,8 @@
                     <h2>Edit Type</h2>
                 </div>
                 <div class="card-body p-3">
-                    <form class="row g-3" method="POST" action="/type/edit/{{ $type->id }}/update">
+                    <form class="row g-3" method="POST" action="{{route('type.update',['type'=>$type->id])}}">
+                        @method('PUT')
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Name</label>

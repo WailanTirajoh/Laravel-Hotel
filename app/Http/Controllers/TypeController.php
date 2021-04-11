@@ -10,8 +10,13 @@ class TypeController extends Controller
 {
     public function index()
     {
-        $types = Type::paginate(5);
+        $types = Type::orderBy('id', 'DESC')->paginate(5);
         return view('type.index', compact('types'));
+    }
+
+    public function create()
+    {
+        return view('type.create');
     }
 
     public function store(StoreTypeRequest $request)
@@ -26,7 +31,7 @@ class TypeController extends Controller
 
     public function edit(Type $type)
     {
-        return view('type.edit', compact('types'));
+        return view('type.edit', compact('type'));
     }
 
     public function update(Type $type, StoreTypeRequest $request)

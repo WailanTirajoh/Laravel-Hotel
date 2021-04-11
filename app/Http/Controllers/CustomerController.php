@@ -11,8 +11,13 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::paginate(5);
+        $customers = Customer::orderBy('id', 'DESC')->paginate(5);
         return view('customer.index', compact('customers'));
+    }
+
+    public function create()
+    {
+        return view('customer.create');
     }
 
     public function search(Request $request)

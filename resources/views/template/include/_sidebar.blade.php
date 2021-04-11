@@ -9,7 +9,7 @@
     <div class="d-flex flex-column bg-light" style="width: 4.5rem;">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li>
-                <a href="{{ route('dashboard') }}"
+                <a href="{{ route('dashboard.index') }}"
                     class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}"
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
                     <svg width="25" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('payment') }}"
+                <a href="{{ route('payment.index') }}"
                     class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'payment' ? 'active' : '' }}"
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Payment">
                     <svg width="25" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,8 +40,8 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('room') }}">Room</a></li>
-                        <li><a class="dropdown-item" href="{{ route('type') }}">Type</a></li>
+                        <li><a class="dropdown-item" href="{{ route('room.index') }}">Room</a></li>
+                        <li><a class="dropdown-item" href="{{ route('type.index') }}">Type</a></li>
                     </ul>
                 </div>
             </li>
@@ -55,9 +55,9 @@
                         </svg>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('customer') }}">Customer</a></li>
+                        <li><a class="dropdown-item" href="{{ route('customer.index') }}">Customer</a></li>
                         @if (auth()->user()->role == 'Super')
-                            <li><a class="dropdown-item" href="{{ route('user') }}">User</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.index') }}">User</a></li>
                         @endif
                     </ul>
                 </div>

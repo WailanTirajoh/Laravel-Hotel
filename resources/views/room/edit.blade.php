@@ -26,6 +26,7 @@
             </div>
             <div class="card-body p-3">
                 <form class="row g-3" method="POST" action="{{route('room.update',['room'=>$room->id])}}">
+                    @method('PUT')
                     @csrf
                     <div class="col-md-12">
                         <label for="type_id" class="form-label">Type</label>

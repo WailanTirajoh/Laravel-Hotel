@@ -16,13 +16,9 @@ class UserController extends Controller
         return view('user.index', compact('users', 'customers'));
     }
 
-    public function search(Request $request)
+    public function create()
     {
-        $users = User::whereIn('role', ['Super', 'Admin'])->where('name', 'LIKE', '%' . $request->q . '%')
-            ->orWhere('email', 'LIKE', '%' . $request->q . '%')
-            ->paginate(5, ['*'], 'customers');
-        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
-        return view('user.index', compact('users', 'customers'));
+        return view('user.create');
     }
 
     public function store(StoreUserRequest $request)
@@ -34,7 +30,7 @@ class UserController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect('user')->with('success', 'User ' . $user->name . ' created');
+        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
     }
 
     public function edit(User $user)
@@ -45,16 +41,25 @@ class UserController extends Controller
     public function update(User $user, UpdateCustomerRequest $request)
     {
         $user->update($request->all());
-        return redirect('user')->with('success', 'User ' . $user->name . ' udpated!');
+        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' udpated!');
     }
 
     public function destroy(User $user)
     {
         try {
             $user->delete();
-            return redirect('user')->with('success', 'User ' . $user->name . ' deleted!');
+            return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' deleted!');
         } catch (\Exception $e) {
-            return redirect('user')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+            return redirect()->route('user.index')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
         }
+    }
+
+    public function search(Request $request)
+    {
+        $users = User::whereIn('role', ['Super', 'Admin'])->where('name', 'LIKE', '%' . $request->q . '%')
+            ->orWhere('email', 'LIKE', '%' . $request->q . '%')
+            ->paginate(5, ['*'], 'customers');
+        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
+        return view('user.index', compact('users', 'customers'));
     }
 }

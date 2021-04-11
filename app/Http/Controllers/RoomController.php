@@ -11,14 +11,14 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::paginate(5);
+        $rooms = Room::orderBy('id', 'DESC')->paginate(5);
         return view('room.index', compact('rooms'));
     }
 
-    public function add()
+    public function create()
     {
         $types = Type::all();
-        return view('room.add', compact('rooms'));
+        return view('room.create', compact('types'));
     }
 
     public function store(StoreRoomRequest $request)
@@ -37,7 +37,7 @@ class RoomController extends Controller
     public function edit(Room $room)
     {
         $types = Type::all();
-        return view('room.edit', compact('rooms', 'types'));
+        return view('room.edit', compact('room', 'types'));
     }
 
     public function update(Room $room, StoreRoomRequest $request)
