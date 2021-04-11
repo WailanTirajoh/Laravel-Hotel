@@ -1,11 +1,11 @@
 @extends('template.master')
-@section('title', 'Add Type')
+@section('title', 'Edit Type')
 @section('content')
 <div class="row justify-content-md-center">
     <div class="col-lg-8">
         <div class="card shadow-sm border">
             <div class="card-header">
-                <h2>Add Type</h2>
+                <h2>Edit Type</h2>
             </div>
             <div class="card-body p-3">
                 <form class="row g-3" method="POST" action="/type/edit/{{$type->id}}/update">

@@ -51,7 +51,7 @@
                                     max-width: 1000px;">{{$type->information}}</span></td>
                                 <td>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                        href="/type/edit/{{$type->id}}">
+                                        href="{{route('type.edit',['type'=>$type->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -59,7 +59,7 @@
                                         </svg>
                                     </a>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border delete" href="#"
-                                        type-id="{{$type->id}}" type-name="{{$type->name}}">
+                                        type-id="{{$type->id}}" type-name="{{$type->name}}" type-url="{{route('type.destroy',['type'=>$type->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -92,6 +92,7 @@
     $('.delete').click(function(){
         var type_id = $(this).attr('type-id');
         var type_name = $(this).attr('type-name');
+        var type_url = $(this).attr('type-url');
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -110,7 +111,7 @@
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = "/type/destroy/"+type_id;
+            window.location = type_url;
         }
     })
     });
