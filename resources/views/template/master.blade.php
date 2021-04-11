@@ -23,6 +23,8 @@
     {{-- Toastr --}}
     <link href="{{ asset('package/toastr/toastr/build/toastr.css') }}" rel="stylesheet" />
 
+    {{-- Toggle IOS --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('package/toggle/vc-toggle-switch.css')}}" />
     @yield('head')
 </head>
 

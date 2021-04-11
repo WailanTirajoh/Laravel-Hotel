@@ -174,6 +174,13 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @if ($customers->count() == 0)
+                                            <tr>
+                                                <td colspan="5" class="text-center">
+                                                    There's no data in this table
+                                                </td>
+                                            </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

@@ -30,20 +30,21 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class=" col-md-12">
-                            <label for="role" class="form-label">Role</label>
-                            <select id="role" name="role" class="form-select @error('password') is-invalid @enderror">
-                                <option selected disabled hidden>Choose...</option>
-                                <option value="Super" @if ($user->role == 'Super') selected @endif>Super</option>
-                                <option value="Admin" @if ($user->role == 'Admin') selected @endif>Admin</option>
-                                <option value="Customer" @if ($user->role == 'Customer') selected @endif>Customer</option>
-                            </select>
-                            @error('role')
-                                <div class="text-danger mt-1">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+                        @if (in_array($user->role, ['Super', 'Admin']))
+                            <div class=" col-md-12">
+                                <label for="role" class="form-label">Role</label>
+                                <select id="role" name="role" class="form-select @error('password') is-invalid @enderror">
+                                    <option selected disabled hidden>Choose...</option>
+                                    <option value="Super" @if ($user->role == 'Super') selected @endif>Super</option>
+                                    <option value="Admin" @if ($user->role == 'Admin') selected @endif>Admin</option>
+                                </select>
+                                @error('role')
+                                    <div class="text-danger mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="col-12">
                             <button type="submit" class="btn btn-light shadow-sm border float-end">Save</button>
                         </div>

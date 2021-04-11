@@ -51,11 +51,21 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
+        // dd($request->all());
+        if ($user->role == "Customer") {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|unique:users,email,' . $user->id,
+                'role' => 'required|in:Customer',
+            ]);
+            $user->update($request->all());
+            return redirect('user')->with('success', 'User ' . $user->name . ' udpated!');
+        }
+
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required',
-            'role' => 'required|in:Super,Admin'
+            'email' => 'required|unique:users,email,' . $user->id,
+            'role' => 'required|in:Super,Admin',
         ]);
         $user->update($request->all());
         return redirect('user')->with('success', 'User ' . $user->name . ' udpated!');
