@@ -1,6 +1,15 @@
 @extends('template.master')
 @section('title', 'Edit User')
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row justify-content-md-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border">
@@ -30,21 +39,24 @@
                                 </div>
                             @enderror
                         </div>
-                        @if (in_array($user->role, ['Super', 'Admin']))
-                            <div class=" col-md-12">
-                                <label for="role" class="form-label">Role</label>
-                                <select id="role" name="role" class="form-select @error('password') is-invalid @enderror">
-                                    <option selected disabled hidden>Choose...</option>
+                        <div class=" col-md-12">
+                            <label for="role" class="form-label">Role</label>
+                            <select id="role" name="role" class="form-select @error('password') is-invalid @enderror">
+                                <option selected disabled hidden>Choose...</option>
+                                @if (in_array($user->role, ['Super', 'Admin']))
                                     <option value="Super" @if ($user->role == 'Super') selected @endif>Super</option>
                                     <option value="Admin" @if ($user->role == 'Admin') selected @endif>Admin</option>
-                                </select>
-                                @error('role')
-                                    <div class="text-danger mt-1">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        @endif
+                                @endif
+                                @if ($user->role == 'Customer')
+                                    <option value="Customer" @if ($user->role == 'Customer') selected @endif>Customer</option>
+                                @endif
+                            </select>
+                            @error('role')
+                                <div class="text-danger mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-light shadow-sm border float-end">Save</button>
                         </div>

@@ -12,7 +12,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::paginate(5);
-        return view('customer.index', ['customers' => $customers]);
+        return view('customer.index', compact('customers'));
     }
 
     public function search(Request $request)
@@ -20,7 +20,7 @@ class CustomerController extends Controller
         if (!empty($request->q)) {
             $customers = Customer::where('name', 'Like', '%' . $request->q . '%')->paginate(5);
             $customers->appends($request->all());
-            return view('customer.index', ['customers' => $customers]);
+            return view('customer.index', compact('customers'));
         } else {
             return redirect('customer');
         }

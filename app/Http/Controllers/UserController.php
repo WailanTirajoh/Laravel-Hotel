@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,18 +13,16 @@ class UserController extends Controller
     {
         $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')->Paginate(5, ['*'], 'users');
         $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
-        return view('user.index', [
-            'users' => $users,
-            'customers' => $customers
-        ]);
+        return view('user.index', compact('users', 'customers'));
     }
 
     public function search(Request $request)
     {
-        $users = User::where('name', 'LIKE', '%' . $request->search . '%')
-            ->orWhere('email', 'LIKE', '%' . $request->search . '%')
-            ->paginate(5);
-        return view('user.search', ['users' => $users, 'search' => $request->search]);
+        $users = User::whereIn('role', ['Super', 'Admin'])->where('name', 'LIKE', '%' . $request->q . '%')
+            ->orWhere('email', 'LIKE', '%' . $request->q . '%')
+            ->paginate(5, ['*'], 'customers');
+        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
+        return view('user.index', compact('users', 'customers'));
     }
 
     public function store(StoreUserRequest $request)
@@ -43,23 +42,8 @@ class UserController extends Controller
         return view('user.edit', ['user' => $user]);
     }
 
-    public function update(User $user, Request $request)
+    public function update(User $user, UpdateCustomerRequest $request)
     {
-        if ($user->role == "Customer") {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required|unique:users,email,' . $user->id,
-                'role' => 'required|in:Customer',
-            ]);
-            $user->update($request->all());
-            return redirect('user')->with('success', 'User ' . $user->name . ' udpated!');
-        }
-
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $user->id,
-            'role' => 'required|in:Super,Admin',
-        ]);
         $user->update($request->all());
         return redirect('user')->with('success', 'User ' . $user->name . ' udpated!');
     }

@@ -11,9 +11,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::paginate(5);
-        return view('type.index', [
-            'types' => $types
-        ]);
+        return view('type.index', compact('types'));
     }
 
     public function store(StoreTypeRequest $request)
@@ -28,7 +26,7 @@ class TypeController extends Controller
 
     public function edit(Type $type)
     {
-        return view('type.edit', ['type' => $type]);
+        return view('type.edit', compact('types'));
     }
 
     public function update(Type $type, StoreTypeRequest $request)

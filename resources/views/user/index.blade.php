@@ -17,10 +17,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mb-2">
-                    <form class="d-flex" method="POST" action="#">
-                        @csrf
+                    <form class="d-flex" method="GET" action="{{route('user.search')}}">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
-                            name="search" value="">
+                            name="q" value="{{old('q')}}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
