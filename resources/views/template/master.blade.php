@@ -12,6 +12,8 @@
     <!-- Bootstrap CSS -->
     <link href="{{asset('package/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    {{-- style --}}
     <link rel="stylesheet" href="{{asset('style/js/style.css')}}">
 
     {{-- Sweet Alert --}}
@@ -19,7 +21,7 @@
     <title>@yield('title')</title>
 
     {{-- Toastr --}}
-    <link href="{{asset('package/toastr/toastr/build/toastr.css')}}" rel="stylesheet"/>
+    <link href="{{asset('package/toastr/toastr/build/toastr.css')}}" rel="stylesheet" />
 
     @yield('head')
 </head>

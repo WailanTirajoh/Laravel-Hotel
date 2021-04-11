@@ -16,7 +16,7 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#">Profil</a></li>
-                    <li><a class="dropdown-item" href="#">Aktifitas Saya</a></li>
+                    <li><a class="dropdown-item" href="#">Activity</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>

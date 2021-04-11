@@ -46,7 +46,7 @@
             </li>
             <li>
                 <div class="dropend">
-                    <a class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'customer' ? 'active' : '' }} {{ Route::currentRouteName() == 'user' ? 'active' : '' }}
+                    <a class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'customer.search' ? 'active' : '' }} {{ Route::currentRouteName() == 'customer' ? 'active' : '' }} {{ Route::currentRouteName() == 'user' ? 'active' : '' }}
                         data-bs-toggle=" dropdown" aria-expanded="false">
                         <svg width="25" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

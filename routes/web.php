@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super']], function () {
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     // Customer
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+    Route::get('/customer/search', [CustomerController::class, 'search'])->name('customer.search');
     Route::view('/customer/add', 'customer.add')->name('customer.add');
     Route::post('/customer/store', [CustomerController::class, 'store'])->name('customer.store');
     Route::get('/customer/edit/{customer}', [CustomerController::class, 'edit'])->name('customer.edit');

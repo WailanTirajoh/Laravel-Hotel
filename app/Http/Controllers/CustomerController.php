@@ -14,6 +14,17 @@ class CustomerController extends Controller
         return view('customer.index', ['customers' => $customers]);
     }
 
+    public function search(Request $request)
+    {
+        if (!empty($request->q)) {
+            $customers = Customer::where('name', 'Like', '%' . $request->q . '%')->paginate(5);
+            $customers->appends($request->all());
+            return view('customer.index', ['customers' => $customers]);
+        } else {
+            return redirect('customer');
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

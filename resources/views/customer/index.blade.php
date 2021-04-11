@@ -31,10 +31,9 @@
         </a>
     </div>
     <div class="col-lg-6">
-        <form class="d-flex" method="POST" action="/customer/search">
-            @csrf
+        <form class="d-flex" method="GET" action="{{route('customer.search')}}">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
-                name="search" value="">
+                name="q" value="">
             <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
     </div>
