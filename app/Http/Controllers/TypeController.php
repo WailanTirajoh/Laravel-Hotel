@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTypeRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -15,13 +16,8 @@ class TypeController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'information' => 'required',
-        ]);
-
         $type = Type::create([
             'name' => $request->name,
             'information' => $request->information,
@@ -35,20 +31,19 @@ class TypeController extends Controller
         return view('type.edit', ['type' => $type]);
     }
 
-    public function update(Type $type, Request $request)
+    public function update(Type $type, StoreTypeRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'information' => 'required',
-        ]);
-
         $type->update($request->all());
         return redirect('type')->with('success', 'Type ' . $type->name . ' udpated!');
     }
 
     public function destroy(Type $type)
     {
-        $type->delete();
-        return redirect('type')->with('success', 'Type ' . $type->name . ' deleted!');
+        try {
+            $type->delete();
+            return redirect('type')->with('success', 'Type ' . $type->name . ' deleted!');
+        } catch (\Exception $e) {
+            return redirect('type')->with('failed', 'Type ' . $type->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+        }
     }
 }

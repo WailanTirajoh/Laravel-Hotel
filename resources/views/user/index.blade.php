@@ -6,7 +6,7 @@
             <div class="row mt-2 mb-2">
                 <div class="col-lg-6 mb-2">
                     <div class="d-grid gap-2 d-md-block">
-                        <a href="{{ route('user.add') }}" class="btn btn-sm shadow-sm myBtn" data-bs-toggle="tooltip"
+                        <a href="{{ route('user.add') }}" class="btn btn-sm shadow-sm myBtn border rounded" data-bs-toggle="tooltip"
                             data-bs-placement="right" title="Add User">
                             <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                 viewBox="0 0 24 24" stroke="black">
@@ -143,7 +143,8 @@
                                                 <td>{{ $user->role }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0"
-                                                        href="{{ route('user.edit', ['user' => $user->id]) }}">
+                                                        href="{{ route('user.edit', ['user' => $user->id]) }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit User">
                                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -154,7 +155,9 @@
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0 delete"
                                                         href="#" user-id="{{ $user->id }}"
                                                         user-name="{{ $user->name }}"
-                                                        user-url="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                                        user-url="{{ route('user.destroy', ['user' => $user->id]) }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Delete User">
                                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -163,7 +166,8 @@
                                                         </svg>
                                                     </a>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0 disabled"
-                                                        href="/user/detail/{{ $user->id }}">
+                                                        href="/user/detail/{{ $user->id }}" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Detail User">
                                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
