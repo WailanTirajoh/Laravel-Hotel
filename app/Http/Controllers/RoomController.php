@@ -71,6 +71,6 @@ class RoomController extends Controller
     public function destroy(Room $room)
     {
         $room->delete();
-        return redirect('room')->with('success', 'Room ' . $room->name . ' deleted!');
+        return redirect('room')->with('success', 'Room number ' . $room->number . ' deleted!');
     }
 }
