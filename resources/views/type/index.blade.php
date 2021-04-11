@@ -28,7 +28,7 @@
         <div class="card shadow-sm border">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" style="white-space: nowrap">
+                    <table class="table table-hover" style="">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -42,8 +42,13 @@
                             <tr>
                                 <td scope="row">{{($types ->currentpage()-1) * $types ->perpage() + $loop->index + 1}}
                                 </td>
-                                <td>{{$type->name}}</td>
-                                <td>{{$type->information}}</td>
+                                <td style="white-space: nowrap">{{$type->name}}</td>
+                                <td><span style="
+                                    display:inline-block;
+                                    /* white-space: nowrap; */
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 1000px;">{{$type->information}}</span></td>
                                 <td>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                         href="/type/edit/{{$type->id}}">

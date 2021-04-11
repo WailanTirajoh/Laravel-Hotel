@@ -4,8 +4,8 @@
 {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="{{asset('select2/css/select2.css')}}" rel="stylesheet" />
-<script src="{{asset('select2/js/select2.js')}}"></script>
+<link href="{{asset('package/select2/css/select2.css')}}" rel="stylesheet" />
+<script src="{{asset('package/select2/js/select2.js')}}"></script>
 @endsection
 @section('content')
 <style>

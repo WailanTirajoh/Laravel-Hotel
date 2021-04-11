@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
@@ -54,6 +55,22 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::get('/room/edit/{room}', [RoomController::class, 'edit'])->name('room.edit');
     Route::post('/room/edit/{room}/update', [RoomController::class, 'update'])->name('room.update');
     Route::get('/room/destroy/{room}', [RoomController::class, 'destroy'])->name('room.destroy');
+
+    // transaction
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
+    Route::get('/transaction/add', [TransactionController::class, 'add'])->name('transaction.add');
+    Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
+    Route::get('/transaction/edit/{transaction}', [TransactionController::class, 'edit'])->name('transaction.edit');
+    Route::post('/transaction/edit/{transaction}/update', [TransactionController::class, 'update'])->name('transaction.update');
+    Route::get('/transaction/destroy/{transaction}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
+
+    // Payment
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+    Route::get('/payment/add', [PaymentController::class, 'add'])->name('payment.add');
+    Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/payment/edit/{payment}', [PaymentController::class, 'edit'])->name('payment.edit');
+    Route::post('/payment/edit/{payment}/update', [PaymentController::class, 'update'])->name('payment.update');
+    Route::get('/payment/destroy/{payment}', [PaymentController::class, 'destroy'])->name('payment.destroy');
 
     // Dashboard
     Route::get('/dashboard', function () {
