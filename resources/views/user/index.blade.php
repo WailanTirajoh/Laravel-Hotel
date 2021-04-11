@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="card shadow-sm border">
             <div class="card-body">
                 <div class="table-responsive">
@@ -66,7 +66,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->role}}</td>
                                 <td>
-                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
+                                    <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0"
                                         href="/user/edit/{{$user->id}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +74,7 @@
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                     </a>
-                                    <a class="btn btn-light btn-sm rounded shadow-sm border delete" href="#"
+                                    <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0 delete" href="#"
                                         user-id="{{$user->id}}" user-name="{{$user->name}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
                                     </a>
-                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
+                                    <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0"
                                         href="/user/detail/{{$user->id}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -101,11 +101,48 @@
                 <h3>User</h3>
             </div>
         </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-sm-10 d-flex justify-content-md-center">
+                {{ $users->appends(['customers' => $customers->currentPage()])->links("pagination::bootstrap-4") }}
+            </div>
+        </div>
     </div>
-</div>
-<div class="row justify-content-md-center mt-3">
-    <div class="col-sm-10 d-flex justify-content-md-center">
-        {{ $users->onEachSide(2)->links("pagination::bootstrap-4") }}
+    <div class="col-lg-6">
+        <div class="card shadow-sm border">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" style="white-space: nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($customers as $user)
+                            <tr>
+                                <td scope="row">{{($customers ->currentpage()-1) * $customers ->perpage() + $loop->index + 1}}
+                                </td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->role}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <h3>Customer</h3>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-sm-10 d-flex justify-content-md-center">
+                {{ $customers->appends(['users' => $users->currentPage()])->links("pagination::bootstrap-4") }}
+            </div>
+        </div>
     </div>
 </div>
 

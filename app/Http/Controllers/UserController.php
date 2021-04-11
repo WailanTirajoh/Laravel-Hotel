@@ -9,8 +9,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')->Paginate(5);
-        return view('user.index', ['users' => $users]);
+        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')->Paginate(5, ['*'], 'users');
+        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
+        return view('user.index', [
+            'users' => $users,
+            'customers' => $customers
+        ]);
     }
 
     public function search(Request $request)
@@ -59,7 +63,11 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect('user')->with('success', 'User ' . $user->name . ' deleted!');
+        try {
+            $user->delete();
+            return redirect('user')->with('success', 'User ' . $user->name . ' deleted!');
+        } catch (\Exception $e) {
+            return redirect('user')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+        }
     }
 }
