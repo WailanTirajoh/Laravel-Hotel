@@ -25,7 +25,7 @@
                 <h2>Add Room</h2>
             </div>
             <div class="card-body p-3">
-                <form class="row g-3" method="POST" action="/room/store">
+                <form class="row g-3" method="POST" action="{{route('room.store')}}">
                     @csrf
                     <div class="col-md-12">
                         <label for="type_id" class="form-label">Type</label>
