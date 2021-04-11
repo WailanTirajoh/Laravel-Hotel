@@ -8,7 +8,7 @@
                 <h2>Add Customer</h2>
             </div>
             <div class="card-body p-3">
-                <form class="row g-3" method="POST" action="/customer/store">
+                <form class="row g-3" method="POST" action="{{route('customer.store')}}">
                     @csrf
                     <div class="col-md-12">
                         <label for="name" class="form-label">Name</label>
