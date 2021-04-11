@@ -8,7 +8,7 @@
                 <h2>Edit User</h2>
             </div>
             <div class="card-body p-3">
-                <form class="row g-3" method="POST" action="/user/edit/{{$user->id}}/update">
+                <form class="row g-3" method="POST" action="{{route('user.update',['user'=>$user->id])}}">
                     @csrf
                     <div class="col-md-12">
                         <label for="name" class="form-label">Name</label>

@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
 
     // Type
     Route::get('/type', [TypeController::class, 'index'])->name('type');
-    Route::view('/type/add', 'type.add')->name('type.add')->name('type.add');
+    Route::view('/type/add', 'type.add')->name('type.add');
     Route::post('/type/store', [TypeController::class, 'store'])->name('type.store');
     Route::get('/type/edit/{type}', [TypeController::class, 'edit'])->name('type.edit');
     Route::post('/type/edit/{type}/update', [TypeController::class, 'update'])->name('type.update');

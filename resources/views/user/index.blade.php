@@ -24,7 +24,7 @@
 <div class="row mt-2 mb-2">
     <div class="col-lg-6 mb-2">
         <div class="d-grid gap-2 d-md-block">
-            <a href="/user/add" class="btn btn-sm shadow-sm myBtn">
+            <a href="{{route('user.add')}}" class="btn btn-sm shadow-sm myBtn">
                 <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="black">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <form class="d-flex" method="POST" action="/user/search">
+        <form class="d-flex" method="POST" action="#">
             @csrf
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
                 name="search" value="">
@@ -67,7 +67,7 @@
                                 <td>{{$user->role}}</td>
                                 <td>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0"
-                                        href="/user/edit/{{$user->id}}">
+                                        href="{{route('user.edit',['user'=>$user->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -75,7 +75,7 @@
                                         </svg>
                                     </a>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0 delete" href="#"
-                                        user-id="{{$user->id}}" user-name="{{$user->name}}">
+                                        user-id="{{$user->id}}" user-name="{{$user->name}}" user-url="{{route('user.destroy',['user'=>$user->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -153,6 +153,7 @@
     $('.delete').click(function(){
         var user_id = $(this).attr('user-id');
         var user_name = $(this).attr('user-name');
+        var user_url = $(this).attr('user-url');
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -171,7 +172,7 @@
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = "/user/destroy/"+user_id;
+            window.location = user_url;
         }
     })
     });
