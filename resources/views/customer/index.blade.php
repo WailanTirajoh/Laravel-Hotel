@@ -23,7 +23,7 @@
 
 <div class="row mt-2 mb-2">
     <div class="col-lg-6 mb-2">
-        <a href="/customer/add" class="btn btn-sm shadow-sm myBtn">
+        <a href="{{route('customer.add')}}" class="btn btn-sm shadow-sm myBtn">
             <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="black">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -70,7 +70,7 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                        href="/customer/edit/{{$customer->id}}">
+                                        href="{{route('customer.edit',['customer'=>$customer->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -78,7 +78,7 @@
                                         </svg>
                                     </a>
                                     <a class="btn btn-light btn-sm rounded shadow-sm border delete" href="#"
-                                        customer-id="{{$customer->id}}" customer-name="{{$customer->name}}">
+                                        customer-id="{{$customer->id}}" customer-name="{{$customer->name}}" customer-url="{{route('customer.destroy',['customer'=>$customer->id])}}">
                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,6 +119,7 @@
     $('.delete').click(function(){
         var customer_id = $(this).attr('customer-id');
         var customer_name = $(this).attr('customer-name');
+        var customer_url = $(this).attr('customer-url');
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -137,7 +138,7 @@
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = "/customer/destroy/"+customer_id;
+            window.location = customer_url;
         }
     })
     });
