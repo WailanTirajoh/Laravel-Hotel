@@ -42,6 +42,14 @@
 - Selesai (Check Out) dan pelunasan kekurangan pembayaran
 
 
+## Alur App untuk Admin
+1. Identity Card
+2. For how many person?
+3. Choose a room
+4. Pick day for Check in and check out
+5. Down payment for first transaction (25% of total price)
+6. Check out and Pay off the bill
+
 ## Laravel License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

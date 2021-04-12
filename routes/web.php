@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomReservationConteroller;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('room', RoomController::class);
     Route::resource('transaction', TransactionController::class);
     Route::resource('payment', PaymentController::class);
+
+    // Room Reservation
+    Route::get('/reservation',[RoomReservationConteroller::class,'index'])->name('reservation.index');
 });
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([
