@@ -21,6 +21,6 @@ class CheckRole
             return $next($request);
         }
 
-        return redirect()->route('dashboard.index')->with('failed','You are not authorized');
+        return redirect()->back()->with('failed','You are not authorized');
     }
 }

@@ -43,7 +43,11 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('payment', PaymentController::class);
 
     // Room Reservation
-    Route::get('/reservation',[RoomReservationConteroller::class,'index'])->name('reservation.index');
+    Route::get('/reservation', [RoomReservationConteroller::class, 'index'])->name('reservation.index');
+    Route::get('/reservation/createIdentity', [RoomReservationConteroller::class, 'createIdentity'])->name('reservation.createIdentity');
+    Route::post('/reservation/storeCustomer', [RoomReservationConteroller::class, 'storeCustomer'])->name('reservation.storeCustomer');
+    Route::get('/reservation/{customer}/countPerson', [RoomReservationConteroller::class, 'countPerson'])->name('reservation.countPerson');
+    Route::get('/reservation/{customer}/chooseRoom', [RoomReservationConteroller::class, 'chooseRoom'])->name('reservation.chooseRoom');
 });
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([

@@ -85,7 +85,7 @@
     {{-- Sweet Alert 2 JS --}}
     <script src="{{ asset('package/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     {{-- Toastr JS --}}
-    <script src="{{ 'package/toastr/toastr/build/toastr.min.js' }}"></script>
+    <script src="{{ asset('package/toastr/toastr/build/toastr.min.js') }}"></script>
     <script>
         @if (Session::has('success'))
             toastr.success("{{ Session::get('success') }}","Success")
