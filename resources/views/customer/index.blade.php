@@ -2,23 +2,20 @@
 @section('title', 'Customer')
 @section('content')
     <style>
-        /* @media screen and (max-width: 425px) {
+        .mybg {
+            background-image: linear-gradient(#1975d1, #1975d1);
+        }
 
-                li.page-item {
-
-                    display: none;
-                }
-
-                .page-item:first-child,
-                .page-item:nth-child(2),
-                .page-item:nth-last-child(2),
-                .page-item:last-child,
-                .page-item.active,
-                .page-item.disabled {
-
-                    display: block;
-                }
-            } */
+        .numbering {
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            padding-top: 12px;
+            text-align: center;
+            border-bottom-right-radius: 30px;
+            border-top-left-radius: 5px;
+        }
 
     </style>
 
@@ -34,95 +31,128 @@
                         </svg>
                     </a>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="GET" action="{{ route('customer.search') }}">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
-                            name="q" value="">
+                            name="q" value="{{ request()->input('q') }}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card shadow-sm border">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover" style="white-space: nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Job</th>
-                                            <th scope="col">Date of birth</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($customers as $customer)
-                                            <tr>
-                                                <td>{{ ($customers->currentpage() - 1) * $customers->perpage() + $loop->index + 1 }}
-                                                </td>
-                                                <td>{{ $customer->name }}</td>
-                                                <td>{{ $customer->user->email }}</td>
-                                                <td>{{ $customer->address }}</td>
-                                                <td>{{ $customer->job }}</td>
-                                                <td>{{ $customer->birthdate }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($customer->birthdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months') }}
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        href="{{ route('customer.edit', ['customer' => $customer->id]) }}">
+                @foreach ($customers as $customer)
+                    <div class="col-lg-4 col-md-6 my-1">
+                        <div class="card shadow-sm justify-content-start" style="min-height:350px;">
+                            <div class="row">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h5 class="card-title text-white numbering bg-dark ">
+                                        {{ ($customers->currentpage() - 1) * $customers->perpage() + $loop->index + 1 }}
+                                    </h5>
+                                    <div class="dropdown">
+                                        <a class="me-3" href="#" role="button" id="dropdownMenuLink"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <svg width="25px" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke="black">
+                                                <path strokelinecap="round" strokelinejoin="round" strokewidth="{2}"
+                                                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z">
+                                                </path>
+                                            </svg>
+                                        </a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('customer.show', ['customer' => $customer->id]) }}">Detail</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('customer.edit', ['customer' => $customer->id]) }}">Edit</a>
+                                            </li>
+                                            <li>
+                                                <form class="btn btn-sm p-0 m-0" method="POST"
+                                                    id="delete-customer-form-{{ $customer->id }}"
+                                                    action="{{ route('customer.destroy', ['customer' => $customer->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a class="dropdown-item delete" href="#"
+                                                        customer-id="{{ $customer->id }}" customer-role="Customer"
+                                                        customer-name="{{ $customer->name }}" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Delete Customer">
                                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                     </a>
-                                                    <form class="btn btn-sm" method="POST"
-                                                        id="delete-customer-form-{{ $customer->id }}"
-                                                        action="{{ route('customer.destroy', ['customer' => $customer->id]) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete"
-                                                            href="#" customer-id="{{ $customer->id }}"
-                                                            customer-role="Customer"
-                                                            customer-name="{{ $customer->name }}"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Delete Customer">
-                                                            <svg width="25" xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                            </svg>
-                                                        </a>
-                                                    </form>
-                                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        href="/customer/detail/{{ $customer->id }}">
-                                                        <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                                                        </svg>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <img class="img-fluid rounded text-center mx-auto d-block mb-4" src="{{ $customer->user->getAvatar() }}"
+                                                    alt="Generic placeholder image">
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <h5 class="mt-0">{{ $customer->name }}
+                                                </h5>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <td><i class="fas fa-user-md"></i></td>
+                                                            <td>
+                                                                <span>
+                                                                    {{ $customer->job }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><i class="fas fa-map-marker-alt"></i></td>
+                                                            <td>
+                                                                <span>
+                                                                    {{ $customer->address }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><i class="fas fa-phone"></i></td>
+                                                            <td>
+                                                                <span>
+                                                                    +6281233808395
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><i class="fas fa-birthday-cake"></i></td>
+                                                            <td>
+                                                                <span>
+                                                                    {{ $customer->birthdate }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><i class="fas fa-envelope"></i></td>
+                                                            <td>
+                                                                <span>
+                                                                    {{ $customer->user->email }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <h3>Customer</h3>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
             <div class="row justify-content-md-center mt-3">
                 <div class="col-sm-10 d-flex justify-content-md-center">

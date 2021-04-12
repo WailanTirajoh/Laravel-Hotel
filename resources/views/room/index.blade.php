@@ -16,7 +16,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="GET" action="{{route('room.search')}}">
                         @csrf
                         <input class="form-control me-2" room="search" placeholder="Search" aria-label="Search" id="search"

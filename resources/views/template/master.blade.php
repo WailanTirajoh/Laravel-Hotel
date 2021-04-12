@@ -25,6 +25,9 @@
 
     {{-- Toggle IOS --}}
     <link rel="stylesheet" type="text/css" href="{{asset('package/toggle/vc-toggle-switch.css')}}" />
+
+    {{-- Font Awesome --}}
+    <link href="{{asset('package/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     @yield('head')
 </head>
 
@@ -90,7 +93,6 @@
         @if (Session::has('failed'))
             toastr.error("{{ Session::get('failed') }}","Failed")
         @endif
-
     </script>
     @yield('footer')
 </body>

@@ -15,7 +15,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="POST" action="/type/search">
                         @csrf
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"

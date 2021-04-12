@@ -8,7 +8,7 @@
                     <h2>Add Customer</h2>
                 </div>
                 <div class="card-body p-3">
-                    <form class="row g-3" method="POST" action="{{ route('customer.store') }}">
+                    <form class="row g-3" method="POST" action="{{ route('customer.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Name</label>
@@ -55,6 +55,15 @@
                             <textarea class="form-control" id="address" name="address"
                                 rows="3">{{ old('address') }}</textarea>
                             @error('address')
+                                <div class="text-danger mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-mg-12">
+                            <label for="avatar" class="form-label">Profile Picture</label>
+                            <input class="form-control" type="file" name="avatar" id="avatar">
+                            @error('avatar')
                                 <div class="text-danger mt-1">
                                     {{ $message }}
                                 </div>

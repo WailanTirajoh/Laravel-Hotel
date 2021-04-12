@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Room;
 use App\Models\Type;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {

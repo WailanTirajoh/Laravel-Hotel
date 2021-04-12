@@ -8,7 +8,8 @@
                     <h2>Edit Customer</h2>
                 </div>
                 <div class="card-body p-3">
-                    <form class="row g-3" method="POST" action="{{ route('customer.update', ['customer' => $customer->id]) }}">
+                    <form class="row g-3" method="POST"
+                        action="{{ route('customer.update', ['customer' => $customer->id]) }}">
                         @method('PUT')
                         @csrf
                         <div class="col-md-12">
@@ -56,6 +57,15 @@
                             <textarea class="form-control" id="address" name="address"
                                 rows="3">{{ $customer->address }}</textarea>
                             @error('address')
+                                <div class="text-danger mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-mg-12">
+                            <label for="avatar" class="form-label">Default file input example</label>
+                            <input class="form-control" type="file" id="avatar">
+                            @error('avatar')
                                 <div class="text-danger mt-1">
                                     {{ $message }}
                                 </div>

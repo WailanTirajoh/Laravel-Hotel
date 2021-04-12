@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
+            $table->enum('gender',['Male', 'Female']);
             $table->string('job');
             $table->date('birthdate');
             $table->foreignId('user_id')->constrained();

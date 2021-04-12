@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::orderBy('id', 'DESC')->paginate(5);
+        $customers = Customer::with('user')->orderBy('id', 'DESC')->paginate(6);
         return view('customer.index', compact('customers'));
     }
 
@@ -20,21 +20,11 @@ class CustomerController extends Controller
         return view('customer.create');
     }
 
-    public function search(Request $request)
-    {
-        if (!empty($request->q)) {
-            $customers = Customer::where('name', 'Like', '%' . $request->q . '%')->paginate(5);
-            $customers->appends($request->all());
-            return view('customer.index', compact('customers'));
-        } else {
-            return redirect('customer');
-        }
-    }
-
     public function store(StoreCustomerRequest $request)
     {
         $request->validate([
-            'email' => 'required|unique:users,email'
+            'email' => 'required|unique:users,email',
+            'avatar' => 'mimes:png,jpg',
         ]);
 
         $user = User::create([
@@ -43,6 +33,21 @@ class CustomerController extends Controller
             'password' => bcrypt($request->birthdate),
             'role' => 'Customer'
         ]);
+
+        // If user upload an avatar
+        if ($request->hasFile('avatar')) {
+            $path = 'img/user/' . $user->name . '-' . $user->id;
+            $path = public_path($path);
+            // Check if folder not exists then create folder
+            if (!is_dir($path)) {
+                mkdir($path);
+            }
+            $avatarName = $request->file('avatar')->getClientOriginalName();
+            $request->file('avatar')->move($path, $avatarName);
+            $user->avatar = $avatarName;
+            $user->save();
+        }
+
 
         $customer = Customer::create([
             'name' => $user->name,
@@ -53,6 +58,11 @@ class CustomerController extends Controller
         ]);
 
         return redirect('customer')->with('success', 'Customer ' . $customer->name . ' created');
+    }
+
+    public function show(Customer $customer)
+    {
+        return view('customer.show', compact('customer'));
     }
 
     public function edit(Customer $customer)
@@ -70,11 +80,46 @@ class CustomerController extends Controller
     {
         try {
             $user = User::find($customer->user->id);
+
+            // Check if user has an image folder
+            $path = 'img/user/' . $user->name . '-' . $user->id;
+            $path = public_path($path);
+            // Destroy the folder if theres a file
+            if (is_dir($path)) {
+                $this->rrmdir($path);
+            }
+
             $customer->delete();
             $user->delete();
             return redirect('customer')->with('success', 'Customer ' . $customer->name . ' deleted!');
         } catch (\Exception $e) {
-            return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+            return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
+        }
+    }
+
+    public function search(Request $request)
+    {
+        if (!empty($request->q)) {
+            $customers = Customer::where('name', 'Like', '%' . $request->q . '%')->paginate(6);
+            $customers->appends($request->all());
+            return view('customer.index', compact('customers'));
+        } else {
+            return redirect('customer');
+        }
+    }
+
+    private function rrmdir($dir)
+    {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir . "/" . $object) == "dir") $this->rrmdir($dir . "/" . $object);
+                    else unlink($dir . "/" . $object);
+                }
+            }
+            reset($objects);
+            rmdir($dir);
         }
     }
 }

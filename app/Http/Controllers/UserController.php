@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,15 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
     }
 
+    public function show(User $user)
+    {
+        if ($user->role === "Customer") {
+            $customer = Customer::where('user_id', $user->id)->first();
+            return view('customer.show', compact('customer'));
+        }
+        return view('user.show', compact('user'));
+    }
+
     public function edit(User $user)
     {
         return view('user.edit', ['user' => $user]);
@@ -58,8 +68,10 @@ class UserController extends Controller
     {
         $users = User::whereIn('role', ['Super', 'Admin'])->where('name', 'LIKE', '%' . $request->q . '%')
             ->orWhere('email', 'LIKE', '%' . $request->q . '%')
-            ->paginate(5, ['*'], 'customers');
+            ->paginate(5, ['*'], 'users');
         $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
+        $customers->appends($request->all());
+        $users->appends($request->all());
         return view('user.index', compact('users', 'customers'));
     }
 }

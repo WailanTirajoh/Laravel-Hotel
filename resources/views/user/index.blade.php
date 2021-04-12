@@ -9,17 +9,17 @@
                         <a href="{{ route('user.create') }}" class="btn btn-sm shadow-sm myBtn border rounded"
                             data-bs-toggle="tooltip" data-bs-placement="right" title="Add User">
                             <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke="black">
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                             </svg>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="GET" action="{{ route('user.search') }}">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-user"
-                            name="q" value="{{ old('q') }}">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            id="search-user" name="q" value="{{ request()->input('q') }}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
@@ -78,8 +78,9 @@
                                                         </div>
                                                     </form>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0"
-                                                        href="/user/detail/{{ $user->id }}" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Detail User">
+                                                        href="{{ route('user.show', ['user' => $user->id]) }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Detail User">
                                                         <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -115,8 +116,8 @@
                 <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="POST" action="#">
                         @csrf
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-customer"
-                            name="search" value="">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            id="search-customer" name="search" value="">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>

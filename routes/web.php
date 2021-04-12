@@ -40,16 +40,16 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('room', RoomController::class);
     Route::resource('transaction', TransactionController::class);
     Route::resource('payment', PaymentController::class);
-
-    // Dashboard
+});
+Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
+    Route::resource('user', UserController::class)->only([
+        'show'
+    ]);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-    // Home
     Route::view('/', 'home')->name('home');
-
-    // Auth
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
 
 
 Route::view('/login', 'auth.login')->name('login');
