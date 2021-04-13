@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('title', 'Add Room')
+@section('title', 'Edit Room')
 @section('head')
 {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
@@ -22,7 +22,7 @@
     <div class="col-lg-8">
         <div class="card shadow-sm border">
             <div class="card-header">
-                <h2>Add Room</h2>
+                <h2>Edit Room</h2>
             </div>
             <div class="card-body p-3">
                 <form class="row g-3" method="POST" action="{{route('room.update',['room'=>$room->id])}}">
@@ -36,6 +36,19 @@
                             @endforeach
                         </select>
                         @error('type_id')
+                        <div class="text-danger mt-1">
+                            {{ $message  }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label for="room_status_id" class="form-label">Room Status</label>
+                        <select id="room_status_id" name="room_status_id" class="form-control select2">
+                            @foreach ($roomstatuses as $roomstatus)
+                            <option value="{{$roomstatus->id}}" @if ($room->roomstatus->id == $roomstatus->id) selected @endif>{{$roomstatus->name}} ({{$roomstatus->code}})</option>
+                            @endforeach
+                        </select>
+                        @error('room_status_id')
                         <div class="text-danger mt-1">
                             {{ $message  }}
                         </div>

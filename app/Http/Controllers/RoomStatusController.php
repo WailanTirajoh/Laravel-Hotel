@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoomStatusRequest;
 use App\Models\RoomStatus;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class RoomStatusController extends Controller
      */
     public function index()
     {
-        //
+        $roomstatuses = RoomStatus::paginate(5);
+        return view('roomstatus.index', compact('roomstatuses'));
     }
 
     /**
@@ -24,7 +26,7 @@ class RoomStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('roomstatus.create');
     }
 
     /**
@@ -33,9 +35,10 @@ class RoomStatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoomStatusRequest $request)
     {
-        //
+        $roomstatus = RoomStatus::create($request->all());
+        return redirect()->route('roomstatus.index')->with('success', 'Room ' . $roomstatus->name . ' created');
     }
 
     /**
@@ -55,9 +58,9 @@ class RoomStatusController extends Controller
      * @param  \App\Models\RoomStatus  $roomStatus
      * @return \Illuminate\Http\Response
      */
-    public function edit(RoomStatus $roomStatus)
+    public function edit(RoomStatus $roomstatus)
     {
-        //
+        return view('roomstatus.edit', compact('roomstatus'));
     }
 
     /**
@@ -67,9 +70,10 @@ class RoomStatusController extends Controller
      * @param  \App\Models\RoomStatus  $roomStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RoomStatus $roomStatus)
+    public function update(StoreRoomStatusRequest $request, RoomStatus $roomstatus)
     {
-        //
+        $roomstatus->update($request->all());
+        return redirect()->route('roomstatus.index')->with('success', 'Room ' . $roomstatus->name . ' udpated!');
     }
 
     /**
@@ -78,8 +82,13 @@ class RoomStatusController extends Controller
      * @param  \App\Models\RoomStatus  $roomStatus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RoomStatus $roomStatus)
+    public function destroy(RoomStatus $roomstatus)
     {
-        //
+        try {
+            $roomstatus->delete();
+            return redirect()->route('roomstatus.index')->with('success', 'Room ' . $roomstatus->name . ' deleted!');
+        } catch (\Exception $e) {
+            return redirect()->route('roomstatus.index')->with('failed', 'Room ' . $roomstatus->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+        }
     }
 }

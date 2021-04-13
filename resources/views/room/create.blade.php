@@ -41,6 +41,19 @@
                         @enderror
                     </div>
                     <div class="col-md-12">
+                        <label for="room_status_id" class="form-label">Status</label>
+                        <select id="room_status_id" name="room_status_id" class="form-control select2">
+                            @foreach ($roomstatuses as $roomstatus)
+                            <option value="{{$roomstatus->id}}">{{$roomstatus->name}} ({{$roomstatus->code}})</option>
+                            @endforeach
+                        </select>
+                        @error('type_id')
+                        <div class="text-danger mt-1">
+                            {{ $message  }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
                         <label for="number" class="form-label">Room Number</label>
                         <input room="text" class="form-control @error('number') is-invalid @enderror" id="number"
                             name="number" value="{{old('number')}}" placeholder="ex: 1A">

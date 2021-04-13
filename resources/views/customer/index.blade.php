@@ -67,21 +67,15 @@
                                                     href="{{ route('customer.edit', ['customer' => $customer->id]) }}">Edit</a>
                                             </li>
                                             <li>
-                                                <form class="btn btn-sm p-0 m-0" method="POST"
+                                                <form method="POST"
                                                     id="delete-customer-form-{{ $customer->id }}"
                                                     action="{{ route('customer.destroy', ['customer' => $customer->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <a class="dropdown-item delete" href="#"
                                                         customer-id="{{ $customer->id }}" customer-role="Customer"
-                                                        customer-name="{{ $customer->name }}" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Delete Customer">
-                                                        <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
+                                                        customer-name="{{ $customer->name }}">
+                                                        Delete
                                                     </a>
                                                 </form>
                                             </li>

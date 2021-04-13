@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Room;
+use App\Models\RoomStatus;
 use App\Models\Type;
 
 class RoomController extends Controller
@@ -17,37 +18,32 @@ class RoomController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('room.create', compact('types'));
+        $roomstatuses = RoomStatus::all();
+        return view('room.create', compact('types', 'roomstatuses'));
     }
 
     public function store(StoreRoomRequest $request)
     {
-        $room = Room::create([
-            'type_id' => $request->type_id,
-            'number' => $request->number,
-            'capacity' => $request->capacity,
-            'price' => $request->price,
-            'view' => $request->view
-        ]);
-
-        return redirect('room')->with('success', 'Room ' . $room->number . ' created');
+        $room = Room::create($request->all());
+        return redirect()->route('room.index')->with('success', 'Room ' . $room->number . ' created');
     }
 
     public function edit(Room $room)
     {
         $types = Type::all();
-        return view('room.edit', compact('room', 'types'));
+        $roomstatuses = RoomStatus::all();
+        return view('room.edit', compact('room', 'types', 'roomstatuses'));
     }
 
     public function update(Room $room, StoreRoomRequest $request)
     {
         $room->update($request->all());
-        return redirect('room')->with('success', 'Room ' . $room->name . ' udpated!');
+        return redirect()->route('room.index')->with('success', 'Room ' . $room->name . ' udpated!');
     }
 
     public function destroy(Room $room)
     {
         $room->delete();
-        return redirect('room')->with('success', 'Room number ' . $room->number . ' deleted!');
+        return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');
     }
 }
