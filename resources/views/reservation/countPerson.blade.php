@@ -12,13 +12,36 @@
                     <div class="card-body p-3">
                         <div class="card">
                             <div class="card-body">
-                                <form class="row g-3" method="GET" action="{{route('reservation.chooseRoom',['customer'=>$customer->id])}}">
+                                <form class="row g-3" method="GET"
+                                    action="{{ route('reservation.chooseRoom', ['customer' => $customer->id]) }}">
                                     <div class="col-md-12">
-                                        <label for="count_person" class="form-label"><h3>How many person?</h3></label>
-                                        <input type="text"
-                                            class="form-control @error('count_person') is-invalid @enderror" " id="
-                                            count_person" name="count_person" value="{{ old('count_person') }}">
+                                        <label for="count_person" class="form-label">
+                                            How many person?
+                                        </label>
+                                        <input type="text" class="form-control @error('count_person') is-invalid @enderror"
+                                            id="
+                                                count_person" name="count_person" value="{{ old('count_person') }}">
                                         @error('count_person')
+                                            <div class="text-danger mt-1">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        <label for="check_in" class="form-label">
+                                            From
+                                        </label>
+                                        <input type="date" class="form-control @error('check_in') is-invalid @enderror" id="
+                                                check_in" name="check_in" value="{{ old('check_in') }}">
+                                        @error('check_in')
+                                            <div class="text-danger mt-1">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        <label for="check_out" class="form-label">
+                                            How many person?
+                                        </label>
+                                        <input type="date" class="form-control @error('check_out') is-invalid @enderror" id="
+                                                check_out" name="check_out" value="{{ old('check_out') }}">
+                                        @error('check_out')
                                             <div class="text-danger mt-1">
                                                 {{ $message }}
                                             </div>

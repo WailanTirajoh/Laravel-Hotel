@@ -36,6 +36,7 @@
                                     <th>Check Out</th>
                                     <th>Days</th>
                                     <th>Status</th>
+                                    <th>Total Price</th>
                                     <th>Paid Off</th>
                                     <th>Debt</th>
                                     <th>Action</th>
@@ -49,21 +50,19 @@
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ $transaction->user->name }}</td>
                                         <td>{{ $transaction->room->number }}</td>
-                                        <td>{{ $transaction->check_in }}</td>
-                                        <td>{{ $transaction->check_out }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($transaction->check_in)->diff($transaction->check_out)->format('%d days') }}
-                                        </td>
+                                        <td>{{ $transaction->dateFormat($transaction->check_in) }}</td>
+                                        <td>{{ $transaction->dateFormat($transaction->check_out) }}</td>
+                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
                                         <td>{{ $transaction->status }}</td>
+                                        <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
+                                        </td>
                                         <td>Telah dibayar disini</td>
                                         <td>Kekurangan pembayaran disini</td>
                                         <td>
-                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0" href="#"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Detail User">
-                                                <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                                                </svg>
+                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
+                                                href="{{ route('reservation.pay', ['transaction' => $transaction->id]) }}"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
+                                                <i class="fas fa-money-bill-wave-alt"></i>
                                             </a>
                                         </td>
                                     </tr>

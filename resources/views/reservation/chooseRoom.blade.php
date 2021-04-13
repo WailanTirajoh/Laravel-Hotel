@@ -10,7 +10,9 @@
             <div class="col-sm-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
-                        <h2>Choose a room:</h2>
+                        <h2>Room Available for:</h2>
+                        <p>{{request()->input('count_person')}} Person</p>
+                        <p>{{\App\Models\Transaction::dateFormat(request()->input('check_in'))}} ~ {{\App\Models\Transaction::dateFormat(request()->input('check_out'))}}</p>
                         <hr>
                         @if (count($rooms) == 0)
                             <h3>Theres no available room for {{ request()->input('count_person') }} or more person</h3>
@@ -52,7 +54,7 @@
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                                href="{{ route('reservation.chooseDay', ['customer' => $customer->id, 'room' => $room->id]) }}">
+                                                                href="{{ route('reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}">
                                                                 Choose
                                                             </a>
                                                         </td>

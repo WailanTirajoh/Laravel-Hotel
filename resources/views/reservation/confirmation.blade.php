@@ -47,11 +47,11 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="check_in" class="form-label">Check In</label>
-                                                <input type="date" class="form-control" id="check_in" name="check_in">
+                                                <input type="date" class="form-control" id="check_in" name="check_in" value="{{$from}}" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="check_out" class="form-label">Check Out</label>
-                                                <input type="date" class="form-control" id="check_out" name="check_out">
+                                                <input type="date" class="form-control" id="check_out" name="check_out" value="{{$to}}" readonly>
                                             </div>
                                             <button type="submit" class="btn btn-primary float-end">Submit</button>
                                         </form>
