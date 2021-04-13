@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     // Room Reservation
     Route::get('/reservation', [RoomReservationConteroller::class, 'index'])->name('reservation.index');
     Route::get('/reservation/createIdentity', [RoomReservationConteroller::class, 'createIdentity'])->name('reservation.createIdentity');
+    Route::get('/reservation/pickFromCustomer', [RoomReservationConteroller::class, 'pickFromCustomer'])->name('reservation.pickFromCustomer');
+    Route::get('/reservation/pickFromCustomer/search', [RoomReservationConteroller::class, 'usersearch'])->name('reservation.usersearch');
     Route::post('/reservation/storeCustomer', [RoomReservationConteroller::class, 'storeCustomer'])->name('reservation.storeCustomer');
     Route::get('/reservation/{customer}/countPerson', [RoomReservationConteroller::class, 'countPerson'])->name('reservation.countPerson');
     Route::get('/reservation/{customer}/chooseRoom', [RoomReservationConteroller::class, 'chooseRoom'])->name('reservation.chooseRoom');

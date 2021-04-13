@@ -15,8 +15,8 @@ class RoomStatusSeeder extends Seeder
     public function run()
     {
         $names = [
-            'Occupied',
             'Vacant',
+            'Occupied',
             'Occupied Clean',
             'Occupied Dirty',
             'Vacant Clean Inspected',
@@ -38,8 +38,8 @@ class RoomStatusSeeder extends Seeder
         ];
 
         $codes = [
-            'O',
             'V',
+            'O',
             'OC',
             'OD',
             'VCI',
@@ -61,8 +61,8 @@ class RoomStatusSeeder extends Seeder
         ];
 
         $informations = [
-            'Suatu kamar yang sedang ditempati oleh sesorang secara sah dan teregister sebagai tamu hotel.',
             'Sebutan bagi kamar yang kosong.',
+            'Suatu kamar yang sedang ditempati oleh sesorang secara sah dan teregister sebagai tamu hotel.',
             'Suatu kamar yang sedang ditempati oleh sesorang secara sah dan teregister sebagai tamu hotel pada kamar yang bersih.',
             'Suatu kamar yang sedang ditempati oleh sesorang secara sah dan teregister sebagai tamu hotel pada kamar yang kotor. Ini terjadi akibat perubahan status dari OC ke OD setelah melewati satu malam stay.',
             'Kamar kosong yang sudah dibersihkan dan diperiksa oleh floor supervisor dan siap untuk menerima tamu (dijual).',

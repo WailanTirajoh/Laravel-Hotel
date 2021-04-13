@@ -4,10 +4,12 @@
     <div class="row mt-2 mb-2">
         <div class="col-lg-6 mb-2">
             <div class="d-grid gap-2 d-md-block">
-                <a href="{{ route('reservation.createIdentity') }}" class="btn btn-sm shadow-sm myBtn border rounded"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Add Reservation">
-                    <i class="fas fa-plus"></i>
-                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Add Reservation">
+                    <button type="button" class="btn btn-sm shadow-sm myBtn border rounded" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </span>
             </div>
         </div>
         <div class="col-lg-6 mb-2">
@@ -23,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        {{-- <table class="table table-sm">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -78,8 +80,32 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> --}}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Have any account?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-sm btn-primary m-1" href="{{ route('reservation.createIdentity') }}">No, Create new account!</a>
+                        <a class="btn btn-sm btn-success m-1" href="{{ route('reservation.pickFromCustomer') }}">Yes, use my account please!</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

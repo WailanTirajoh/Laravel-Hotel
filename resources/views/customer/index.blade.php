@@ -17,6 +17,12 @@
             border-top-left-radius: 5px;
         }
 
+        .icon {
+            font-size: 1.5rem;
+            margin-right: -10px;
+            color: #212529
+        }
+
     </style>
 
     <div class="row">
@@ -41,22 +47,17 @@
             </div>
             <div class="row">
                 @foreach ($customers as $customer)
-                    <div class="col-lg-4 col-md-6 my-1">
-                        <div class="card shadow-sm justify-content-start" style="min-height:350px;">
-                            <div class="row">
-                                <div class="d-flex align-items-center justify-content-between">
+                    <div class="col-lg-2 col-md-4 col-sm-6 my-1">
+                        <div class="card shadow-sm justify-content-start" style="min-height:350px; ">
+                            <div class="row w-100" style="position:absolute;">
+                                <div class="d-flex">
                                     <h5 class="card-title text-white numbering bg-dark ">
                                         {{ ($customers->currentpage() - 1) * $customers->perpage() + $loop->index + 1 }}
                                     </h5>
-                                    <div class="dropdown">
-                                        <a class="me-3" href="#" role="button" id="dropdownMenuLink"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <svg width="25px" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke="black">
-                                                <path strokelinecap="round" strokelinejoin="round" strokewidth="{2}"
-                                                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z">
-                                                </path>
-                                            </svg>
+                                    <div class="dropdown ms-auto mt-2" style="">
+                                        <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v icon"></i>
                                         </a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -67,8 +68,7 @@
                                                     href="{{ route('customer.edit', ['customer' => $customer->id]) }}">Edit</a>
                                             </li>
                                             <li>
-                                                <form method="POST"
-                                                    id="delete-customer-form-{{ $customer->id }}"
+                                                <form method="POST" id="delete-customer-form-{{ $customer->id }}"
                                                     action="{{ route('customer.destroy', ['customer' => $customer->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
@@ -83,61 +83,60 @@
                                     </div>
                                 </div>
                             </div>
+                            <img src="{{ $customer->user->getAvatar() }}"
+                                style="object-fit: cover; height:350px; border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem;">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <img class="img-fluid rounded text-center mx-auto d-block mb-4" src="{{ $customer->user->getAvatar() }}"
-                                                    alt="Generic placeholder image">
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <h5 class="mt-0">{{ $customer->name }}
-                                                </h5>
-                                                <div>
-                                                    <table>
-                                                        <tr>
-                                                            <td><i class="fas fa-user-md"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    {{ $customer->job }}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><i class="fas fa-map-marker-alt"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    {{ $customer->address }}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><i class="fas fa-phone"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    +6281233808395
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><i class="fas fa-birthday-cake"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    {{ $customer->birthdate }}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><i class="fas fa-envelope"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    {{ $customer->user->email }}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
+                                <div class="card-text">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h5 class="mt-0">{{ $customer->name }}
+                                                    </h5>
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr>
+                                                                <td><i class="fas fa-envelope"></i></td>
+                                                                <td>
+                                                                    <span>
+                                                                        {{ $customer->user->email }}
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><i class="fas fa-user-md"></i></td>
+                                                                <td>
+                                                                    <span>
+                                                                        {{ $customer->job }}
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><i class="fas fa-map-marker-alt"></i></td>
+                                                                <td style="white-space:nowrap" class="overflow-hidden">
+                                                                    <span>
+                                                                        {{ $customer->address }}
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><i class="fas fa-phone"></i></td>
+                                                                <td>
+                                                                    <span>
+                                                                        +6281233808395
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><i class="fas fa-birthday-cake"></i></td>
+                                                                <td>
+                                                                    <span>
+                                                                        {{ $customer->birthdate }}
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

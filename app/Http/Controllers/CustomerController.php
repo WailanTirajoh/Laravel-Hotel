@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class CustomerController extends Controller
 {
@@ -38,16 +39,19 @@ class CustomerController extends Controller
         if ($request->hasFile('avatar')) {
             $path = 'img/user/' . $user->name . '-' . $user->id;
             $path = public_path($path);
+            $file = $request->file('avatar');
             // Check if folder not exists then create folder
             if (!is_dir($path)) {
                 mkdir($path);
             }
-            $avatarName = $request->file('avatar')->getClientOriginalName();
-            $request->file('avatar')->move($path, $avatarName);
+            $avatarName = $file->getClientOriginalName();
+            $img = Image::make($file->path());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($path . '/' . $avatarName);
             $user->avatar = $avatarName;
             $user->save();
         }
-
 
         $customer = Customer::create([
             'name' => $user->name,

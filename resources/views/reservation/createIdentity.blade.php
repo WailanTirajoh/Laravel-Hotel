@@ -7,6 +7,7 @@
     @include('reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center">
+
             <div class="col-lg-12">
                 <div class="card shadow-sm border">
                     <div class="card-header">

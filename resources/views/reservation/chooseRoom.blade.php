@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('title', 'Count Person')
+@section('title', 'Choose Room Reservation')
 @section('head')
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
 @endsection
@@ -7,20 +7,14 @@
     @include('reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center">
-            <div class="col-lg-12">
+            <div class="col-sm-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
-                        <table>
-                            <tr>
-                                <td>Customer Name</td>
-                                <td>: {{ $customer->name }}</td>
-                            </tr>
-                            <tr>
-                                <td>Customer Job</td>
-                                <td>: {{ $customer->job }}</td>
-                            </tr>
-                        </table>
+                        <h2>Choose a room:</h2>
                         <hr>
+                        @if (count($rooms)==0)
+                            <h3>Theres no available room for {{request()->input('count_person')}} or more person</h3>
+                        @else
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -32,6 +26,7 @@
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Capacity</th>
                                                 <th scope="col">Price</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">View</th>
                                                 <th scope="col">Action</th>
                                             </tr>
@@ -46,12 +41,15 @@
                                                     <td>{{ $room->type->name }}</td>
                                                     <td>{{ $room->capacity }}</td>
                                                     <td>{{ $room->price }}</td>
-                                                    <td><span style="
-                                                                display:inline-block;
-                                                                /* white-space: nowrap; */
-                                                                overflow: hidden;
-                                                                text-overflow: ellipsis;
-                                                                max-width: 1000px;">{{ $room->view }}</span></td>
+                                                    <td>{{ $room->roomStatus->name }}</td>
+                                                    <td><span
+                                                            style="
+                                                                                            display:inline-block;
+                                                                                            /* white-space: nowrap; */
+                                                                                            overflow: hidden;
+                                                                                            text-overflow: ellipsis;
+                                                                                            max-width: 1000px;">{{ $room->view }}</span>
+                                                    </td>
                                                     <td>
                                                         <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                             href="{{ route('room.edit', ['room' => $room->id]) }}">
@@ -65,6 +63,56 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 mt-2">
+                <div class="card shadow-sm">
+                    <img src="{{ $customer->user->getAvatar() }}"
+                        style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td style="text-align: center; width:50px">
+                                    <span>
+                                        <i class="fas {{ $customer->gender == 'Male' ? 'fa-male' : 'fa-female' }}">
+                                        </i>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ $customer->name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; ">
+                                    <span>
+                                        <i class="fas fa-user-md"></i>
+                                    </span>
+                                </td>
+                                <td>{{ $customer->job }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; ">
+                                    <span>
+                                        <i class="fas fa-birthday-cake"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ $customer->birthdate }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; ">
+                                    <span>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ $customer->address }}
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
