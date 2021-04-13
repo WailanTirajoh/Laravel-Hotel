@@ -6,9 +6,6 @@
 ## Init Commands:
 - composer install
 - php artisan migrate:fresh --seed
-- php artisan db:seed --class=UserSeeder
-- php artisan db:seed --class=TypeSeeder
-- php artisan db:seed --class=RoomStatusSeeder
 - php artisan serv
 
 ## Login:
