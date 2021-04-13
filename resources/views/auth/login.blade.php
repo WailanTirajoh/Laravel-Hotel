@@ -1,5 +1,5 @@
 @extends('template.auth')
-@section('title', 'Dashboard')
+@section('title', 'Login')
 @section('content')
     <link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
     <div class="wavestop">
