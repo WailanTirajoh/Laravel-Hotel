@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{-- <table class="table table-sm">
+                        <table class="table table-sm">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -34,53 +34,43 @@
                                     <th>Room</th>
                                     <th>Check In</th>
                                     <th>Check Out</th>
+                                    <th>Days</th>
                                     <th>Status</th>
-                                    <th>Payment Status</th>
+                                    <th>Paid Off</th>
+                                    <th>Debt</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>
-                                        <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0" href="#"
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Edit User">
-                                            <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
-                                        <form class="btn btn-sm p-0 m-0" method="POST" id="delete-post-form" action="#">
-                                            <div class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0 delete"
-                                                data-bs-toggle="tooltip" user-role="Admin" data-bs-placement="top"
-                                                title="Delete User">
+                                @foreach ($transactions as $transaction)
+                                    <tr>
+                                        <th>{{ ($transactions->currentpage() - 1) * $transactions->perpage() + $loop->index + 1 }}
+                                        </th>
+                                        <td>{{ $transaction->customer->name }}</td>
+                                        <td>{{ $transaction->user->name }}</td>
+                                        <td>{{ $transaction->room->number }}</td>
+                                        <td>{{ $transaction->check_in }}</td>
+                                        <td>{{ $transaction->check_out }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($transaction->check_in)->diff($transaction->check_out)->format('%d days') }}
+                                        </td>
+                                        <td>{{ $transaction->status }}</td>
+                                        <td>Telah dibayar disini</td>
+                                        <td>Kekurangan pembayaran disini</td>
+                                        <td>
+                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0" href="#"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Detail User">
                                                 <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
                                                 </svg>
-                                            </div>
-                                        </form>
-                                        <a class="btn btn-light btn-sm rounded shadow-sm border p-0 m-0" href="#"
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Detail User">
-                                            <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                        </table> --}}
+                        </table>
+                        {{ $transactions->onEachSide(2)->links('template.paginationlinks') }}
                     </div>
                 </div>
             </div>
@@ -100,8 +90,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-sm btn-primary m-1" href="{{ route('reservation.createIdentity') }}">No, Create new account!</a>
-                        <a class="btn btn-sm btn-success m-1" href="{{ route('reservation.pickFromCustomer') }}">Yes, use my account please!</a>
+                        <a class="btn btn-sm btn-primary m-1" href="{{ route('reservation.createIdentity') }}">No, Create
+                            new account!</a>
+                        <a class="btn btn-sm btn-success m-1" href="{{ route('reservation.pickFromCustomer') }}">Yes, use
+                            my account please!</a>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\Room;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -13,7 +14,8 @@ class RoomReservationConteroller extends Controller
 {
     public function index()
     {
-        return view('reservation.index');
+        $transactions = Transaction::orderBy('id','DESC')->paginate(20);
+        return view('reservation.index', compact('transactions'));
     }
 
     public function pickFromCustomer()
@@ -102,5 +104,24 @@ class RoomReservationConteroller extends Controller
             ->where('capacity', '>=', $request->count_person)
             ->get();
         return view('reservation.chooseRoom', compact('customer', 'rooms'));
+    }
+
+    public function chooseDay(Customer $customer, Room $room)
+    {
+        return view('reservation.chooseDay', compact('customer', 'room'));
+    }
+
+    public function storeDay(Customer $customer, Room $room, Request $request)
+    {
+        Transaction::create([
+            'user_id' => auth()->user()->id,
+            'customer_id' => $customer->id,
+            'room_id' => $room->id,
+            'check_in' => $request->check_in,
+            'check_out' => $request->check_out,
+            'status' => 'reservation'
+        ]);
+
+        return redirect()->route('reservation.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
     }
 }

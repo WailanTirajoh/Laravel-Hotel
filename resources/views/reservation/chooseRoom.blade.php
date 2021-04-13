@@ -12,57 +12,57 @@
                     <div class="card-body p-3">
                         <h2>Choose a room:</h2>
                         <hr>
-                        @if (count($rooms)==0)
-                            <h3>Theres no available room for {{request()->input('count_person')}} or more person</h3>
+                        @if (count($rooms) == 0)
+                            <h3>Theres no available room for {{ request()->input('count_person') }} or more person</h3>
                         @else
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Number</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Capacity</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">View</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($rooms as $room)
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
                                                 <tr>
-                                                    <td scope="row">
-                                                        {{ $loop->iteration }}
-                                                    </td>
-                                                    <td>{{ $room->number }}</td>
-                                                    <td>{{ $room->type->name }}</td>
-                                                    <td>{{ $room->capacity }}</td>
-                                                    <td>{{ $room->price }}</td>
-                                                    <td>{{ $room->roomStatus->name }}</td>
-                                                    <td><span
-                                                            style="
-                                                                                            display:inline-block;
-                                                                                            /* white-space: nowrap; */
-                                                                                            overflow: hidden;
-                                                                                            text-overflow: ellipsis;
-                                                                                            max-width: 1000px;">{{ $room->view }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                            href="{{ route('room.edit', ['room' => $room->id]) }}">
-                                                            Choose
-                                                        </a>
-                                                    </td>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Number</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Capacity</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">View</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($rooms as $room)
+                                                    <tr>
+                                                        <td scope="row">
+                                                            {{ $loop->iteration }}
+                                                        </td>
+                                                        <td>{{ $room->number }}</td>
+                                                        <td>{{ $room->type->name }}</td>
+                                                        <td>{{ $room->capacity }}</td>
+                                                        <td>{{ $room->price }}</td>
+                                                        <td>{{ $room->roomStatus->name }}</td>
+                                                        <td><span
+                                                                style="
+                                                                                                    display:inline-block;
+                                                                                                    /* white-space: nowrap; */
+                                                                                                    overflow: hidden;
+                                                                                                    text-overflow: ellipsis;
+                                                                                                    max-width: 1000px;">{{ $room->view }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-light btn-sm rounded shadow-sm border"
+                                                                href="{{ route('reservation.chooseDay', ['customer' => $customer->id, 'room' => $room->id]) }}">
+                                                                Choose
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
