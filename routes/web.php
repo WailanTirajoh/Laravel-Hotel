@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/get-dialy-guest-chart-data',[DashboardController::class,'dialyGuestPerMonth']);
+
 
 Route::group(['middleware' => ['auth', 'checkRole:Super']], function () {
     Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
