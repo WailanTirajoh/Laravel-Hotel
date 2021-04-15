@@ -26,8 +26,11 @@ $(function() {
             var mode = 'index'
             var intersect = true
 
-            var $visitorsChart = $('#visitors-chart')
-            var visitorsChart = new Chart($visitorsChart, {
+            var visitorsChart = $('#visitors-chart')
+            var this_year = $('#visitors-chart').attr('this-year')
+            var this_month = $('#visitors-chart').attr('this-month')
+            var visitorsChart = $('#visitors-chart')
+            var myVisitorChart = new Chart(visitorsChart, {
                 data: {
                     labels: response.day,
                     datasets: [{
@@ -88,6 +91,16 @@ $(function() {
                     }
                 }
             })
+
+            var visitorsChart = document.getElementById("visitors-chart");
+            visitorsChart.onclick = function(e) {
+                var slice = myVisitorChart.getElementAtEvent(e)
+                if (!slice.length) return // return if not clicked on slice
+                var label = (slice[0]._index) + 1
+                window.location.href = ('/get-dialy-guest-chart-data/' + this_year + '/' + this_month + '/' + label)
+
+            }
+
         }
     }
 

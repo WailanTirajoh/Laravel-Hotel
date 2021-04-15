@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-6 mb-3">
-            <div class="card">
+            <div class="card shadow-sm border">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Guests</h3>
@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <p class="d-flex flex-column">
                             <span class="text-bold text-lg">Belum</span>
-                            <span>Total Guests This month</span>
+                            <span>Total Guests at {{thisMonth()}}</span>
                         </p>
                         <p class="ml-auto d-flex flex-column text-right">
                             <span class="text-success">
@@ -26,12 +26,12 @@
                         </p>
                     </div>
                     <div class="position-relative mb-4">
-                        <canvas id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
+                        <canvas this-year="{{thisYear()}}" this-month="{{thisMonth()}}" id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
                             style="display: block; width: 249px; height: 200px;"></canvas>
                     </div>
                     <div class="d-flex flex-row justify-content-between">
                         <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This month
+                            <i class="fas fa-square text-primary"></i> {{thisMonth()}}
                         </span>
                         <span>
                             <i class="fas fa-square text-gray"></i> Last month
@@ -42,15 +42,9 @@
         </div>
 
         <div class="col-lg-6">
-            <div class="row">
-                <div class="col-lg-12">
-                    {{-- <h1 class="text-center">Dashboard</h1> --}}
-                </div>
-            </div>
-
             <div class="row mb-3">
                 <div class="col-lg-6">
-                    <div class="card border shadow-sm" style="border-radius: 0.5rem">
+                    <div class="card shadow-sm border" style="border-radius: 0.5rem">
                         <div class="card-body text-center">
                             <h5>Dashboard</h5>
                         </div>
@@ -59,19 +53,16 @@
                     <!-- /.info-box border -->
                 </div>
                 <div class="col-lg-6">
-
-                    <div class="card border shadow-sm" style="border-radius: 0.5rem">
+                    <div class="card shadow-sm border" style="border-radius: 0.5rem">
                         <div class="card-body">
                             <h5>{{ count($transactions) }} Guests this day</h5>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box border -->
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
+                    <div class="card shadow-sm border">
                         <div class="card-header">
                             <div class="row ">
                                 <div class="col-lg-12 d-flex justify-content-between">
@@ -128,11 +119,11 @@
             </div>
         </div>
     </div>
-
-
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> --}}
+<canvas id="pieChart"></canvas>
 @endsection
 @section('footer')
     <script src="{{ asset('style/js/jquery.js') }}"></script>
     <script src="{{ asset('style/js/chart.min.js') }}"></script>
-    <script src="{{ asset('style/js/mychart.js') }}"></script>
+    <script src="{{ asset('style/js/guestsChart.js') }}"></script>
 @endsection

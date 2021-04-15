@@ -10,6 +10,16 @@ function convertToRupiah($price)
     return $price_rupiah;
 }
 
+function thisMonth()
+{
+    return Carbon::parse(Carbon::now())->format('m');
+}
+
+function thisYear()
+{
+    return Carbon::parse(Carbon::now())->format('Y');
+}
+
 function dateFormat($date)
 {
     return Carbon::parse($date)->isoFormat('D MMM YYYY');

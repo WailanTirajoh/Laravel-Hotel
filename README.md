@@ -2,11 +2,13 @@
 
 
 ## Init DB
-- DB Name: hotel_app
+- Create DB Name: hotel_app
 ## Init Commands:
-- composer install
-- php artisan migrate:fresh --seed
-- php artisan serv
+```
+composer install
+php artisan migrate:fresh --seed
+php artisan serv
+```
 
 ## Login:
 - Email: admin@admin.com

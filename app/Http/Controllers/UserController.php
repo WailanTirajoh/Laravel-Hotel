@@ -10,10 +10,24 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')->Paginate(5, ['*'], 'users');
-        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
+        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC');
+        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC');
+
+        if (!empty($request->qu)) {
+            $users = $users->where('email', 'LIKE', '%' . $request->qu . '%');
+        }
+
+        if (!empty($request->qc)) {
+            $customers = $customers->where('email', 'LIKE', '%' . $request->qc . '%');
+        }
+
+        $users = $users->paginate(5, ['*'], 'users');
+        $customers = $customers->Paginate(5, ['*'], 'customers');
+
+        $users->appends($request->all());
+        $customers->appends($request->all());
         return view('user.index', compact('users', 'customers'));
     }
 
@@ -62,16 +76,5 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('user.index')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
         }
-    }
-
-    public function search(Request $request)
-    {
-        $users = User::whereIn('role', ['Super', 'Admin'])->where('name', 'LIKE', '%' . $request->q . '%')
-            ->orWhere('email', 'LIKE', '%' . $request->q . '%')
-            ->paginate(5, ['*'], 'users');
-        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC')->Paginate(5, ['*'], 'customers');
-        $customers->appends($request->all());
-        $users->appends($request->all());
-        return view('user.index', compact('users', 'customers'));
     }
 }

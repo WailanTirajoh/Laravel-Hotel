@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageController;
@@ -24,11 +25,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/get-dialy-guest-chart-data',[DashboardController::class,'dialyGuestPerMonth']);
+
 
 
 Route::group(['middleware' => ['auth', 'checkRole:Super']], function () {
-    Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
+    // Route::get('/user/search', [UserController::class, 'search'])->name('user.search');
     Route::resource('user', UserController::class);
 });
 
@@ -66,6 +67,11 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::post('/transaction/reservation/{customer}/{room}/payDownPayment', [TransactionRoomReservationController::class, 'payDownPayment'])->name('reservation.payDownPayment');
 
     Route::get('/payment/create/{transaction}/', [PaymentController::class, 'create'])->name('payment.create');
+
+
+    // Chart pada dashboard
+    Route::get('/get-dialy-guest-chart-data',[ChartController::class,'dialyGuestPerMonth']);
+    Route::get('/get-dialy-guest-chart-data/{year}/{month}/{day}',[ChartController::class,'dialyGuest']);
 });
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([
