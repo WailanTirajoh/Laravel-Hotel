@@ -5,8 +5,8 @@
     }
 
 </style>
-<div class="bg-light border-right shadow-sm mt-3" id="sidebar-wrapper">
-    <div class="d-flex flex-column bg-light" style="width: 4.5rem;">
+<div class="bg-light border-right shadow-sm " id="sidebar-wrapper">
+    <div class="d-flex flex-column bg-light" style="width: 4.5rem; border-top-right-radius:0.5rem; border-bottom-right-radius:0.5rem">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li>
                 <a href="{{ route('dashboard.index') }}"
@@ -15,25 +15,12 @@
                     <i class="fas fa-home"></i>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('reservation.index') }}"
-                    class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'reservation.index' ? 'active' : '' }}"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Room Reservation">
-                    <i class="fas fa-cash-register"></i>
-                </a>
-            </li>
+            @if (auth()->user()->role == 'Super' || auth()->user()->role == 'Admin')
             <li>
                 <a href="{{ route('transaction.index') }}"
-                    class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'payment.index' ? 'active' : '' }}"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Transaction">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('payment.index') }}"
-                    class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'payment.index' ? 'active' : '' }}"
-                    data-bs-toggle="tooltip" data-bs-placement="right" title="Payment">
-                    <i class="fas fa-money-bill-wave-alt"></i>
+                    class="nav-link py-3 border-bottom myBtn {{ Route::currentRouteName() == 'transaction.index' ? 'active' : '' }}"
+                    data-bs-toggle="tooltip" data-bs-placement="right" title="Transactions">
+                    <i class="fas fa-cash-register"></i>
                 </a>
             </li>
             <li>
@@ -63,14 +50,7 @@
                     </ul>
                 </div>
             </li>
-            {{-- <li>
-                <a href="#" class="nav-link py-3 border-bottom myBtn @if (stripos($_SERVER['REQUEST_URI'], 'dashboard') !== false) active @endif" title="" data-bs-toggle="tooltip"
-                    data-bs-placement="right" data-bs-original-title="Customers">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#people-circle"></use>
-                    </svg>
-                </a>
-            </li> --}}
+            @endif
         </ul>
     </div>
 </div>

@@ -3,10 +3,12 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\RoomReservationConteroller;
+use App\Http\Controllers\TransactionRoomReservationController;
 use App\Http\Controllers\RoomStatusController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -44,17 +46,24 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('payment', PaymentController::class);
     Route::resource('roomstatus', RoomStatusController::class);
 
+    // Upload Room Image
+    Route::post('/room/{room}/image/upload', [RoomController::class, 'imageUpload'])->name('room.imageUpload');
+
+
+    Route::post('/image/{image}/destroy', [ImageController::class, 'destroy'])->name('image.destroy');
+
     // Room Reservation
-    Route::get('/reservation', [RoomReservationConteroller::class, 'index'])->name('reservation.index');
-    Route::get('/reservation/createIdentity', [RoomReservationConteroller::class, 'createIdentity'])->name('reservation.createIdentity');
-    Route::get('/reservation/pickFromCustomer', [RoomReservationConteroller::class, 'pickFromCustomer'])->name('reservation.pickFromCustomer');
-    Route::get('/reservation/pickFromCustomer/search', [RoomReservationConteroller::class, 'usersearch'])->name('reservation.usersearch');
-    Route::post('/reservation/storeCustomer', [RoomReservationConteroller::class, 'storeCustomer'])->name('reservation.storeCustomer');
-    Route::get('/reservation/{customer}/countPerson', [RoomReservationConteroller::class, 'countPerson'])->name('reservation.countPerson');
-    Route::get('/reservation/{customer}/chooseRoom', [RoomReservationConteroller::class, 'chooseRoom'])->name('reservation.chooseRoom');
-    Route::get('/reservation/{customer}/{room}/{from}/{to}/confirmation', [RoomReservationConteroller::class, 'confirmation'])->name('reservation.confirmation');
-    Route::post('/reservation/{customer}/{room}/storeDay', [RoomReservationConteroller::class, 'storeDay'])->name('reservation.storeDay');
-    Route::get('/reservation/{transaction}/pay', [RoomReservationConteroller::class, 'pay'])->name('reservation.pay');
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transaction/reservation/createIdentity', [TransactionRoomReservationController::class, 'createIdentity'])->name('reservation.createIdentity');
+    Route::get('/transaction/reservation/pickFromCustomer', [TransactionRoomReservationController::class, 'pickFromCustomer'])->name('reservation.pickFromCustomer');
+    Route::get('/transaction/reservation/pickFromCustomer/search', [TransactionRoomReservationController::class, 'usersearch'])->name('reservation.usersearch');
+    Route::post('/transaction/reservation/storeCustomer', [TransactionRoomReservationController::class, 'storeCustomer'])->name('reservation.storeCustomer');
+    Route::get('/transaction/reservation/{customer}/countPerson', [TransactionRoomReservationController::class, 'countPerson'])->name('reservation.countPerson');
+    Route::get('/transaction/reservation/{customer}/chooseRoom', [TransactionRoomReservationController::class, 'chooseRoom'])->name('reservation.chooseRoom');
+    Route::get('/transaction/reservation/{customer}/{room}/{from}/{to}/confirmation', [TransactionRoomReservationController::class, 'confirmation'])->name('reservation.confirmation');
+    Route::post('/transaction/reservation/{customer}/{room}/payDownPayment', [TransactionRoomReservationController::class, 'payDownPayment'])->name('reservation.payDownPayment');
+
+    Route::get('/payment/create/{transaction}/', [PaymentController::class, 'create'])->name('payment.create');
 });
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([

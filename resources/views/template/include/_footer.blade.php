@@ -1,5 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#0099ff" fill-opacity="1"
-        d="M0,256L48,261.3C96,267,192,277,288,282.7C384,288,480,288,576,282.7C672,277,768,267,864,250.7C960,235,1056,213,1152,218.7C1248,224,1344,256,1392,272L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-    </path>
-</svg>
+<div class="container">
+    <div class="row align-items-center align-baseline">
+        <div class="col-6">
+            <small>© 2021 All Rights Reserved.</small>
+        </div>
+        <div class="col-6 d-flex flex-row-reverse bd-highlight align-middle">
+            <div class="p-2 bd-highlight align-middle">
+                <a href="https://www.facebook.com/tirajohw/"><i class="fab fa-facebook-square"></i></a>
+            </div>
+            <div class="p-2 bd-highlight align-middle">
+                <a href="https://www.instagram.com/tirajoh/"><i class="fab fa-instagram-square"></i></a>
+            </div>
+            <div class="p-2 bd-highlight align-middle">
+                <a href="https://github.com/WailanTirajoh/"><i class="fab fa-github-square"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

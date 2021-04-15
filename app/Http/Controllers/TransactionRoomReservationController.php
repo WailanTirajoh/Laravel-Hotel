@@ -7,22 +7,17 @@ use App\Models\Customer;
 use App\Models\Room;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
-class RoomReservationConteroller extends Controller
+class TransactionRoomReservationController extends Controller
 {
-    public function index()
-    {
-
-        $transactions = Transaction::with('user', 'room', 'customer')->orderBy('id', 'DESC')->paginate(20);
-        return view('reservation.index', compact('transactions'));
-    }
 
     public function pickFromCustomer()
     {
         $customers = Customer::with('user')->orderBy('id', 'DESC')->paginate(8);
-        return view('reservation.pickFromCustomer', compact('customers'));
+        return view('transaction.reservation.pickFromCustomer', compact('customers'));
     }
 
     public function usersearch(Request $request)
@@ -36,12 +31,12 @@ class RoomReservationConteroller extends Controller
             ->orWhere('id', 'Like', '%' . $request->q . '%')
             ->orderBy('id', 'DESC')->count();
         $customers->appends($request->all());
-        return view('reservation.pickFromCustomer', compact('customers', 'customersCount'));
+        return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
     }
 
     public function createIdentity()
     {
-        return view('reservation.createIdentity');
+        return view('transaction.reservation.createIdentity');
     }
 
     public function storeCustomer(StoreCustomerRequest $request)
@@ -90,15 +85,16 @@ class RoomReservationConteroller extends Controller
 
     public function countPerson(Customer $customer)
     {
-        return view('reservation.countPerson', compact('customer'));
+        return view('transaction.reservation.countPerson', compact('customer'));
     }
 
     public function chooseRoom(Customer $customer, Request $request)
     {
         $request->validate([
-            'count_person' => 'required|numeric'
+            'count_person' => 'required|numeric',
+            'check_in' => 'required|date|after_or_equal:today',
+            'check_out' => 'required|date|after:check_in'
         ]);
-
 
         $from = $request->check_in;
         $to = $request->check_out;
@@ -117,36 +113,47 @@ class RoomReservationConteroller extends Controller
             ->orderBy('room_status_id')
             ->orderBy('price')
             ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id',$notAvailable->pluck('room_id'))
+            ->whereNotIn('id', $notAvailable->pluck('room_id'))
             ->get();
         // $notAvailableRoom = Room::whereIn('id',$notAvailable->pluck('room_id'))->get();
         // dd($notAvailableRoom);
         // dd(Room::whereNotIn('id',Transaction::whereBetween('check_in', [$from, $to])->pluck('id'))->get());
-        return view('reservation.chooseRoom', compact('customer', 'rooms', 'from', 'to'));
+        return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'from', 'to'));
     }
 
     public function confirmation(Customer $customer, Room $room, $from, $to)
     {
-        return view('reservation.confirmation', compact('customer', 'room', 'from', 'to'));
+        $price = $room->price;
+        $dayDifference = getDateDifference($from, $to);
+        $downPayment = ($price * $dayDifference) * 0.15;
+        return view('transaction.reservation.confirmation', compact('customer', 'room', 'from', 'to', 'downPayment', 'dayDifference'));
     }
 
-    public function storeDay(Customer $customer, Room $room, Request $request)
+    public function payDownPayment(Customer $customer, Room $room, Request $request)
     {
+        $from = $request->check_in;
+        $to = $request->check_out;
+
+        $notAvailable = Transaction::where([['check_in', '<=', $from], ['check_out', '>=', $to]])
+            ->orWhere([['check_in', '>=', $from], ['check_in', '<=', $to]])
+            ->orWhere([['check_out', '>=', $from], ['check_out', '<=', $to]])
+            ->get();
+
+        $notAvailableRoom = $notAvailable->pluck('room_id')->toArray();
+
+        if (in_array($room->id, $notAvailableRoom)) {
+            return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' is not available at the moment');
+        }
+
         Transaction::create([
             'user_id' => auth()->user()->id,
             'customer_id' => $customer->id,
             'room_id' => $room->id,
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
-            'status' => 'reservation'
+            'status' => 'Reservation'
         ]);
 
-        return redirect()->route('reservation.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
-    }
-
-    // Pay
-    public function pay(Transaction $transaction)
-    {
-        return view('reservation.payment.pay', compact('transaction'));
+        return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
     }
 }

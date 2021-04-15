@@ -15,9 +15,9 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('customer_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('room_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('customer_id')->constrained();
+            $table->foreignId('room_id')->constrained();
             $table->date('check_in');
             $table->date('check_out');
             $table->string('status');

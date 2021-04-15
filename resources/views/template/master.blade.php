@@ -14,7 +14,7 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     {{-- style --}}
-    <link rel="stylesheet" href="{{ asset('style/js/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/css/style.css') }}">
 
     {{-- Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('package/sweetalert2/dist/sweetalert2.min.css') }}">
@@ -24,10 +24,10 @@
     <link href="{{ asset('package/toastr/toastr/build/toastr.css') }}" rel="stylesheet" />
 
     {{-- Toggle IOS --}}
-    <link rel="stylesheet" type="text/css" href="{{asset('package/toggle/vc-toggle-switch.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('package/toggle/vc-toggle-switch.css') }}" />
 
     {{-- Font Awesome --}}
-    <link href="{{asset('package/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('package/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     @yield('head')
 </head>
 
@@ -35,7 +35,7 @@
     <header>
         @include('template.include._navbar')
     </header>
-    <main>
+    <main class="my-3">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
 
@@ -60,6 +60,9 @@
 
         </div>
     </main>
+    <footer class="footer mt-auto py-2 shadow-sm border-top mt-3" style="background: #f8f9fa; height:55px">
+        @include('template.include._footer')
+    </footer>
 
     <script src="{{ asset('package/bootstrap/js/bootstrap.bundle.min.js') }}"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
@@ -93,6 +96,7 @@
         @if (Session::has('failed'))
             toastr.error("{{ Session::get('failed') }}","Failed")
         @endif
+
     </script>
     @yield('footer')
 </body>

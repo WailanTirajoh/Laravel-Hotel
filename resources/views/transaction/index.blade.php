@@ -4,10 +4,16 @@
     <div class="row mt-2 mb-2">
         <div class="col-lg-6 mb-2">
             <div class="d-grid gap-2 d-md-block">
-                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Add Reservation">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Add Room Reservation">
                     <button type="button" class="btn btn-sm shadow-sm myBtn border rounded" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
                         <i class="fas fa-plus"></i>
+                    </button>
+                </span>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Payment History">
+                    <button type="button" class="btn btn-sm shadow-sm myBtn border rounded" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <i class="fas fa-history"></i>
                     </button>
                 </span>
             </div>
@@ -25,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -50,8 +56,8 @@
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ $transaction->user->name }}</td>
                                         <td>{{ $transaction->room->number }}</td>
-                                        <td>{{ $transaction->dateFormat($transaction->check_in) }}</td>
-                                        <td>{{ $transaction->dateFormat($transaction->check_out) }}</td>
+                                        <td>{{ dateFormat($transaction->check_in) }}</td>
+                                        <td>{{ dateFormat($transaction->check_out) }}</td>
                                         <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
                                         <td>{{ $transaction->status }}</td>
                                         <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
@@ -60,7 +66,67 @@
                                         <td>Kekurangan pembayaran disini</td>
                                         <td>
                                             <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
-                                                href="{{ route('reservation.pay', ['transaction' => $transaction->id]) }}"
+                                                href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
+                                                <i class="fas fa-money-bill-wave-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ $transactions->onEachSide(2)->links('template.paginationlinks') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2 mt-4 ms-1">
+        <div class="col-lg-12">
+            <h5>Expired: </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Customer</th>
+                                    <th>Admin</th>
+                                    <th>Room</th>
+                                    <th>Check In</th>
+                                    <th>Check Out</th>
+                                    <th>Days</th>
+                                    <th>Status</th>
+                                    <th>Total Price</th>
+                                    <th>Paid Off</th>
+                                    <th>Debt</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($transactionsExpired as $transaction)
+                                    <tr>
+                                        <th>{{ ($transactions->currentpage() - 1) * $transactions->perpage() + $loop->index + 1 }}
+                                        </th>
+                                        <td>{{ $transaction->customer->name }}</td>
+                                        <td>{{ $transaction->user->name }}</td>
+                                        <td>{{ $transaction->room->number }}</td>
+                                        <td>{{ dateFormat($transaction->check_in) }}</td>
+                                        <td>{{ dateFormat($transaction->check_out) }}</td>
+                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
+                                        <td>{{ $transaction->status }}</td>
+                                        <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
+                                        </td>
+                                        <td>Telah dibayar disini</td>
+                                        <td>Kekurangan pembayaran disini</td>
+                                        <td>
+                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
+                                                href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
                                                 <i class="fas fa-money-bill-wave-alt"></i>
                                             </a>

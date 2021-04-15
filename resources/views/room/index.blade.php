@@ -54,21 +54,16 @@
                                                 <td>{{ $room->capacity }}</td>
                                                 <td>{{ $room->price }}</td>
                                                 <td><span style="
-                                                            display:inline-block;
-                                                            /* white-space: nowrap; */
-                                                            overflow: hidden;
-                                                            text-overflow: ellipsis;
-                                                            max-width: 1000px;">{{ $room->view }}</span></td>
-                                                <td>{{$room->roomStatus->name}}</td>
+                                                                display:inline-block;
+                                                                /* white-space: nowrap; */
+                                                                overflow: hidden;
+                                                                text-overflow: ellipsis;
+                                                                max-width: 1000px;">{{ $room->view }}</span></td>
+                                                <td>{{ $room->roomStatus->name }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                         href="{{ route('room.edit', ['room' => $room->id]) }}">
-                                                        <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                        </svg>
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
                                                     <form class="btn btn-sm" method="POST"
                                                         id="delete-room-form-{{ $room->id }}"
@@ -79,15 +74,13 @@
                                                             href="#" room-id="{{ $room->id }}" room-role="room"
                                                             room-name="{{ $room->name }}" data-bs-toggle="tooltip"
                                                             data-bs-placement="top" title="Delete room">
-                                                            <svg width="25" xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                            </svg>
+                                                            <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </form>
+                                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
+                                                        href="{{ route('room.show', ['room' => $room->id]) }}">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

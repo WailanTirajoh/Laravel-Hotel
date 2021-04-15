@@ -90,7 +90,7 @@ class CustomerController extends Controller
             $path = public_path($path);
             // Destroy the folder if theres a file
             if (is_dir($path)) {
-                $this->rrmdir($path);
+                rrmdir($path);
             }
 
             $customer->delete();
@@ -109,21 +109,6 @@ class CustomerController extends Controller
             return view('customer.index', compact('customers'));
         } else {
             return redirect('customer');
-        }
-    }
-
-    private function rrmdir($dir)
-    {
-        if (is_dir($dir)) {
-            $objects = scandir($dir);
-            foreach ($objects as $object) {
-                if ($object != "." && $object != "..") {
-                    if (filetype($dir . "/" . $object) == "dir") $this->rrmdir($dir . "/" . $object);
-                    else unlink($dir . "/" . $object);
-                }
-            }
-            reset($objects);
-            rmdir($dir);
         }
     }
 }

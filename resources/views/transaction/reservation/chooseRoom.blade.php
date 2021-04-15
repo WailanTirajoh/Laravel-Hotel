@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
 @endsection
 @section('content')
-    @include('reservation.progressbar')
+    @include('transaction.reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center">
             <div class="col-sm-8 mt-2">
@@ -12,7 +12,7 @@
                     <div class="card-body p-3">
                         <h2>Room Available for:</h2>
                         <p>{{request()->input('count_person')}} Person</p>
-                        <p>{{\App\Models\Transaction::dateFormat(request()->input('check_in'))}} ~ {{\App\Models\Transaction::dateFormat(request()->input('check_out'))}}</p>
+                        <p>{{dateFormat(request()->input('check_in'))}} ~ {{dateFormat(request()->input('check_out'))}}</p>
                         <hr>
                         @if (count($rooms) == 0)
                             <h3>Theres no available room for {{ request()->input('count_person') }} or more person</h3>
@@ -42,7 +42,7 @@
                                                         <td>{{ $room->number }}</td>
                                                         <td>{{ $room->type->name }}</td>
                                                         <td>{{ $room->capacity }}</td>
-                                                        <td>{{ $room->price }}</td>
+                                                        <td>{{ convertToRupiah($room->price) }}</td>
                                                         <td>{{ $room->roomStatus->name }}</td>
                                                         <td><span
                                                                 style="

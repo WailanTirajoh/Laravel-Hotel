@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
 @endsection
 @section('content')
-    @include('reservation.progressbar')
+    @include('transaction.reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center mt-4 my-3">
             <div class="col-lg-8 ">
