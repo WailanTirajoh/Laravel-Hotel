@@ -36,18 +36,18 @@ class Transaction extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function getTotalPayment($price, $check_in, $check_out)
+    public function getTotalPayment()
     {
-        $day = Helper::getDateDifference($check_in, $check_out);
-        $total = $price * $day;
-        return Helper::convertToRupiah($total);
+        $day = Helper::getDateDifference($this->check_in, $this->check_out);
+        $room_price =$this->room->price;
+        $total_price = $room_price * $day;
+        return Helper::convertToRupiah($total_price);
     }
 
-    public function getDateDifferenceWithPlural($check_in, $check_out)
+    public function getDateDifferenceWithPlural()
     {
-        $day = Helper::getDateDifference($check_in,$check_out);
+        $day = Helper::getDateDifference($this->check_in, $this->check_out);
         $plural = Str::plural('Day', $day);
-        return $day.' '.$plural;
+        return $day . ' ' . $plural;
     }
-
 }
