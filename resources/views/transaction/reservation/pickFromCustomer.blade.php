@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="d-grid gap-2 col-6 mx-auto">
-                                        <a href="{{ route('transaction.reservation.countPerson', ['customer' => $customer->id]) }}"
+                                        <a href="{{ route('transaction.reservation.viewCountPerson', ['customer' => $customer->id]) }}"
                                             class="btn btn-primary">Choose</a>
                                     </div>
                                 </div>

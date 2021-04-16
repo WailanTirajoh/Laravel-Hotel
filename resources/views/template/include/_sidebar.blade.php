@@ -27,7 +27,7 @@
                         {{ Route::currentRouteName() == 'transaction.reservation.pickFromCustomer' ? 'active' : '' }}
                         {{ Route::currentRouteName() == 'transaction.reservation.usersearch' ? 'active' : '' }}
                         {{ Route::currentRouteName() == 'transaction.reservation.storeCustomer' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'transaction.reservation.countPerson' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.viewCountPerson' ? 'active' : '' }}
                         {{ Route::currentRouteName() == 'transaction.reservation.chooseRoom' ? 'active' : '' }}
                         {{ Route::currentRouteName() == 'transaction.reservation.confirmation' ? 'active' : '' }}
                         {{ Route::currentRouteName() == 'transaction.reservation.payDownPayment' ? 'active' : '' }}
