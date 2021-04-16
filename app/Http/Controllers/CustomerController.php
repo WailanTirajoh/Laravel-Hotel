@@ -7,7 +7,6 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
 class CustomerController extends Controller
 {
@@ -46,16 +45,10 @@ class CustomerController extends Controller
             $path = 'img/user/' . $user->name . '-' . $user->id;
             $path = public_path($path);
             $file = $request->file('avatar');
-            // Check if folder not exists then create folder
-            if (!is_dir($path)) {
-                mkdir($path);
-            }
-            $avatarName = $file->getClientOriginalName();
-            $img = Image::make($file->path());
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path . '/' . $avatarName);
-            $user->avatar = $avatarName;
+
+            Helper::uploadImage($path, $file);
+
+            $user->avatar = $file->getClientOriginalName();
             $user->save();
         }
 
@@ -64,6 +57,7 @@ class CustomerController extends Controller
             'address' => $request->address,
             'job' => $request->job,
             'birthdate' => $request->birthdate,
+            'gender' => $request->gender,
             'user_id' => $user->id
         ]);
 
@@ -90,13 +84,11 @@ class CustomerController extends Controller
     {
         try {
             $user = User::find($customer->user->id);
-
-            // Check if user has an image folder
             $path = 'img/user/' . $user->name . '-' . $user->id;
             $path = public_path($path);
-            // Destroy the folder if theres a file
+
             if (is_dir($path)) {
-                Helper::rrmdir($path);
+                Helper::destroy($path);
             }
 
             $customer->delete();

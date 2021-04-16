@@ -47,6 +47,14 @@
                                 @enderror
                             </div>
                             <div class="col-md-12">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" name="gender" aria-label="Default select example">
+                                    <option selected hidden>Open this select menu</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
                                 <label for="job" class="form-label">Job</label>
                                 <input type="text" class="form-control @error('job') is-invalid @enderror" id="job"
                                     name="job" value="{{ old('job') }}">

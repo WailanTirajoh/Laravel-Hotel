@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Http\Requests\ChooseRoomRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\Room;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+
 
 class TransactionRoomReservationController extends Controller
 {
-
     public function pickFromCustomer(Request $request)
     {
         $customers = Customer::with('user')->orderBy('id', 'DESC');
@@ -49,30 +49,23 @@ class TransactionRoomReservationController extends Controller
             'role' => 'Customer'
         ]);
 
-        // If user upload an avatar
         if ($request->hasFile('avatar')) {
             $path = 'img/user/' . $user->name . '-' . $user->id;
             $path = public_path($path);
             $file = $request->file('avatar');
-            // Check if folder not exists then create folder
-            if (!is_dir($path)) {
-                mkdir($path);
-            }
-            $avatarName = $file->getClientOriginalName();
-            $img = Image::make($file->path());
-            $img->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path . '/' . $avatarName);
-            $user->avatar = $avatarName;
+
+            Helper::uploadImage($path, $file);
+
+            $user->avatar = $file->getClientOriginalName();
             $user->save();
         }
-
 
         $customer = Customer::create([
             'name' => $user->name,
             'address' => $request->address,
             'job' => $request->job,
             'birthdate' => $request->birthdate,
+            'gender' => $request->gender,
             'user_id' => $user->id
         ]);
 
@@ -84,58 +77,41 @@ class TransactionRoomReservationController extends Controller
         return view('transaction.reservation.countPerson', compact('customer'));
     }
 
-    public function chooseRoom(Customer $customer, Request $request)
+    public function chooseRoom(Customer $customer, ChooseRoomRequest $request)
     {
-        $request->validate([
-            'count_person' => 'required|numeric',
-            'check_in' => 'required|date|after_or_equal:today',
-            'check_out' => 'required|date|after:check_in'
-        ]);
+        $stayFrom = $request->check_in;
+        $stayUntil = $request->check_out;
 
-        $from = $request->check_in;
-        $to = $request->check_out;
-
-        // CI < F && CO > T
-        // CI > F && CI < T
-        // CO > F && CO < T
-        $notAvailable = Transaction::where([['check_in', '<=', $from], ['check_out', '>=', $to]])
-            ->orWhere([['check_in', '>=', $from], ['check_in', '<=', $to]])
-            ->orWhere([['check_out', '>=', $from], ['check_out', '<=', $to]])
-            ->get();
-
+        $occupiedRoomId = $this->getOccupiedRoomID($stayFrom, $stayUntil);
 
         $rooms = Room::with('type', 'roomStatus')
+            ->where('capacity', '>=', $request->count_person)
+            ->whereNotIn('id', $occupiedRoomId)
             ->orderBy('capacity')
             ->orderBy('price')
-            ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id', $notAvailable->pluck('room_id'))
             ->get();
 
-        return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'from', 'to'));
+        return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'stayFrom', 'stayUntil'));
     }
 
-    public function confirmation(Customer $customer, Room $room, $from, $to)
+    public function confirmation(Customer $customer, Room $room, $stayFrom, $stayUntil)
     {
         $price = $room->price;
-        $dayDifference = Helper::getDateDifference($from, $to);
+        $dayDifference = Helper::getDateDifference($stayFrom, $stayUntil);
         $downPayment = ($price * $dayDifference) * 0.15;
-        return view('transaction.reservation.confirmation', compact('customer', 'room', 'from', 'to', 'downPayment', 'dayDifference'));
+        return view('transaction.reservation.confirmation', compact('customer', 'room', 'stayFrom', 'stayUntil', 'downPayment', 'dayDifference'));
     }
 
     public function payDownPayment(Customer $customer, Room $room, Request $request)
     {
-        $from = $request->check_in;
-        $to = $request->check_out;
+        $stayFrom = $request->check_in;
+        $stayUntil = $request->check_out;
 
-        $notAvailable = Transaction::where([['check_in', '<=', $from], ['check_out', '>=', $to]])
-            ->orWhere([['check_in', '>=', $from], ['check_in', '<=', $to]])
-            ->orWhere([['check_out', '>=', $from], ['check_out', '<=', $to]])
-            ->get();
+        $occupiedRoomId = $this->getOccupiedRoomID($stayFrom, $stayUntil);
+        $occupiedRoomIdInArray = $occupiedRoomId->toArray();
 
-        $notAvailableRoom = $notAvailable->pluck('room_id')->toArray();
-
-        if (in_array($room->id, $notAvailableRoom)) {
-            return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' is not available at the moment');
+        if (in_array($room->id, $occupiedRoomIdInArray)) {
+            return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' already occupied');
         }
 
         Transaction::create([
@@ -148,5 +124,14 @@ class TransactionRoomReservationController extends Controller
         ]);
 
         return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
+    }
+
+    private function getOccupiedRoomID($stayFrom, $stayUntil)
+    {
+        $occupiedRoomId = Transaction::where([['check_in', '<=', $stayFrom], ['check_out', '>=', $stayUntil]])
+            ->orWhere([['check_in', '>=', $stayFrom], ['check_in', '<=', $stayUntil]])
+            ->orWhere([['check_out', '>=', $stayFrom], ['check_out', '<=', $stayUntil]])
+            ->pluck('room_id');
+        return $occupiedRoomId;
     }
 }

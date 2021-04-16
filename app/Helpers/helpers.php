@@ -4,8 +4,9 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-
-class Helper {
+use Intervention\Image\Facades\Image;
+class Helper
+{
     public static function convertToRupiah($price)
     {
         $price_rupiah = "Rp. " . number_format($price, 2, ',', '.');
@@ -27,14 +28,14 @@ class Helper {
         return Carbon::parse($date)->isoFormat('D MMM YYYY');
     }
 
-    public static function rrmdir($dir)
+    public static function destroy($dir)
     {
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
                 if ($object != "." && $object != "..") {
                     filetype($dir . "/" . $object) == "dir" ?
-                        Helper::rrmdir($dir . "/" . $object)
+                        Helper::destroy($dir . "/" . $object)
                         :
                         unlink($dir . "/" . $object);
                 }
@@ -53,21 +54,33 @@ class Helper {
         return $date_difference;
     }
 
-    public static function plural($value,$count){
+    public static function plural($value, $count)
+    {
         return Str::plural($value, $count);
     }
 
     public static function getColorByDay($day)
     {
         $color = '';
-        if($day==1) {
+        if ($day == 1) {
             $color = 'bg-danger';
-        } else if($day>1 && $day<4) {
+        } else if ($day > 1 && $day < 4) {
             $color = 'bg-warning';
         } else {
             $color = 'bg-success';
         }
         return $color;
     }
-}
 
+    public static function uploadImage($path, $file)
+    {
+        // Check if folder not exists then create folder
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+        $img = Image::make($file->path());
+        $img->resize(500, 500, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($path . '/' . $file->getClientOriginalName());
+    }
+}
