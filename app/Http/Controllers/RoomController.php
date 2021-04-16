@@ -66,7 +66,7 @@ class RoomController extends Controller
             $path = public_path($path);
             // Destroy the folder if theres a file
             if (is_dir($path)) {
-                Helper::rrmdir($path);
+                Helper::destroy($path);
             }
             $room->delete();
             return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');

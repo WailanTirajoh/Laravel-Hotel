@@ -59,11 +59,11 @@ class CustomerController extends Controller
     {
         try {
             $user = User::find($customer->user->id);
-            $path = 'img/user/' . $user->name . '-' . $user->id;
-            $path = public_path($path);
+            $avatar_path = 'img/user/' . $user->name . '-' . $user->id;
+            $avatar_path = public_path($avatar_path);
 
-            if (is_dir($path)) {
-                Helper::destroy($path);
+            if (is_dir($avatar_path)) {
+                Helper::destroy($avatar_path);
             }
 
             $customer->delete();

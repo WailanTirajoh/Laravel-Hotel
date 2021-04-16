@@ -74,13 +74,24 @@ class Helper
 
     public static function uploadImage($path, $file)
     {
-        // Check if folder not exists then create folder
         if (!is_dir($path)) {
             mkdir($path);
         }
+
+        $url = $file->getClientOriginalName();
+        $filename = pathinfo($url, PATHINFO_FILENAME);
+        $urlExtension = $file->getClientOriginalExtension();
+
+        $i = 0;
+        $fullpathfile = $path . '/' . $url;
+        while (file_exists($fullpathfile)) {
+            $i++;
+            $url = $filename . '-' . (string)$i . '.' . $urlExtension;
+            $fullpathfile = $path . '/' . $url;
+        }
         $img = Image::make($file->path());
-        $img->resize(500, 500, function ($constraint) {
+        $img->resize(600, 600, function ($constraint) {
             $constraint->aspectRatio();
-        })->save($path . '/' . $file->getClientOriginalName());
+        })->save($path . '/' . $url);
     }
 }
