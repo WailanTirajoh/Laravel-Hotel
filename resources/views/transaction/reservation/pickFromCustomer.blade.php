@@ -8,7 +8,7 @@
     <div class="container mt-3">
         <div class="row justify-content-md-center mt-4 my-3">
             <div class="col-lg-8 ">
-                <form class="d-flex" method="GET" action="{{ route('reservation.usersearch') }}">
+            <form class="d-flex" method="GET" action="{{ route('reservation.pickFromCustomer') }}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-user"
                         name="q" value="{{ request()->input('q') }}">
                     <button class="btn btn-outline-dark" type="submit">Search</button>
@@ -18,8 +18,8 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-12">
                 @if (!empty(request()->input('q')))
-                    <h4>Hasil pencarian: {{ request()->input('q') }}</h4>
-                    <h4>Total: {{ $customersCount }}</h4>
+                    <h4>Result for "{{ request()->input('q') }}"</h4>
+                    <h4>Total Data: {{ $customersCount }}</h4>
                 @endif
             </div>
         </div>

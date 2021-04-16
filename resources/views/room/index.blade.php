@@ -43,7 +43,7 @@
                     <div class="card shadow-sm border">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-sm table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -51,7 +51,7 @@
                                             <th scope="col">Type</th>
                                             <th scope="col">Capacity</th>
                                             <th scope="col">Price</th>
-                                            <th scope="col">View</th>
+                                            {{-- <th scope="col">View</th> --}}
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -66,11 +66,13 @@
                                                 <td>{{ $room->type->name }}</td>
                                                 <td>{{ $room->capacity }}</td>
                                                 <td>{{ Helper::convertToRupiah($room->price) }}</td>
-                                                <td><span class="text">{{ $room->view }}</span></td>
+                                                {{-- <td><span class="text">{{ $room->view }}</span></td> --}}
                                                 <td>{{ $room->roomStatus->name }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        href="{{ route('room.edit', ['room' => $room->id]) }}">
+                                                        href="{{ route('room.edit', ['room' => $room->id]) }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Edit room">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <form class="btn btn-sm" method="POST"
@@ -86,7 +88,9 @@
                                                         </a>
                                                     </form>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        href="{{ route('room.show', ['room' => $room->id]) }}">
+                                                        href="{{ route('room.show', ['room' => $room->id]) }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Room detail">
                                                         <i class="fas fa-info-circle"></i>
                                                     </a>
                                                 </td>

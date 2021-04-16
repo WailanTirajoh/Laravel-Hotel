@@ -10,7 +10,9 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         $path = 'img/room/' . $image->room->number . '/' . $image->url;
-        unlink($path);
+        if (is_dir($path)) {
+            unlink($path);
+        }
         $image->delete();
         return redirect()->back()->with('success', 'Image ' . $image->url . ' has been deleted!');
     }

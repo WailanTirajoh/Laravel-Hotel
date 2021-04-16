@@ -14,22 +14,18 @@ use Intervention\Image\Facades\Image;
 class TransactionRoomReservationController extends Controller
 {
 
-    public function pickFromCustomer()
+    public function pickFromCustomer(Request $request)
     {
-        $customers = Customer::with('user')->orderBy('id', 'DESC')->paginate(8);
-        return view('transaction.reservation.pickFromCustomer', compact('customers'));
-    }
-
-    public function usersearch(Request $request)
-    {
-        $customers = Customer::with('user')
-            ->where('name', 'Like', '%' . $request->q . '%')
-            ->orWhere('id', 'Like', '%' . $request->q . '%')
-            ->orderBy('id', 'DESC')->paginate(8);
-        $customersCount = Customer::with('user')
-            ->where('name', 'Like', '%' . $request->q . '%')
-            ->orWhere('id', 'Like', '%' . $request->q . '%')
-            ->orderBy('id', 'DESC')->count();
+        $customers = Customer::with('user')->orderBy('id', 'DESC');
+        $customersCount = Customer::with('user')->orderBy('id', 'DESC');
+        if (!empty($request->q)) {
+            $customers = $customers->where('name', 'Like', '%' . $request->q . '%')
+                ->orWhere('id', 'Like', '%' . $request->q . '%');
+            $customersCount = $customersCount->where('name', 'Like', '%' . $request->q . '%')
+                ->orWhere('id', 'Like', '%' . $request->q . '%');
+        }
+        $customers = $customers->paginate(8);
+        $customersCount = $customersCount->count();
         $customers->appends($request->all());
         return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
     }
@@ -110,14 +106,11 @@ class TransactionRoomReservationController extends Controller
 
         $rooms = Room::with('type', 'roomStatus')
             ->orderBy('capacity')
-            ->orderBy('room_status_id')
             ->orderBy('price')
             ->where('capacity', '>=', $request->count_person)
             ->whereNotIn('id', $notAvailable->pluck('room_id'))
             ->get();
-        // $notAvailableRoom = Room::whereIn('id',$notAvailable->pluck('room_id'))->get();
-        // dd($notAvailableRoom);
-        // dd(Room::whereNotIn('id',Transaction::whereBetween('check_in', [$from, $to])->pluck('id'))->get());
+
         return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'from', 'to'));
     }
 

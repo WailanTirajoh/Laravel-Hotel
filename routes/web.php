@@ -59,7 +59,6 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
     Route::get('/transaction/reservation/createIdentity', [TransactionRoomReservationController::class, 'createIdentity'])->name('reservation.createIdentity');
     Route::get('/transaction/reservation/pickFromCustomer', [TransactionRoomReservationController::class, 'pickFromCustomer'])->name('reservation.pickFromCustomer');
-    Route::get('/transaction/reservation/pickFromCustomer/search', [TransactionRoomReservationController::class, 'usersearch'])->name('reservation.usersearch');
     Route::post('/transaction/reservation/storeCustomer', [TransactionRoomReservationController::class, 'storeCustomer'])->name('reservation.storeCustomer');
     Route::get('/transaction/reservation/{customer}/countPerson', [TransactionRoomReservationController::class, 'countPerson'])->name('reservation.countPerson');
     Route::get('/transaction/reservation/{customer}/chooseRoom', [TransactionRoomReservationController::class, 'chooseRoom'])->name('reservation.chooseRoom');
@@ -71,7 +70,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
 
     // Chart pada dashboard
     Route::get('/get-dialy-guest-chart-data',[ChartController::class,'dialyGuestPerMonth']);
-    Route::get('/get-dialy-guest-chart-data/{year}/{month}/{day}',[ChartController::class,'dialyGuest']);
+    Route::get('/get-dialy-guest-chart-data/{year}/{month}/{day}',[ChartController::class,'dialyGuest'])->name('chart.dialyGuest');
 });
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([

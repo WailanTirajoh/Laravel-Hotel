@@ -22,13 +22,10 @@ class CustomerFactory extends Factory
      */
     public function definition()
     {
-        $genders = array(
-            'Male', 'Female'
-        );
         return [
             'name' => $this->faker->name,
             'address' => $this->faker->address,
-            'gender' => $genders[array_rand($genders)],
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
             'job' => $this->faker->jobTitle,
             'birthdate' => $this->faker->date(),
             'user_id' => User::factory()->isCustomer()

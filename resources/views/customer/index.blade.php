@@ -5,7 +5,6 @@
         .mybg {
             background-image: linear-gradient(#1975d1, #1975d1);
         }
-
         .numbering {
             width: 50px;
             height: 50px;
@@ -47,7 +46,7 @@
             </div>
             <div class="row">
                 @foreach ($customers as $customer)
-                    <div class="col-lg-4 col-md-4 col-sm-6 my-1">
+                    <div class="col-lg-2 col-md-4 col-sm-6 my-1">
                         <div class="card shadow-sm justify-content-start" style="min-height:350px; ">
                             <div class="row w-100" style="position:absolute;">
                                 <div class="d-flex">
