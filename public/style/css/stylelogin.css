@@ -12,10 +12,12 @@ body {
     background: linear-gradient(to right, #0099ff, #0099ff);
 }
 
-
-/* .mywrapper {
-margin-top: -300px;
-} */
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -35,27 +37,14 @@ margin-top: -300px;
     background: #555;
 }
 
-@media (min-width: 1008px) {
-    .wavestop {
-        margin-bottom: -300px;
-    }
-    .wavesbottom {
-        margin-top: -250px;
-    }
+.wavestop {
+    position: absolute;
+    top: 0;
 }
 
-.logincolor {
-    background: #042d69;
-}
-
-.logincolor:hover {
-    background: #040d21;
-}
-
-.card-signin {
-    border: 0;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+.wavesbottom {
+    position: absolute;
+    bottom: 0;
 }
 
 .card-signin .card-title {
@@ -68,19 +57,14 @@ margin-top: -300px;
     padding: 2rem;
 }
 
-.form-signin {
-    width: 100%;
-}
-
-
-/* .form-signin .btn {
-    font-size: 80%;
+.form-signin .btn {
+    font-size: 100%;
     border-radius: 5rem;
     letter-spacing: .1rem;
     font-weight: bold;
     padding: 1rem;
     transition: all 0.2s;
-} */
+}
 
 .form-label-group {
     position: relative;
@@ -144,16 +128,6 @@ margin-top: -300px;
     color: #777;
 }
 
-.btn-google {
-    color: white;
-    background-color: #ea4335;
-}
-
-.btn-facebook {
-    color: white;
-    background-color: #3b5998;
-}
-
 .glassmorphism {
     background: rgba(255, 255, 255, 0.80);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -161,19 +135,6 @@ margin-top: -300px;
     -webkit-backdrop-filter: blur(5.5px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.mycaptcha {
-    border-top-right-radius: 2rem;
-    height: auto;
-    border-bottom-right-radius: 2rem;
-}
-
-@media (max-width: 768px) {
-    .mycaptcha {
-        border-radius: 2rem;
-        height: auto;
-    }
 }
 
 

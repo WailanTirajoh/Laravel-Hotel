@@ -37,7 +37,7 @@
                                     <label for="room_price" class="col-sm-2 col-form-label">Price</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="room_price" name="room_price"
-                                            placeholder="col-form-label" value="{{ convertToRupiah($room->price) }} "
+                                            placeholder="col-form-label" value="{{ Helper::convertToRupiah($room->price) }} "
                                             readonly>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="how_long" name="how_long"
                                             placeholder="col-form-label"
-                                            value="{{ $dayDifference }} {{ plural('Day', $dayDifference) }} " readonly>
+                                            value="{{ $dayDifference }} {{ Helper::plural('Day', $dayDifference) }} " readonly>
                                     </div>
                                 </div>
                                 <form method="POST"
@@ -87,7 +87,7 @@
                                         <label for="downPayment" class="col-sm-2 col-form-label">Down Payment</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="downPayment" name="downPayment"
-                                                placeholder="col-form-label" value="{{ convertToRupiah($downPayment) }} "
+                                                placeholder="col-form-label" value="{{ Helper::convertToRupiah($downPayment) }} "
                                                 readonly>
                                         </div>
                                     </div>

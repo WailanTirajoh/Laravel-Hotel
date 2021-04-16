@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\Room;
 use App\Models\Transaction;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -124,7 +124,7 @@ class TransactionRoomReservationController extends Controller
     public function confirmation(Customer $customer, Room $room, $from, $to)
     {
         $price = $room->price;
-        $dayDifference = getDateDifference($from, $to);
+        $dayDifference = Helper::getDateDifference($from, $to);
         $downPayment = ($price * $dayDifference) * 0.15;
         return view('transaction.reservation.confirmation', compact('customer', 'room', 'from', 'to', 'downPayment', 'dayDifference'));
     }

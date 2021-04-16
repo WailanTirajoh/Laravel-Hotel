@@ -2,6 +2,17 @@
 @section('title', 'Choose Room Reservation')
 @section('head')
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
+    <style>
+        .text {
+            display: block;
+            width: 150px;
+            height: 100px;
+            overflow: hidden;
+            /* white-space: nowrap; */
+            text-overflow: ellipsis;
+        }
+
+    </style>
 @endsection
 @section('content')
     @include('transaction.reservation.progressbar')
@@ -11,8 +22,9 @@
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
                         <h2>Room Available for:</h2>
-                        <p>{{request()->input('count_person')}} Person</p>
-                        <p>{{dateFormat(request()->input('check_in'))}} ~ {{dateFormat(request()->input('check_out'))}}</p>
+                        <p>{{ request()->input('count_person') }} Person</p>
+                        <p>{{ Helper::dateFormat(request()->input('check_in')) }} ~
+                            {{ Helper::dateFormat(request()->input('check_out')) }}</p>
                         <hr>
                         @if (count($rooms) == 0)
                             <h3>Theres no available room for {{ request()->input('count_person') }} or more person</h3>
@@ -42,15 +54,9 @@
                                                         <td>{{ $room->number }}</td>
                                                         <td>{{ $room->type->name }}</td>
                                                         <td>{{ $room->capacity }}</td>
-                                                        <td>{{ convertToRupiah($room->price) }}</td>
+                                                        <td>{{ Helper::convertToRupiah($room->price) }}</td>
                                                         <td>{{ $room->roomStatus->name }}</td>
-                                                        <td><span
-                                                                style="
-                                                                                                    display:inline-block;
-                                                                                                    /* white-space: nowrap; */
-                                                                                                    overflow: hidden;
-                                                                                                    text-overflow: ellipsis;
-                                                                                                    max-width: 1000px;">{{ $room->view }}</span>
+                                                        <td><span class="text">{{ $room->view }}</span>
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-light btn-sm rounded shadow-sm border"

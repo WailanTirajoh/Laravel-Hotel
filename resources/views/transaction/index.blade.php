@@ -56,8 +56,8 @@
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ $transaction->user->name }}</td>
                                         <td>{{ $transaction->room->number }}</td>
-                                        <td>{{ dateFormat($transaction->check_in) }}</td>
-                                        <td>{{ dateFormat($transaction->check_out) }}</td>
+                                        <td>{{ Helper::dateFormat($transaction->check_in) }}</td>
+                                        <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
                                         <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
                                         <td>{{ $transaction->status }}</td>
                                         <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}

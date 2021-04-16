@@ -34,6 +34,7 @@ class UserFactory extends Factory
             'role' => $roles[array_rand($roles)],
             'password' => Hash::make('admin'), // password
             'remember_token' => Str::random(10),
+            // 'avatar' => $this->faker->image('public/img/user/testing/',640,480, null, false),
         ];
     }
 

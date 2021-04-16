@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Helpers\Helper;
 
 class Transaction extends Model
 {
@@ -37,14 +38,14 @@ class Transaction extends Model
 
     public function getTotalPayment($price, $check_in, $check_out)
     {
-        $day = getDateDifference($check_in, $check_out);
+        $day = Helper::getDateDifference($check_in, $check_out);
         $total = $price * $day;
-        return convertToRupiah($total);
+        return Helper::convertToRupiah($total);
     }
 
     public function getDateDifferenceWithPlural($check_in, $check_out)
     {
-        $day = getDateDifference($check_in,$check_out);
+        $day = Helper::getDateDifference($check_in,$check_out);
         $plural = Str::plural('Day', $day);
         return $day.' '.$plural;
     }

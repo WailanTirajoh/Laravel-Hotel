@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Image;
 use App\Models\Room;
@@ -16,7 +17,7 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::orderBy('id', 'DESC')->paginate(5);
+        $rooms = Room::orderBy('number')->paginate(5);
         return view('room.index', compact('rooms'));
     }
 
@@ -36,7 +37,7 @@ class RoomController extends Controller
     public function show(Room $room)
     {
         $roomimages = Image::where('room_id', $room->id)->get();
-        return view('room.show', compact('room','roomimages'));
+        return view('room.show', compact('room', 'roomimages'));
     }
 
     public function edit(Room $room)
@@ -54,8 +55,21 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
-        $room->delete();
-        return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');
+
+        try {
+
+            // Check if user has an image folder
+            $path = 'img/room/' . $room->number;
+            $path = public_path($path);
+            // Destroy the folder if theres a file
+            if (is_dir($path)) {
+                Helper::rrmdir($path);
+            }
+            $room->delete();
+            return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');
+        } catch (\Exception $e) {
+            return redirect()->route('room.index')->with('failed', 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
+        }
     }
 
     public function imageUpload(Request $request, Room $room)

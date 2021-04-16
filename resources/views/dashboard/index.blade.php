@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <p class="d-flex flex-column">
                             <span class="text-bold text-lg">Belum</span>
-                            <span>Total Guests at {{thisMonth()}}</span>
+                            <span>Total Guests at {{Helper::thisMonth()}}</span>
                         </p>
                         <p class="ml-auto d-flex flex-column text-right">
                             <span class="text-success">
@@ -26,12 +26,12 @@
                         </p>
                     </div>
                     <div class="position-relative mb-4">
-                        <canvas this-year="{{thisYear()}}" this-month="{{thisMonth()}}" id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
+                        <canvas this-year="{{Helper::thisYear()}}" this-month="{{Helper::thisMonth()}}" id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
                             style="display: block; width: 249px; height: 200px;"></canvas>
                     </div>
                     <div class="d-flex flex-row justify-content-between">
                         <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> {{thisMonth()}}
+                            <i class="fas fa-square text-primary"></i> {{Helper::thisMonth()}}
                         </span>
                         <span>
                             <i class="fas fa-square text-gray"></i> Last month
@@ -99,8 +99,8 @@
                                                 {{ $transaction->customer->name }}
                                             </td>
                                             <td>{{ $transaction->room->number }}</td>
-                                            <td>{{ getDateDifference(now(), $transaction->check_out) }}
-                                                {{ plural('Day', getDateDifference(now(), $transaction->check_out)) }}
+                                            <td>{{ Helper::getDateDifference(now(), $transaction->check_out) }}
+                                                {{ Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                             </td>
                                             <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
                                             </td>

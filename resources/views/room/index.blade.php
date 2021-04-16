@@ -1,5 +1,18 @@
 @extends('template.master')
 @section('title', 'Room')
+@section('head')
+    <style>
+        .text {
+            display: block;
+            width: 150px;
+            height: 100px;
+            overflow: hidden;
+            /* white-space: nowrap; */
+            text-overflow: ellipsis;
+        }
+
+    </style>
+@endsection
 @section('content')
 
     <div class="row">
@@ -52,13 +65,8 @@
                                                 <td>{{ $room->number }}</td>
                                                 <td>{{ $room->type->name }}</td>
                                                 <td>{{ $room->capacity }}</td>
-                                                <td>{{ $room->price }}</td>
-                                                <td><span style="
-                                                                display:inline-block;
-                                                                /* white-space: nowrap; */
-                                                                overflow: hidden;
-                                                                text-overflow: ellipsis;
-                                                                max-width: 1000px;">{{ $room->view }}</span></td>
+                                                <td>{{ Helper::convertToRupiah($room->price) }}</td>
+                                                <td><span class="text">{{ $room->view }}</span></td>
                                                 <td>{{ $room->roomStatus->name }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
