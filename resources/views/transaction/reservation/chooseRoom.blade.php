@@ -36,13 +36,13 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
+                                                    <th scope="col">Action</th>
                                                     <th scope="col">Number</th>
                                                     <th scope="col">Type</th>
                                                     <th scope="col">Capacity</th>
-                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Price / Day</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">View</th>
-                                                    <th scope="col">Action</th>
+                                                    {{-- <th scope="col">View</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -51,18 +51,18 @@
                                                         <td scope="row">
                                                             {{ $loop->iteration }}
                                                         </td>
+                                                        <td>
+                                                            <a class="btn btn-light btn-sm rounded shadow-sm border"
+                                                                href="{{ route('transaction.reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}">
+                                                                Choose
+                                                            </a>
+                                                        </td>
                                                         <td>{{ $room->number }}</td>
                                                         <td>{{ $room->type->name }}</td>
                                                         <td>{{ $room->capacity }}</td>
                                                         <td>{{ Helper::convertToRupiah($room->price) }}</td>
                                                         <td>{{ $room->roomStatus->name }}</td>
-                                                        <td><span class="text">{{ $room->view }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                                href="{{ route('reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}">
-                                                                Choose
-                                                            </a>
+                                                        {{-- <td><span class="text">{{ $room->view }}</span> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach

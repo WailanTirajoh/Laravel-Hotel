@@ -5,6 +5,7 @@
         .mybg {
             background-image: linear-gradient(#1975d1, #1975d1);
         }
+
         .numbering {
             width: 50px;
             height: 50px;
@@ -37,15 +38,15 @@
                     </a>
                 </div>
                 <div class="col-lg-6 mb-2">
-                    <form class="d-flex" method="GET" action="{{ route('customer.search') }}">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
-                            name="q" value="{{ request()->input('q') }}">
+                    <form class="d-flex" method="GET" action="{{ route('customer.index') }}">
+                        <input class="form-control me-2" type="search" placeholder="Search by name" aria-label="Search" id="search"
+                            name="search" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
             </div>
             <div class="row">
-                @foreach ($customers as $customer)
+                @forelse ($customers as $customer)
                     <div class="col-lg-2 col-md-4 col-sm-6 my-1">
                         <div class="card shadow-sm justify-content-start" style="min-height:350px; ">
                             <div class="row w-100" style="position:absolute;">
@@ -71,9 +72,8 @@
                                                     action="{{ route('customer.destroy', ['customer' => $customer->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a class="dropdown-item delete" href="#"
-                                                        customer-id="{{ $customer->id }}" customer-role="Customer"
-                                                        customer-name="{{ $customer->name }}">
+                                                    <a class="dropdown-item delete" href="#" customer-id="{{ $customer->id }}"
+                                                        customer-role="Customer" customer-name="{{ $customer->name }}">
                                                         Delete
                                                     </a>
                                                 </form>
@@ -144,7 +144,9 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <h4 class="text-center text-danger">There's no customer found on database</h4>
+                @endforelse
             </div>
             <div class="row justify-content-md-center mt-3">
                 <div class="col-sm-10 d-flex justify-content-md-center">
@@ -157,35 +159,35 @@
 @endsection
 
 @section('footer')
-    <script>
-        $('.delete').click(function() {
-            var customer_id = $(this).attr('customer-id');
-            var customer_name = $(this).attr('customer-name');
-            var customer_url = $(this).attr('customer-url');
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
+<script>
+    $('.delete').click(function() {
+        var customer_id = $(this).attr('customer-id');
+        var customer_name = $(this).attr('customer-name');
+        var customer_url = $(this).attr('customer-url');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: customer_name + " will be deleted, You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel! ',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    id = "#delete-customer-form-" + customer_id
-                    console.log(id)
-                    $(id).submit();
-                }
-            })
-        });
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: customer_name + " will be deleted, You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel! ',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                id = "#delete-customer-form-" + customer_id
+                console.log(id)
+                $(id).submit();
+            }
+        })
+    });
 
-    </script>
+</script>
 @endsection

@@ -62,10 +62,15 @@ $(function() {
                     },
                     hover: {
                         mode: mode,
-                        intersect: intersect
+                        intersect: intersect,
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
+                        }
                     },
                     legend: {
-                        display: false
+                        display: false,
                     },
                     scales: {
                         yAxes: [{

@@ -13,7 +13,7 @@
                         <h2>Add Customer</h2>
                     </div>
                     <div class="card-body p-3">
-                        <form class="row g-3" method="POST" action="{{ route('reservation.storeCustomer') }}"
+                        <form class="row g-3" method="POST" action="{{ route('transaction.reservation.storeCustomer') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-12">

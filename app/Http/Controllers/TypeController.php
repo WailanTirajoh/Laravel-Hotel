@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTypeRequest;
 use App\Models\Type;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::orderBy('id', 'DESC')->paginate(5);
+        $types = Type::orderBy('id', 'DESC');
+        if (!empty($request->search)) {
+            $types = $types->where('name','LIKE','%'.$request->search.'%');
+        }
+        $types = $types->paginate(5);
+        $types->appends($request->all());
         return view('type.index', compact('types'));
     }
 

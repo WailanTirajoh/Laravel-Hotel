@@ -76,7 +76,7 @@ class TransactionRoomReservationController extends Controller
             'user_id' => $user->id
         ]);
 
-        return redirect()->route('reservation.countPerson', ['customer' => $customer->id])->with('success', 'Customer ' . $customer->name . ' created!');
+        return redirect()->route('transaction.reservation.countPerson', ['customer' => $customer->id])->with('success', 'Customer ' . $customer->name . ' created!');
     }
 
     public function countPerson(Customer $customer)

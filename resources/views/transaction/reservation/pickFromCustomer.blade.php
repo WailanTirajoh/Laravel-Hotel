@@ -8,7 +8,7 @@
     <div class="container mt-3">
         <div class="row justify-content-md-center mt-4 my-3">
             <div class="col-lg-8 ">
-            <form class="d-flex" method="GET" action="{{ route('reservation.pickFromCustomer') }}">
+            <form class="d-flex" method="GET" action="{{ route('transaction.reservation.pickFromCustomer') }}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-user"
                         name="q" value="{{ request()->input('q') }}">
                     <button class="btn btn-outline-dark" type="submit">Search</button>
@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="d-grid gap-2 col-6 mx-auto">
-                                        <a href="{{ route('reservation.countPerson', ['customer' => $customer->id]) }}"
+                                        <a href="{{ route('transaction.reservation.countPerson', ['customer' => $customer->id]) }}"
                                             class="btn btn-primary">Choose</a>
                                     </div>
                                 </div>

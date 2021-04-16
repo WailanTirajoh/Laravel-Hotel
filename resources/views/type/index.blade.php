@@ -16,10 +16,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mb-2">
-                    <form class="d-flex" method="POST" action="/type/search">
-                        @csrf
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search"
-                            name="search" value="">
+                    <form class="d-flex" method="GET" action="{{ route('type.index') }}">
+                        <input class="form-control me-2" type="Search by name" placeholder="Search by name" aria-label="Search" id="search"
+                            name="search" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
@@ -39,18 +38,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($types as $type)
+                                        @forelse ($types as $type)
                                             <tr>
                                                 <td scope="row">
                                                     {{ ($types->currentpage() - 1) * $types->perpage() + $loop->index + 1 }}
                                                 </td>
                                                 <td style="white-space: nowrap">{{ $type->name }}</td>
                                                 <td><span style="
-                                                display:inline-block;
-                                                /* white-space: nowrap; */
-                                                overflow: hidden;
-                                                text-overflow: ellipsis;
-                                                max-width: 1000px;">{{ $type->information }}</span></td>
+                                                            display:inline-block;
+                                                            /* white-space: nowrap; */
+                                                            overflow: hidden;
+                                                            text-overflow: ellipsis;
+                                                            max-width: 1000px;">{{ $type->information }}</span></td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                         href="{{ route('type.edit', ['type' => $type->id]) }}">
@@ -66,15 +65,12 @@
                                                         action="{{ route('type.destroy', ['type' => $type->id]) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete"
-                                                            href="#" type-id="{{ $type->id }}"
-                                                            type-role="type"
-                                                            type-name="{{ $type->name }}"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Delete Type">
-                                                            <svg width="25" xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
+                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete" href="#"
+                                                            type-id="{{ $type->id }}" type-role="type"
+                                                            type-name="{{ $type->name }}" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete Type">
+                                                            <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2"
                                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -83,7 +79,14 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="10">
+                                                    <h4 class="text-center text-danger">There's no type found on database
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -105,35 +108,35 @@
 @endsection
 
 @section('footer')
-    <script>
-        $('.delete').click(function() {
-            var type_id = $(this).attr('type-id');
-            var type_name = $(this).attr('type-name');
-            var type_url = $(this).attr('type-url');
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
+<script>
+    $('.delete').click(function() {
+        var type_id = $(this).attr('type-id');
+        var type_name = $(this).attr('type-name');
+        var type_url = $(this).attr('type-url');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: type_name + " will be deleted, You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel! ',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    id = "#delete-type-form-" + type_id
-                    console.log(id)
-                    $(id).submit();
-                }
-            })
-        });
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: type_name + " will be deleted, You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel! ',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                id = "#delete-type-form-" + type_id
+                console.log(id)
+                $(id).submit();
+            }
+        })
+    });
 
-    </script>
+</script>
 @endsection

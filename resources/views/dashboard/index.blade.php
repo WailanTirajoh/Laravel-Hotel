@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <p class="d-flex flex-column">
                             <span class="text-bold text-lg">Belum</span>
-                            <span>Total Guests at {{Helper::thisMonth()}}</span>
+                            <span>Total Guests at {{ Helper::thisMonth() }}</span>
                         </p>
                         <p class="ml-auto d-flex flex-column text-right">
                             <span class="text-success">
@@ -26,12 +26,13 @@
                         </p>
                     </div>
                     <div class="position-relative mb-4">
-                        <canvas this-year="{{Helper::thisYear()}}" this-month="{{Helper::thisMonth()}}" id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
+                        <canvas this-year="{{ Helper::thisYear() }}" this-month="{{ Helper::thisMonth() }}"
+                            id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
                             style="display: block; width: 249px; height: 200px;"></canvas>
                     </div>
                     <div class="d-flex flex-row justify-content-between">
                         <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> {{Helper::thisMonth()}}
+                            <i class="fas fa-square text-primary"></i> {{ Helper::thisMonth() }}
                         </span>
                         <span>
                             <i class="fas fa-square text-gray"></i> Last month
@@ -91,11 +92,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($transactions as $transaction)
+                                    @forelse ($transactions as $transaction)
                                         <tr>
                                             <td>
                                                 <img src="{{ $transaction->customer->user->getAvatar() }}"
-                                                    class="rounded-circle border-sm" width="40" height="40" alt="">
+                                                    class="rounded-circle img-thumbnail" width="40" height="40" alt="">
                                                 {{ $transaction->customer->name }}
                                             </td>
                                             <td>{{ $transaction->room->number }}</td>
@@ -110,7 +111,16 @@
                                             <td>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <h4 class="text-center text-danger">There's no transaction found on database</h4>
+                                    @endforelse
+                                    @if ($transactions->count() == 0)
+                                        <tr>
+                                            <td colspan="6" class="text-center">
+                                                There's no data in this table
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -120,10 +130,10 @@
         </div>
     </div>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> --}}
-<canvas id="pieChart"></canvas>
+    <canvas id="pieChart"></canvas>
 @endsection
 @section('footer')
-    <script src="{{ asset('style/js/jquery.js') }}"></script>
-    <script src="{{ asset('style/js/chart.min.js') }}"></script>
-    <script src="{{ asset('style/js/guestsChart.js') }}"></script>
+<script src="{{ asset('style/js/jquery.js') }}"></script>
+<script src="{{ asset('style/js/chart.min.js') }}"></script>
+<script src="{{ asset('style/js/guestsChart.js') }}"></script>
 @endsection

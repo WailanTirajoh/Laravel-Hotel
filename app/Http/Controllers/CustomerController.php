@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
@@ -10,9 +11,14 @@ use Intervention\Image\Facades\Image;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::with('user')->orderBy('id', 'DESC')->paginate(6);
+        $customers = Customer::with('user')->orderBy('id', 'DESC');
+        if (!empty($request->search)) {
+            $customers = $customers->where('name', 'LIKE', '%' . $request->search . '%');
+        }
+        $customers = $customers->paginate(6);
+        $customers->appends($request->all());
         return view('customer.index', compact('customers'));
     }
 
@@ -90,7 +96,7 @@ class CustomerController extends Controller
             $path = public_path($path);
             // Destroy the folder if theres a file
             if (is_dir($path)) {
-                rrmdir($path);
+                Helper::rrmdir($path);
             }
 
             $customer->delete();
@@ -98,17 +104,6 @@ class CustomerController extends Controller
             return redirect('customer')->with('success', 'Customer ' . $customer->name . ' deleted!');
         } catch (\Exception $e) {
             return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
-        }
-    }
-
-    public function search(Request $request)
-    {
-        if (!empty($request->q)) {
-            $customers = Customer::where('name', 'Like', '%' . $request->q . '%')->paginate(6);
-            $customers->appends($request->all());
-            return view('customer.index', compact('customers'));
-        } else {
-            return redirect('customer');
         }
     }
 }

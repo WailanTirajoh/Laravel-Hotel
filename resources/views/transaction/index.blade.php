@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="col-lg-6 mb-2">
-            <form class="d-flex" method="GET" action="#">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-user"
-                    name="q" value="{{ request()->input('q') }}">
+            <form class="d-flex" method="GET" action="{{route('transaction.index')}}">
+                <input class="form-control me-2" type="search" placeholder="Search by ID" aria-label="Search" id="search-user"
+                    name="search" value="{{ request()->input('search') }}">
                 <button class="btn btn-outline-dark" type="submit">Search</button>
             </form>
         </div>
@@ -35,6 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>ID</th>
                                     <th>Customer</th>
                                     <th>Admin</th>
                                     <th>Room</th>
@@ -49,21 +50,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($transactions as $transaction)
+                                @forelse ($transactions as $transaction)
                                     <tr>
                                         <th>{{ ($transactions->currentpage() - 1) * $transactions->perpage() + $loop->index + 1 }}
                                         </th>
+                                        <td>{{ $transaction->id }}</td>
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ $transaction->user->name }}</td>
                                         <td>{{ $transaction->room->number }}</td>
                                         <td>{{ Helper::dateFormat($transaction->check_in) }}</td>
                                         <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
-                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
+                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
+                                        </td>
                                         <td>{{ $transaction->status }}</td>
                                         <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
                                         </td>
-                                        <td>Telah dibayar disini</td>
-                                        <td>Kekurangan pembayaran disini</td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
                                                 href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
@@ -72,7 +75,13 @@
                                             </a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="15">
+                                            <h4 class="text-center text-danger">There's no transaction found on database</h4>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         {{ $transactions->onEachSide(2)->links('template.paginationlinks') }}
@@ -109,7 +118,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($transactionsExpired as $transaction)
+                                @forelse ($transactionsExpired as $transaction)
                                     <tr>
                                         <th>{{ ($transactions->currentpage() - 1) * $transactions->perpage() + $loop->index + 1 }}
                                         </th>
@@ -118,12 +127,13 @@
                                         <td>{{ $transaction->room->number }}</td>
                                         <td>{{ dateFormat($transaction->check_in) }}</td>
                                         <td>{{ dateFormat($transaction->check_out) }}</td>
-                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}</td>
+                                        <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
+                                        </td>
                                         <td>{{ $transaction->status }}</td>
                                         <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
                                         </td>
-                                        <td>Telah dibayar disini</td>
-                                        <td>Kekurangan pembayaran disini</td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
                                                 href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
@@ -132,7 +142,13 @@
                                             </a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="15">
+                                            <h4 class="text-center text-danger">There's no transaction found on database</h4>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         {{ $transactions->onEachSide(2)->links('template.paginationlinks') }}
@@ -155,9 +171,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-sm btn-primary m-1" href="{{ route('reservation.createIdentity') }}">No, Create
+                        <a class="btn btn-sm btn-primary m-1"
+                            href="{{ route('transaction.reservation.createIdentity') }}">No, Create
                             new account!</a>
-                        <a class="btn btn-sm btn-success m-1" href="{{ route('reservation.pickFromCustomer') }}">Yes, use
+                        <a class="btn btn-sm btn-success m-1"
+                            href="{{ route('transaction.reservation.pickFromCustomer') }}">Yes, use
                             my account please!</a>
                     </div>
                 </div>

@@ -23,14 +23,14 @@
                 <li>
                     <a href="{{ route('transaction.index') }}" class="nav-link py-3 border-bottom myBtn
                         {{ Route::currentRouteName() == 'transaction.index' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.createIdentity' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.pickFromCustomer' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.usersearch' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.storeCustomer' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.countPerson' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.chooseRoom' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.confirmation' ? 'active' : '' }}
-                        {{ Route::currentRouteName() == 'reservation.payDownPayment' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.createIdentity' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.pickFromCustomer' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.usersearch' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.storeCustomer' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.countPerson' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.chooseRoom' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.confirmation' ? 'active' : '' }}
+                        {{ Route::currentRouteName() == 'transaction.reservation.payDownPayment' ? 'active' : '' }}
                         " data-bs-toggle="tooltip" data-bs-placement="right" title="Transactions">
                         <i class="fas fa-cash-register"></i>
                     </a>

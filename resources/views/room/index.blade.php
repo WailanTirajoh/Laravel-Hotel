@@ -30,10 +30,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mb-2">
-                    <form class="d-flex" method="GET" action="{{ route('room.search') }}">
-                        @csrf
-                        <input class="form-control me-2" room="search" placeholder="Search" aria-label="Search" id="search"
-                            name="search" value="">
+                    <form class="d-flex" method="GET" action="{{ route('room.index') }}">
+                        <input class="form-control me-2" room="search" placeholder="Search by number" aria-label="Search" id="search"
+                            name="search" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-dark" room="submit">Search</button>
                     </form>
                 </div>
@@ -50,14 +49,15 @@
                                             <th scope="col">Number</th>
                                             <th scope="col">Type</th>
                                             <th scope="col">Capacity</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Price / Day</th>
                                             {{-- <th scope="col">View</th> --}}
+                                            <th scope="col">Images</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($rooms as $room)
+                                        @forelse ($rooms as $room)
                                             <tr>
                                                 <td scope="row">
                                                     {{ ($rooms->currentpage() - 1) * $rooms->perpage() + $loop->index + 1 }}
@@ -67,12 +67,16 @@
                                                 <td>{{ $room->capacity }}</td>
                                                 <td>{{ Helper::convertToRupiah($room->price) }}</td>
                                                 {{-- <td><span class="text">{{ $room->view }}</span></td> --}}
+                                                <td>
+                                                    @foreach ($room->image as $image)
+                                                        <img src="{{asset($image->getRoomImage())}}" alt="" width="150" height="150">
+                                                    @endforeach
+                                                </td>
                                                 <td>{{ $room->roomStatus->name }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                         href="{{ route('room.edit', ['room' => $room->id]) }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit room">
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit room">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <form class="btn btn-sm" method="POST"
@@ -80,8 +84,8 @@
                                                         action="{{ route('room.destroy', ['room' => $room->id]) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete"
-                                                            href="#" room-id="{{ $room->id }}" room-role="room"
+                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete" href="#"
+                                                            room-id="{{ $room->id }}" room-role="room"
                                                             room-name="{{ $room->name }}" data-bs-toggle="tooltip"
                                                             data-bs-placement="top" title="Delete room">
                                                             <i class="fas fa-trash-alt"></i>
@@ -89,13 +93,18 @@
                                                     </form>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                         href="{{ route('room.show', ['room' => $room->id]) }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Room detail">
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Room detail">
                                                         <i class="fas fa-info-circle"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <td colspan="10">
+                                                <h4 class="text-center text-danger">There's no room found on database</h4>
+                                            </td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -118,35 +127,35 @@
 @endsection
 
 @section('footer')
-    <script>
-        $('.delete').click(function() {
-            var room_id = $(this).attr('room-id');
-            var room_name = $(this).attr('room-name');
-            var room_url = $(this).attr('room-url');
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
+<script>
+    $('.delete').click(function() {
+        var room_id = $(this).attr('room-id');
+        var room_name = $(this).attr('room-name');
+        var room_url = $(this).attr('room-url');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "Room number " + room_name + " will be deleted, You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel! ',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    id = "#delete-room-form-" + room_id
-                    console.log(id)
-                    $(id).submit();
-                }
-            })
-        });
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Room number " + room_name + " will be deleted, You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel! ',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                id = "#delete-room-form-" + room_id
+                console.log(id)
+                $(id).submit();
+            }
+        })
+    });
 
-    </script>
+</script>
 @endsection

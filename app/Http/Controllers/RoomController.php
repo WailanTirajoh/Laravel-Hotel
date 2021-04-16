@@ -9,15 +9,20 @@ use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image as ImageUpload;
+
 
 use function PHPUnit\Framework\fileExists;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::orderBy('number')->paginate(5);
+        $rooms = Room::with('type','roomStatus')->orderBy('number');
+        if (!empty($request->search)) {
+            $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
+        }
+        $rooms = $rooms->paginate(5);
+        $rooms->appends($request->all());
         return view('room.index', compact('rooms'));
     }
 
@@ -55,9 +60,7 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
-
         try {
-
             // Check if user has an image folder
             $path = 'img/room/' . $room->number;
             $path = public_path($path);
@@ -70,45 +73,5 @@ class RoomController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('room.index')->with('failed', 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
         }
-    }
-
-    public function imageUpload(Request $request, Room $room)
-    {
-        $request->validate([
-            'image' => 'required|mimes:png,jpg'
-        ]);
-
-        if ($request->hasFile('image')) {
-            $path = 'img/room/' . $room->number;
-            $path = public_path($path);
-            $file = $request->file('image');
-            // Check if folder not exists then create folder
-            if (!is_dir($path)) {
-                mkdir($path);
-            }
-            $url = $file->getClientOriginalName();
-            $filename = pathinfo($url, PATHINFO_FILENAME);
-            $urlExtension = $file->getClientOriginalExtension();
-
-            $fullpathfile = $path . '/' . $url;
-            $i = 0;
-            // dd(file_exists($fullpathfile));
-            while (file_exists($fullpathfile)) {
-                $i++;
-                $url = $filename . '-' . (string)$i . '.' . $urlExtension;
-                $fullpathfile = $path . '/' . $url;
-            }
-            $img = ImageUpload::make($file->path());
-            $img->resize(600, 600, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path . '/' . $url);
-            Image::create([
-                'room_id' => $room->id,
-                'url' => $url,
-            ]);
-        }
-
-
-        return redirect()->route('room.show', ['room' => $room->id])->with('success', 'Image upload successfully!');
     }
 }

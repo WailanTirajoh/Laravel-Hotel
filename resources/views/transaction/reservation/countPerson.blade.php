@@ -13,7 +13,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <form class="row g-3" method="GET"
-                                    action="{{ route('reservation.chooseRoom', ['customer' => $customer->id]) }}">
+                                    action="{{ route('transaction.reservation.chooseRoom', ['customer' => $customer->id]) }}">
                                     <div class="col-md-12">
                                         <label for="count_person" class="form-label">
                                             How many person?

@@ -23,7 +23,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('room.imageUpload', ['room' => $room->id]) }}"
+                                        <form action="{{ route('image.create', ['room' => $room->id]) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="input-group mb-3">
@@ -59,6 +59,7 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                                             <form action="{{ route('image.destroy', ['image' => $image->id]) }}" method="POST">
+                                                @method('DELETE')
                                                 @csrf
                                                 <button type="submit"
                                                     class="btn btn-sm btn-outline-secondary">Delete</button>

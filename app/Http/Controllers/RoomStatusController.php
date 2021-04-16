@@ -13,9 +13,16 @@ class RoomStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roomstatuses = RoomStatus::paginate(5);
+        $roomstatuses = RoomStatus::orderBy('id');
+
+        if (!empty($request->search)) {
+            $roomstatuses = $roomstatuses->where('name', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $roomstatuses = $roomstatuses->paginate(5);
+        $roomstatuses->appends($request->all());
         return view('roomstatus.index', compact('roomstatuses'));
     }
 

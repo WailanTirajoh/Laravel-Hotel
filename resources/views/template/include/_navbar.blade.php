@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="dropdown ms-auto">
                 <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ auth()->user()->getAvatar() }}" class="rounded-circle border" width="40" height="40"
+                    <img src="{{ auth()->user()->getAvatar() }}" class="rounded-circle img-thumbnail" width="40" height="40"
                         alt="">
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">

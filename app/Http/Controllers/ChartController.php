@@ -51,6 +51,6 @@ class ChartController extends Controller
 
         $transactions = Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->get();
 
-        return view('dashboard.chart_detail', compact('transactions'));
+        return view('dashboard.chart_detail', compact('transactions','date'));
     }
 }

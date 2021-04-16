@@ -26,4 +26,9 @@ class Room extends Model
     {
         return $this->belongsTo(RoomStatus::class);
     }
+
+    public function image()
+    {
+        return $this->hasMany(Image::class);
+    }
 }
