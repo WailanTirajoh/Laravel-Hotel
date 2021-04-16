@@ -10,9 +10,6 @@ use App\Models\RoomStatus;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
-
-use function PHPUnit\Framework\fileExists;
-
 class RoomController extends Controller
 {
     public function index(Request $request)
