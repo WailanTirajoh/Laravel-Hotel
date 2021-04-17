@@ -19,7 +19,7 @@ class TransactionController extends Controller
         }
 
         $transactions = $transactions->orderBy('check_out', 'ASC')->orderBy('id', 'DESC')->paginate(20);
-        $transactionsExpired = $transactionsExpired->orderBy('id', 'DESC')->paginate(20);
+        $transactionsExpired = $transactionsExpired->orderBy('check_out', 'ASC')->paginate(20);
 
         $transactions->appends($request->all());
         $transactionsExpired->appends($request->all());

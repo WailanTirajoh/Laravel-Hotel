@@ -73,14 +73,14 @@
                                         <label for="check_in" class="col-sm-2 col-form-label">Check In</label>
                                         <div class="col-sm-10">
                                             <input type="date" class="form-control" id="check_in" name="check_in"
-                                                placeholder="col-form-label" value="{{ $from }}" readonly>
+                                                placeholder="col-form-label" value="{{ $stayFrom }}" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="check_out" class="col-sm-2 col-form-label">Check Out</label>
                                         <div class="col-sm-10">
                                             <input type="date" class="form-control" id="check_out" name="check_out"
-                                                placeholder="col-form-label" value="{{ $to }}" readonly>
+                                                placeholder="col-form-label" value="{{ $stayUntil }}" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">

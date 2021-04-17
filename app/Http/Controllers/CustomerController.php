@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use app\Helpers\CustomerService;
 use App\Helpers\Helper;
+use app\Helpers\ImageService;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
@@ -63,7 +64,7 @@ class CustomerController extends Controller
             $avatar_path = public_path($avatar_path);
 
             if (is_dir($avatar_path)) {
-                Helper::destroy($avatar_path);
+                ImageService::destroy($avatar_path);
             }
 
             $customer->delete();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use app\Helpers\ImageService;
 use App\Models\Image;
 use App\Models\Room;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class ImageController extends Controller
             $path = public_path($path);
             $file = $request->file('image');
 
-            Helper::uploadImage($path, $file);
+            ImageService::uploadImage($path, $file);
 
             Image::create([
                 'room_id' => $room->id,

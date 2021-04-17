@@ -22,7 +22,7 @@ class CustomerService
             $path = public_path($path);
             $file = $request->file('avatar');
 
-            Helper::uploadImage($path, $file);
+            ImageService::uploadImage($path, $file);
 
             $user->avatar = $file->getClientOriginalName();
             $user->save();
