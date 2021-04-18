@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="col-lg-6 mb-2">
-            <form class="d-flex" method="GET" action="{{route('transaction.index')}}">
-                <input class="form-control me-2" type="search" placeholder="Search by ID" aria-label="Search" id="search-user"
-                    name="search" value="{{ request()->input('search') }}">
+            <form class="d-flex" method="GET" action="{{ route('transaction.index') }}">
+                <input class="form-control me-2" type="search" placeholder="Search by ID" aria-label="Search"
+                    id="search-user" name="search" value="{{ request()->input('search') }}">
                 <button class="btn btn-outline-dark" type="submit">Search</button>
             </form>
         </div>
@@ -63,13 +63,16 @@
                                         <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
                                         </td>
                                         <td>{{ $transaction->status }}</td>
-                                        <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
+                                        <td>{{ Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out)) }}
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            {{ Helper::convertToRupiah($transaction->getTotalPayment()) }}
+                                        </td>
+                                        <td>{{ $transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment() < 0 ? 'Rp. 0' : Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}
+                                        </td>
                                         <td>
                                             <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
-                                                href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
+                                                href="{{ route('transaction.payment.create', ['transaction' => $transaction->id]) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
                                                 <i class="fas fa-money-bill-wave-alt"></i>
                                             </a>
@@ -77,8 +80,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="15">
-                                            <h4 class="text-center text-danger">There's no transaction found on database</h4>
+                                        <td colspan="15" class="text-center">
+                                            There's no data in this table
                                         </td>
                                     </tr>
                                 @endforelse
@@ -125,8 +128,8 @@
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ $transaction->user->name }}</td>
                                         <td>{{ $transaction->room->number }}</td>
-                                        <td>{{ dateFormat($transaction->check_in) }}</td>
-                                        <td>{{ dateFormat($transaction->check_out) }}</td>
+                                        <td>{{ Helper::dateFormat($transaction->check_in) }}</td>
+                                        <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
                                         <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
                                         </td>
                                         <td>{{ $transaction->status }}</td>
@@ -136,7 +139,7 @@
                                         <td></td>
                                         <td>
                                             <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
-                                                href="{{ route('payment.create', ['transaction' => $transaction->id]) }}"
+                                                href="{{ route('transaction.payment.create', ['transaction' => $transaction->id]) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
                                                 <i class="fas fa-money-bill-wave-alt"></i>
                                             </a>
@@ -144,8 +147,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="15">
-                                            <h4 class="text-center text-danger">There's no transaction found on database</h4>
+                                        <td colspan="15" class="text-center">
+                                            There's no data in this table
                                         </td>
                                     </tr>
                                 @endforelse

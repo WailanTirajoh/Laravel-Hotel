@@ -3,13 +3,15 @@
 @section('head')
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
     <style>
-        .text {
-            display: block;
-            width: 150px;
-            height: 100px;
+        .wrapper {
+            max-width: 400px;
+        }
+
+        .demo-1 {
             overflow: hidden;
-            /* white-space: nowrap; */
-            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
 
     </style>
@@ -18,64 +20,47 @@
     @include('transaction.reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center">
-            <div class="col-sm-8 mt-2">
+            <div class="col-md-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
-                        <h2>Room Available for:</h2>
-                        <p>{{ request()->input('count_person') }} Person</p>
-                        <p>{{ Helper::dateFormat(request()->input('check_in')) }} ~
+                        <h2>{{ count($rooms) }} Room Available for:</h2>
+                        <p>{{ request()->input('count_person') }}
+                            {{ Helper::plural('People', request()->input('count_person')) }} |
+                            {{ Helper::dateFormat(request()->input('check_in')) }} ~
                             {{ Helper::dateFormat(request()->input('check_out')) }}</p>
                         <hr>
-                        @if (count($rooms) == 0)
-                            <h3>Theres no available room for {{ request()->input('count_person') }} or more person</h3>
-                        @else
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Action</th>
-                                                    <th scope="col">Number</th>
-                                                    <th scope="col">Type</th>
-                                                    <th scope="col">Capacity</th>
-                                                    <th scope="col">Price / Day</th>
-                                                    <th scope="col">Status</th>
-                                                    {{-- <th scope="col">View</th> --}}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($rooms as $room)
-                                                    <tr>
-                                                        <td scope="row">
-                                                            {{ $loop->iteration }}
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                                href="{{ route('transaction.reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}">
-                                                                Choose
-                                                            </a>
-                                                        </td>
-                                                        <td>{{ $room->number }}</td>
-                                                        <td>{{ $room->type->name }}</td>
-                                                        <td>{{ $room->capacity }}</td>
-                                                        <td>{{ Helper::convertToRupiah($room->price) }}</td>
-                                                        <td>{{ $room->roomStatus->name }}</td>
-                                                        {{-- <td><span class="text">{{ $room->view }}</span> --}}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                        <div class="row">
+                            @forelse ($rooms as $room)
+                                <div class="col-lg-12">
+                                    <div
+                                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                        <div class="col p-4 d-flex flex-column position-static">
+                                            <strong
+                                                class="d-inline-block mb-2 text-secondary">{{ $room->roomStatus->name }}</strong>
+                                            <h3 class="mb-0">{{ $room->type->name }} ~ {{ $room->number }}</h3>
+                                            <div class="mb-1 text-muted">{{ Helper::convertToRupiah($room->price) }}
+                                            </div>
+                                            <div class="wrapper">
+                                                <p class="card-text mb-auto demo-1">{{ $room->view }}</p>
+                                            </div>
+                                            <a href="{{ route('transaction.reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}"
+                                                class="">Choose</a>
+                                        </div>
+                                        <div class="col-auto d-none d-lg-block">
+                                            <img src="{{ $room->firstImage() }}" width="200" height="250" alt="">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @empty
+                                <h3>Theres no available room for {{ request()->input('count_person') }} or more
+                                    person
+                                </h3>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 mt-2">
+            <div class="col-md-4 mt-2">
                 <div class="card shadow-sm">
                     <img src="{{ $customer->user->getAvatar() }}"
                         style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">

@@ -54,4 +54,9 @@ class Helper
         }
         return $color;
     }
+
+    public static function getTotalPayment($day, $price)
+    {
+        return $day * $price;
+    }
 }

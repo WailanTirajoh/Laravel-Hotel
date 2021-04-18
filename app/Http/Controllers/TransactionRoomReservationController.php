@@ -7,6 +7,7 @@ use App\Helpers\Helper;
 use App\Http\Requests\ChooseRoomRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
+use App\Models\Payment;
 use App\Models\Room;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -81,6 +82,12 @@ class TransactionRoomReservationController extends Controller
     {
         $stayFrom = $request->check_in;
         $stayUntil = $request->check_out;
+        $dayDifference = Helper::getDateDifference($stayFrom, $stayUntil);
+        $minimumDownPayment = ($room->price * $dayDifference) * 0.15;
+
+        $request->validate([
+            'downPayment' => 'required|numeric|gte:' . $minimumDownPayment
+        ]);
 
         $occupiedRoomId = $this->getOccupiedRoomID($stayFrom, $stayUntil);
         $occupiedRoomIdInArray = $occupiedRoomId->toArray();
@@ -89,13 +96,20 @@ class TransactionRoomReservationController extends Controller
             return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' already occupied');
         }
 
-        Transaction::create([
+        $transaction = Transaction::create([
             'user_id' => auth()->user()->id,
             'customer_id' => $customer->id,
             'room_id' => $room->id,
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'status' => 'Reservation'
+        ]);
+
+        Payment::create([
+            'user_id' => Auth()->user()->id,
+            'transaction_id' => $transaction->id,
+            'price' => $request->downPayment,
+            'status' => 'Down Payment'
         ]);
 
         return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);

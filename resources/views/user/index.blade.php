@@ -92,9 +92,8 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="10">
-                                                    <h4 class="text-center text-danger">There's no user found on database
-                                                    </h4>
+                                                <td colspan="10" class="text-center">
+                                                    There's no data in this table
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -196,9 +195,8 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="10">
-                                                    <h4 class="text-center text-danger">There's no customers found on database
-                                                    </h4>
+                                                <td colspan="10" class="text-center">
+                                                    There's no data in this table
                                                 </td>
                                             </tr>
                                         @endforelse

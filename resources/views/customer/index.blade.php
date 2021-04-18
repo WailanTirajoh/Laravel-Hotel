@@ -145,7 +145,7 @@
                         </div>
                     </div>
                 @empty
-                    <h4 class="text-center text-danger">There's no customer found on database</h4>
+                    <p class="text-center">There's no customer found on database</p>
                 @endforelse
             </div>
             <div class="row justify-content-md-center mt-3">

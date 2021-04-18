@@ -7,7 +7,7 @@
     @include('transaction.reservation.progressbar')
     <div class="container mt-3">
         <div class="row justify-content-md-center">
-            <div class="col-sm-8 mt-2">
+            <div class="col-md-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-4">
                         <div class="row">
@@ -34,38 +34,16 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="room_price" class="col-sm-2 col-form-label">Price</label>
+                                    <label for="room_price" class="col-sm-2 col-form-label">Price / Day</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="room_price" name="room_price"
-                                            placeholder="col-form-label" value="{{ Helper::convertToRupiah($room->price) }} "
-                                            readonly>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="downPayment" class="col-sm-2 col-form-label">Room</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="downPayment" name="downPayment"
-                                            placeholder="col-form-label" value="{{ $room->number }} " readonly>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="room_status" class="col-sm-2 col-form-label">Status</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="room_status" name="room_status"
-                                            placeholder="col-form-label" value="{{ $room->roomStatus->name }} " readonly>
+                                            placeholder="col-form-label"
+                                            value="{{ Helper::convertToRupiah($room->price) }}" readonly>
                                     </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="col-sm-12 mt-2">
-                                <div class="row mb-3">
-                                    <label for="how_long" class="col-sm-2 col-form-label">Day</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="how_long" name="how_long"
-                                            placeholder="col-form-label"
-                                            value="{{ $dayDifference }} {{ Helper::plural('Day', $dayDifference) }} " readonly>
-                                    </div>
-                                </div>
                                 <form method="POST"
                                     action="{{ route('transaction.reservation.payDownPayment', ['customer' => $customer->id, 'room' => $room->id]) }}">
                                     @csrf
@@ -84,11 +62,43 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="downPayment" class="col-sm-2 col-form-label">Down Payment</label>
+                                        <label for="how_long" class="col-sm-2 col-form-label">Total Day</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="downPayment" name="downPayment"
-                                                placeholder="col-form-label" value="{{ Helper::convertToRupiah($downPayment) }} "
+                                            <input type="text" class="form-control" id="how_long" name="how_long"
+                                                placeholder="col-form-label"
+                                                value="{{ $dayDifference }} {{ Helper::plural('Day', $dayDifference) }} "
                                                 readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="total_price" class="col-sm-2 col-form-label">Total Price</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="total_price" name="total_price"
+                                                placeholder="col-form-label"
+                                                value="{{ Helper::convertToRupiah(Helper::getTotalPayment($dayDifference, $room->price)) }} "
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="minimum_dp" class="col-sm-2 col-form-label">Minimum DP</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="minimum_dp" name="minimum_dp"
+                                                placeholder="col-form-label"
+                                                value="{{ Helper::convertToRupiah($downPayment) }} " readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="downPayment" class="col-sm-2 col-form-label">Payment</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"
+                                                class="form-control @error('downPayment') is-invalid @enderror"
+                                                id="downPayment" name="downPayment" placeholder="Input payment here"
+                                                value="{{ old('downPayment') }}">
+                                            @error('downPayment')
+                                                <div class="text-danger mt-1">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary float-end">Pay DownPayment</button>
@@ -98,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 mt-2">
+            <div class="col-md-4 mt-2">
                 <div class="card shadow-sm">
                     <img src="{{ $customer->user->getAvatar() }}"
                         style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">

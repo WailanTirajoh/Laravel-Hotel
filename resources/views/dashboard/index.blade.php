@@ -18,12 +18,12 @@
                             <span class="text-bold text-lg">Belum</span>
                             <span>Total Guests at {{ Helper::thisMonth() }}</span>
                         </p>
-                        <p class="ml-auto d-flex flex-column text-right">
+                        {{-- <p class="ml-auto d-flex flex-column text-right">
                             <span class="text-success">
                                 <i class="fas fa-arrow-up"></i> Belum
                             </span>
                             <span class="text-muted">Since last month</span>
-                        </p>
+                        </p> --}}
                     </div>
                     <div class="position-relative mb-4">
                         <canvas this-year="{{ Helper::thisYear() }}" this-month="{{ Helper::thisMonth() }}"
@@ -86,7 +86,6 @@
                                         <th>Name</th>
                                         <th>Room</th>
                                         <th>Day Left</th>
-                                        <th>Price</th>
                                         <th>Debt</th>
                                         <th>Status</th>
                                     </tr>
@@ -103,24 +102,19 @@
                                             <td>{{ Helper::getDateDifference(now(), $transaction->check_out) }}
                                                 {{ Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                             </td>
-                                            <td>{{ $transaction->getTotalPayment($transaction->room->price, $transaction->check_in, $transaction->check_out) }}
-                                            </td>
                                             <td>
-
+                                                {{ Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}
                                             </td>
                                             <td>
                                             </td>
                                         </tr>
                                     @empty
-                                        <h4 class="text-center text-danger">There's no transaction found on database</h4>
-                                    @endforelse
-                                    @if ($transactions->count() == 0)
                                         <tr>
-                                            <td colspan="6" class="text-center">
+                                            <td colspan="10" class="text-center">
                                                 There's no data in this table
                                             </td>
                                         </tr>
-                                    @endif
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

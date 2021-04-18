@@ -31,8 +31,8 @@
                 </div>
                 <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="GET" action="{{ route('room.index') }}">
-                        <input class="form-control me-2" room="search" placeholder="Search by number" aria-label="Search" id="search"
-                            name="search" value="{{ request()->input('search') }}">
+                        <input class="form-control me-2" room="search" placeholder="Search by number" aria-label="Search"
+                            id="search" name="search" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-dark" room="submit">Search</button>
                     </form>
                 </div>
@@ -69,7 +69,8 @@
                                                 {{-- <td><span class="text">{{ $room->view }}</span></td> --}}
                                                 <td>
                                                     @foreach ($room->image as $image)
-                                                        <img src="{{asset($image->getRoomImage())}}" alt="" width="150" height="150">
+                                                        <img src="{{ asset($image->getRoomImage()) }}" alt="" width="150"
+                                                            height="150">
                                                     @endforeach
                                                 </td>
                                                 <td>{{ $room->roomStatus->name }}</td>
@@ -99,11 +100,11 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                        <tr>
-                                            <td colspan="10">
-                                                <h4 class="text-center text-danger">There's no room found on database</h4>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="10" class="text-center">
+                                                    There's no data in this table
+                                                </td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>

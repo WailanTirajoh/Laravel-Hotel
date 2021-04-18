@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use app\Helpers\ImageService;
 use App\Http\Requests\StoreRoomRequest;
 use App\Models\Image;
 use App\Models\Room;
@@ -14,7 +14,7 @@ class RoomController extends Controller
 {
     public function index(Request $request)
     {
-        $rooms = Room::with('type','roomStatus')->orderBy('number');
+        $rooms = Room::with('type', 'roomStatus')->orderBy('number');
         if (!empty($request->search)) {
             $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
         }
@@ -58,14 +58,15 @@ class RoomController extends Controller
     public function destroy(Room $room)
     {
         try {
-            // Check if user has an image folder
+            $room->delete();
+
             $path = 'img/room/' . $room->number;
             $path = public_path($path);
-            // Destroy the folder if theres a file
+
             if (is_dir($path)) {
-                Helper::destroy($path);
+                ImageService::destroy($path);
             }
-            $room->delete();
+
             return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');
         } catch (\Exception $e) {
             return redirect()->route('room.index')->with('failed', 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);

@@ -17,8 +17,8 @@
                 </div>
                 <div class="col-lg-6 mb-2">
                     <form class="d-flex" method="GET" action="{{ route('roomstatus.index') }}">
-                        <input class="form-control me-2" type="search" placeholder="Search by name" aria-label="Search" id="search"
-                            name="search" value="{{ request()->input('search') }}">
+                        <input class="form-control me-2" type="search" placeholder="Search by name" aria-label="Search"
+                            id="search" name="search" value="{{ request()->input('search') }}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                 </div>
@@ -47,11 +47,12 @@
                                                 <td>{{ $roomstatus->name }}</td>
                                                 <td>{{ $roomstatus->code }}</td>
                                                 <td><span style="
-                                                            display:inline-block;
-                                                            /* white-space: nowrap; */
-                                                            overflow: hidden;
-                                                            text-overflow: ellipsis;
-                                                            max-width: 1000px;">{{ $roomstatus->information }}</span></td>
+                                                                    display:inline-block;
+                                                                    /* white-space: nowrap; */
+                                                                    overflow: hidden;
+                                                                    text-overflow: ellipsis;
+                                                                    max-width: 1000px;">{{ $roomstatus->information }}</span>
+                                                </td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
                                                         href="{{ route('roomstatus.edit', ['roomstatus' => $roomstatus->id]) }}">
@@ -85,9 +86,8 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="10">
-                                                    <h4 class="text-center text-danger">There's no status found on database
-                                                    </h4>
+                                                <td colspan="10" class="text-center">
+                                                    There's no data in this table
                                                 </td>
                                             </tr>
                                         @endforelse

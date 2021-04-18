@@ -31,4 +31,12 @@ class Room extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function firstImage()
+    {
+        if(count($this->image)>0) {
+            return $this->image->first()->getRoomImage();
+        }
+        return asset('img/room/default/default.png');
+    }
 }
