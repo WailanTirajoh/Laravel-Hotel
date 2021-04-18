@@ -63,7 +63,7 @@
                             @enderror
                         </div>
                         <div class="col-mg-12">
-                            <label for="avatar" class="form-label">Default file input example</label>
+                            <label for="avatar" class="form-label">Profile Picture</label>
                             <input class="form-control" type="file" id="avatar">
                             @error('avatar')
                                 <div class="text-danger mt-1">

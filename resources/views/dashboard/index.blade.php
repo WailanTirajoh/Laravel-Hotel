@@ -110,13 +110,20 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="10" class="text-center">
+                                            <td colspan="5" class="text-center">
                                                 There's no data in this table
                                             </td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="row justify-content-md-center mt-3">
+                                <div class="col-sm-10 d-flex mx-auto justify-content-md-center">
+                                    <div class="pagination-block">
+                                        {{ $transactions->onEachSide(1)->links('template.paginationlinks') }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

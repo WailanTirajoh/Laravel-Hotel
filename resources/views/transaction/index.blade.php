@@ -11,10 +11,9 @@
                     </button>
                 </span>
                 <span data-bs-toggle="tooltip" data-bs-placement="right" title="Payment History">
-                    <button type="button" class="btn btn-sm shadow-sm myBtn border rounded" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
+                    <a href="{{route('payment.index')}}" class="btn btn-sm shadow-sm myBtn border rounded">
                         <i class="fas fa-history"></i>
-                    </button>
+                    </a>
                 </span>
             </div>
         </div>
@@ -24,6 +23,11 @@
                     id="search-user" name="search" value="{{ request()->input('search') }}">
                 <button class="btn btn-outline-dark" type="submit">Search</button>
             </form>
+        </div>
+    </div>
+    <div class="row my-2 mt-4 ms-1">
+        <div class="col-lg-12">
+            <h5>Active Guests: </h5>
         </div>
     </div>
     <div class="row">
@@ -68,10 +72,10 @@
                                         <td>
                                             {{ Helper::convertToRupiah($transaction->getTotalPayment()) }}
                                         </td>
-                                        <td>{{ $transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment() < 0 ? 'Rp. 0' : Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}
+                                        <td>{{ $transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}
                                         </td>
                                         <td>
-                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0"
+                                            <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0 {{$transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment() <= 0 ? 'disabled' : ''}}"
                                                 href="{{ route('transaction.payment.create', ['transaction' => $transaction->id]) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
                                                 <i class="fas fa-money-bill-wave-alt"></i>

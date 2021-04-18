@@ -28,6 +28,11 @@ class Helper
         return Carbon::parse($date)->isoFormat('D MMM YYYY');
     }
 
+    public static function dateFormatTime($date)
+    {
+        return Carbon::parse($date)->isoFormat('D MMM YYYY H:m:s');
+    }
+
     public static function getDateDifference($check_in, $check_out)
     {
         $check_in = strtotime($check_in);

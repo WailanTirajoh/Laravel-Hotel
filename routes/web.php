@@ -51,13 +51,13 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('customer', CustomerController::class);
     Route::resource('type', TypeController::class);
     Route::resource('room', RoomController::class);
-    // Route::resource('payment', PaymentController::class);
     Route::resource('roomstatus', RoomStatusController::class);
     Route::resource('transaction', TransactionController::class);
 
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+
     Route::get('/transaction/{transaction}/payment/create', [PaymentController::class, 'create'])->name('transaction.payment.create');
     Route::post('/transaction/{transaction}/payment/store', [PaymentController::class, 'store'])->name('transaction.payment.store');
-
 
     // Chart pada dashboard
     Route::get('/get-dialy-guest-chart-data', [ChartController::class, 'dialyGuestPerMonth']);

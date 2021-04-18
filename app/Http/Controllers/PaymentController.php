@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function index()
+    {
+        $payments = Payment::orderBy('id','DESC')->paginate(5);
+        return view('payment.index', compact('payments'));
+    }
+
     public function create(Transaction $transaction)
     {
         return view('transaction.payment.create', compact('transaction'));
@@ -27,6 +33,6 @@ class PaymentController extends Controller
             'status' => 'Payment'
         ]);
 
-        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paidd');
+        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
     }
 }

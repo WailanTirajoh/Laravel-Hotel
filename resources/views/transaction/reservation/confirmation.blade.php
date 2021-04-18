@@ -101,6 +101,10 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-10" id="showPaymentType"></div>
+                                    </div>
                                     <button type="submit" class="btn btn-primary float-end">Pay DownPayment</button>
                                 </form>
                             </div>
@@ -159,4 +163,15 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+<script src="{{ asset('style/js/jquery.js') }}"></script>
+<script>
+    $('#downPayment').keyup(function() {
+        $('#showPaymentType').text('Rp. ' + parseFloat($(this).val(), 10).toFixed(2).replace(
+                /(\d)(?=(\d{3})+\.)/g, "$1.")
+            .toString());
+    });
+
+</script>
 @endsection

@@ -62,12 +62,26 @@ class TransactionRoomReservationController extends Controller
 
         $rooms = Room::with('type', 'roomStatus')
             ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id', $occupiedRoomId)
-            ->orderBy('capacity')
-            ->orderBy('price')
-            ->get();
+            ->whereNotIn('id', $occupiedRoomId);
+        // ->orderBy('price')
 
-        return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'stayFrom', 'stayUntil'));
+        // dd($request->all());
+        if (!empty($request->sort_name)) {
+            $rooms = $rooms->orderBy($request->sort_name, $request->sort_type);
+        }
+
+        $rooms = $rooms
+            ->orderBy('capacity')
+            ->paginate(5);
+
+        $roomsCount = Room::with('type', 'roomStatus')
+            ->where('capacity', '>=', $request->count_person)
+            ->whereNotIn('id', $occupiedRoomId)
+            ->orderBy('price')
+            ->orderBy('capacity')
+            ->count();
+
+        return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'stayFrom', 'stayUntil', 'roomsCount'));
     }
 
     public function confirmation(Customer $customer, Room $room, $stayFrom, $stayUntil)
