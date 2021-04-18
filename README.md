@@ -1,5 +1,11 @@
 # Laravel Hotel
 
+## TODO:
+- Nota Pembayaran
+- Notifikasi & Email pemesanan kamar ke super admin
+- Notifikasi & Email status pembayaran ke admin
+- Customer meminta kamar dibersihkan (Pop notifikasi untuk admin)
+- Customer pesan makan (Pop notifikasi untuk admin)
 
 ## Init DB
 - Create DB Name: hotel_app

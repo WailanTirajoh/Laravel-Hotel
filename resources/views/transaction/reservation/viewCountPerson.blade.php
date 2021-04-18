@@ -37,7 +37,7 @@
                                             </div>
                                         @enderror
                                         <label for="check_out" class="form-label">
-                                            How many person?
+                                            Until
                                         </label>
                                         <input type="date" class="form-control @error('check_out') is-invalid @enderror" id="
                                                 check_out" name="check_out" value="{{ old('check_out') }}">
@@ -48,7 +48,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn myBtn shadow-sm border float-end">Save</button>
+                                        <button type="submit" class="btn myBtn shadow-sm border float-end">Next</button>
                                     </div>
                                 </form>
                             </div>
