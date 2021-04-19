@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('title', 'User')
+@section('title', 'Create Identity')
 @section('head')
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
 @endsection
@@ -48,11 +48,16 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="gender" class="form-label">Gender</label>
-                                <select class="form-select" id="gender" name="gender" aria-label="Default select example">
-                                    <option selected hidden>Select</option>
+                                <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender" aria-label="Default select example">
+                                    {{-- <option selected hidden>Select</option> --}}
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
+                                @error('gender')
+                                    <div class="text-danger mt-1">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-md-12">
                                 <label for="job" class="form-label">Job</label>

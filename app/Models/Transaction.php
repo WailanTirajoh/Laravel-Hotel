@@ -44,7 +44,7 @@ class Transaction extends Model
     public function getTotalPrice()
     {
         $day = Helper::getDateDifference($this->check_in, $this->check_out);
-        $room_price =$this->room->price;
+        $room_price = $this->room->price;
         $total_price = $room_price * $day;
         return $total_price;
     }
@@ -59,10 +59,16 @@ class Transaction extends Model
     public function getTotalPayment()
     {
         $totalPayment = 0;
-        foreach($this->payment as $payment)
-        {
+        foreach ($this->payment as $payment) {
             $totalPayment += $payment->price;
         }
         return $totalPayment;
+    }
+
+    public function getMinimumDownPayment()
+    {
+        $dayDifference = Helper::getDateDifference($this->check_in, $this->check_out);
+        $minimumDownPayment = ($this->room->price * $dayDifference) * 0.15;
+        return $minimumDownPayment;
     }
 }

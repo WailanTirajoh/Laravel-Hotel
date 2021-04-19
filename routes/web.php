@@ -1,10 +1,13 @@
 <?php
 
+use App\Events\TestEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TransactionRoomReservationController;
@@ -55,6 +58,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('transaction', TransactionController::class);
 
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::get('/payment/{payment}/invoice', [PaymentController::class, 'invoice'])->name('payment.invoice');
 
     Route::get('/transaction/{transaction}/payment/create', [PaymentController::class, 'create'])->name('transaction.payment.create');
     Route::post('/transaction/{transaction}/payment/store', [PaymentController::class, 'store'])->name('transaction.payment.store');
@@ -70,9 +74,20 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     // Route::view('/', 'home')->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/mark-all-as-read',[NotificationsController::class,'markAllAsRead'])->name('notification.markAllAsRead');
 });
 
+Route::get('/sendEvent', [EventController::class,'sendEvent']);
+Route::get('/seeEvent', [EventController::class,'seeEvent']);
 
+Route::get('/listen', function(){
+    return view('event.listen');
+});
 
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin']);
+
+// Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

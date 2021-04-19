@@ -13,6 +13,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">At</th>
                         <th scope="col">Served By</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,7 @@
                             <td>{{ $payment->status }}</td>
                             <td>{{ Helper::dateFormatTime($payment->created_at) }}</td>
                             <td>{{ $payment->user->name }}</td>
+                            <td> <a href="{{ route('payment.invoice', $payment->id) }}">Invoice</a> </td>
                         </tr>
                     @empty
                         <tr class="text-center">

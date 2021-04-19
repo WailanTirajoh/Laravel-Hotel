@@ -98,6 +98,7 @@
         @endif
 
     </script>
+    <script src="{{ asset('style/js/tes.js') }}"></script>
     @yield('footer')
 </body>
 

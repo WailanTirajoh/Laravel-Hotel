@@ -10,8 +10,10 @@ use App\Models\Customer;
 use App\Models\Payment;
 use App\Models\Room;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Notifications\NewRoomReservationDownPayment;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Notification;
 
 class TransactionRoomReservationController extends Controller
 {
@@ -119,12 +121,17 @@ class TransactionRoomReservationController extends Controller
             'status' => 'Reservation'
         ]);
 
-        Payment::create([
+        $payment = Payment::create([
             'user_id' => Auth()->user()->id,
             'transaction_id' => $transaction->id,
             'price' => $request->downPayment,
             'status' => 'Down Payment'
         ]);
+
+        $superAdmin = User::where('role', 'Super')->get();
+
+        Notification::send($superAdmin, new NewRoomReservationDownPayment($transaction, $payment));
+        // $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
 
         return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
     }

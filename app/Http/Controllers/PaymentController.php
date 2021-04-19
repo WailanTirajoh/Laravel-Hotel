@@ -35,4 +35,9 @@ class PaymentController extends Controller
 
         return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
     }
+
+    public function invoice(Payment $payment)
+    {
+        return view('payment.invoice', compact('payment'));
+    }
 }

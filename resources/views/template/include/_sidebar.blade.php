@@ -5,7 +5,7 @@
     }
 
 </style>
-<div class="bg-light border-right shadow-sm " id="sidebar-wrapper">
+<div class="bg-light border-right border-top border-bottom shadow " id="sidebar-wrapper">
     <div class="d-flex flex-column bg-light"
         style="width: 4.5rem; border-top-right-radius:0.5rem; border-bottom-right-radius:0.5rem">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">

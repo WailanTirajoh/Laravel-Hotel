@@ -23,6 +23,11 @@ class Helper
         return Carbon::parse(Carbon::now())->format('Y');
     }
 
+    public static function dateDayFormat($date)
+    {
+        return Carbon::parse($date)->isoFormat('dddd, D MMM YYYY');
+    }
+
     public static function dateFormat($date)
     {
         return Carbon::parse($date)->isoFormat('D MMM YYYY');
