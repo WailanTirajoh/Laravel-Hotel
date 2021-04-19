@@ -29,4 +29,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    created() {
+        Echo.private('testChannel')
+            .listen('reservation-event', (e) => {
+                console.log(e.order.name);
+            });
+    }
 });

@@ -18,7 +18,7 @@
 
         var channel = pusher.subscribe('channel-reservation');
         channel.bind('reservation-event', function(data) {
-            toastr.success("tes", "Success");
+            toastr.success(JSON.stringify(data['message']), "Success");
         });
 
     </script>
