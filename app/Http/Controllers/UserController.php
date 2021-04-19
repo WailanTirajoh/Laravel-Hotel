@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,7 +43,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role
+            'role' => $request->role,
+            'random_key' => Str::random(60)
         ]);
 
         return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');

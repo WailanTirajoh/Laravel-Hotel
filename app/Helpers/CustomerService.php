@@ -5,6 +5,7 @@ namespace app\Helpers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class CustomerService
 {
@@ -14,7 +15,8 @@ class CustomerService
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->birthdate),
-            'role' => 'Customer'
+            'role' => 'Customer',
+            'random_key' => Str::random(60)
         ]);
 
         if ($request->hasFile('avatar')) {

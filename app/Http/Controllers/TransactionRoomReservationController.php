@@ -129,12 +129,13 @@ class TransactionRoomReservationController extends Controller
             'status' => 'Down Payment'
         ]);
 
-        $superAdmin = User::where('role', 'Super')->get();
+        $superAdmins = User::where('role', 'Super')->get();
 
-        Notification::send($superAdmin, new NewRoomReservationDownPayment($transaction, $payment));
-        $message = 'Reservation added by '. $customer->name;
-        event(new NewReservationEvent($message));
-        // $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
+        foreach($superAdmins as $superAdmin) {
+            $message = 'Reservation added by '. $customer->name;
+            event(new NewReservationEvent($message,$superAdmin));
+            $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
+        }
 
         return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
     }

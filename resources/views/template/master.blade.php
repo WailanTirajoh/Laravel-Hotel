@@ -100,20 +100,13 @@
     </script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
         var pusher = new Pusher('18781accf1f887a59b22', {
             cluster: 'ap1'
         });
-
-        var channel = pusher.subscribe('channel-reservation');
-        channel.bind('reservation-event', function(data) {
-            toastr.success(JSON.stringify(data['message']), "Success");
-        });
+        var channel = pusher.subscribe('channel-reservation-{{ auth()->user()->random_key }}');
 
     </script>
-    <script src="{{ asset('style/js/tes.js') }}"></script>
+    <script src="{{ asset('style/js/pusher.js') }}"></script>
     @yield('footer')
 </body>
 

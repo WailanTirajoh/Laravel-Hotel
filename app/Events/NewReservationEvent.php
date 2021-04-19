@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,15 +16,17 @@ class NewReservationEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $random_key;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $user)
     {
         $this->message = $message;
+        $this->random_key = $user->random_key;
     }
 
     /**
@@ -33,7 +36,7 @@ class NewReservationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel-reservation');
+        return new Channel('channel-reservation-' . $this->random_key);
     }
 
     public function broadcastAs()

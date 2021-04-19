@@ -240,7 +240,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="dropdown ms-auto me-4">
+            <div class="dropdown ms-auto me-4" id="refreshThisDropdown">
                 <div class="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="btn position-relative bg-icon">
                         <i class="fas fa-bell">
@@ -293,7 +293,8 @@
                             <li role="presentation">
                                 <div class="row">
                                     <div class="col-lg-12 text-center">
-                                        <a href="{{route('notification.markAllAsRead')}}" class="float-start mb-2 ms-2">Mark all as read</a>
+                                        <a href="{{ route('notification.markAllAsRead') }}"
+                                            class="float-start mb-2 ms-2">Mark all as read</a>
                                         <a href="" class="float-end mb-2 me-2">See More</a>
                                     </div>
                                 </div>
