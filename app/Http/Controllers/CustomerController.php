@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use app\Helpers\CustomerService;
-use App\Helpers\Helper;
-use app\Helpers\ImageService;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
@@ -32,13 +29,7 @@ class CustomerController extends Controller
 
     public function store(StoreCustomerRequest $request, CustomerRepository $customerRepository)
     {
-        $request->validate([
-            'email' => 'required|unique:users,email',
-            'avatar' => 'mimes:png,jpg',
-        ]);
-
         $customer = $customerRepository->store($request);
-
         return redirect('customer')->with('success', 'Customer ' . $customer->name . ' created');
     }
 
@@ -62,8 +53,7 @@ class CustomerController extends Controller
     {
         try {
             $user = User::find($customer->user->id);
-            $avatar_path = 'img/user/' . $user->name . '-' . $user->id;
-            $avatar_path = public_path($avatar_path);
+            $avatar_path = public_path('img/user/' . $user->name . '-' . $user->id);
 
             if (is_dir($avatar_path)) {
                 $imageRepository->destroy($avatar_path);

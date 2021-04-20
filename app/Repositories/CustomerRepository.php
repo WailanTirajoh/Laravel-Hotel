@@ -24,7 +24,9 @@ class CustomerRepository
             $path = public_path($path);
             $file = $request->file('avatar');
 
-            ImageService::uploadImage($path, $file);
+            $imageRepository = new ImageRepository;
+
+            $imageRepository->uploadImage($path, $file);
 
             $user->avatar = $file->getClientOriginalName();
             $user->save();

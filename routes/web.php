@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotificationsController;
@@ -36,8 +35,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
-    // Upload Room Image
-    Route::post('/room/{room}/image/upload', [ImageController::class, 'create'])->name('image.create');
+    Route::post('/room/{room}/image/upload', [ImageController::class, 'store'])->name('image.store');
     Route::delete('/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
 
     Route::name('transaction.reservation.')->group(function () {
@@ -50,7 +48,6 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
         Route::post('/{customer}/{room}/payDownPayment', [TransactionRoomReservationController::class, 'payDownPayment'])->name('payDownPayment');
     });
 
-    // Resource
     Route::resource('customer', CustomerController::class);
     Route::resource('type', TypeController::class);
     Route::resource('room', RoomController::class);
@@ -63,31 +60,23 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::get('/transaction/{transaction}/payment/create', [PaymentController::class, 'create'])->name('transaction.payment.create');
     Route::post('/transaction/{transaction}/payment/store', [PaymentController::class, 'store'])->name('transaction.payment.store');
 
-    // Chart pada dashboard
     Route::get('/get-dialy-guest-chart-data', [ChartController::class, 'dialyGuestPerMonth']);
     Route::get('/get-dialy-guest-chart-data/{year}/{month}/{day}', [ChartController::class, 'dialyGuest'])->name('chart.dialyGuest');
 });
+
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([
         'show'
     ]);
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    // Route::view('/', 'home')->name('home');
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/mark-all-as-read',[NotificationsController::class,'markAllAsRead'])->name('notification.markAllAsRead');
 });
 
-Route::get('/sendEvent', [EventController::class,'sendEvent']);
-Route::get('/seeEvent', [EventController::class,'seeEvent']);
-
-Route::get('/listen', function(){
-    return view('event.listen');
-});
-
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin']);
-
-// Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -11,24 +11,22 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function create(Request $request, Room $room, ImageRepository $imageRepository)
+    public function store(Request $request, Room $room, ImageRepository $imageRepository)
     {
         $request->validate([
             'image' => 'required|mimes:png,jpg'
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = 'img/room/' . $room->number;
-            $path = public_path($path);
-            $file = $request->file('image');
+        $path = public_path('img/room/' . $room->number);
+        $file = $request->file('image');
 
-            $imageRepository->uploadImage($path, $file);
+        $imageRepository->uploadImage($path, $file);
 
-            Image::create([
-                'room_id' => $room->id,
-                'url' => $file->getClientOriginalName(),
-            ]);
-        }
+        Image::create([
+            'room_id' => $room->id,
+            'url' => $file->getClientOriginalName(),
+        ]);
+
         return redirect()->route('room.show', ['room' => $room->id])->with('success', 'Image upload successfully!');
     }
 

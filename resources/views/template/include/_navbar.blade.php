@@ -244,10 +244,12 @@
                 <div class="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="btn position-relative bg-icon">
                         <i class="fas fa-bell">
-                            <span
-                                class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                {{ auth()->user()->unreadNotifications->count() }}
-                                <span class="visually-hidden">unread messages</span></span>
+                            @if (auth()->user()->unreadNotifications->count() > 0)
+                                <span
+                                    class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                    {{ auth()->user()->unreadNotifications->count() }}
+                                    <span class="visually-hidden">unread messages</span></span>
+                            @endif
                         </i>
                     </div>
                 </div>
@@ -262,8 +264,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <ul class="timeline timeline-icons timeline-sm" style="margin:10px;width:210px">
-                                @foreach (auth()->user()->unreadNotifications as $notification)
-                                    <li class="unread">
+                                @forelse (auth()->user()->unreadNotifications as $notification)
+                                    <li>
                                         <p>
                                             {{ $notification->data['message'] }} <a
                                                 href="{{ $notification->data['url'] }}">here</a>
@@ -272,18 +274,11 @@
                                             <span class="timeline-date">{{ $notification->created_at }}</span>
                                         </p>
                                     </li>
-                                @endforeach
-                                @foreach (auth()->user()->readNotifications as $notification)
-                                    <li class="read">
-                                        <p>
-                                            {{ $notification->data['message'] }} <a
-                                                href="{{ $notification->data['url'] }}">here</a>
-                                            <span class="timeline-icon"><i class="fa fa-file-pdf-o"
-                                                    style="color:red"></i></span>
-                                            <span class="timeline-date">{{ $notification->created_at }}</span>
-                                        </p>
-                                    </li>
-                                @endforeach
+                                @empty
+                                    <p class="text-center">
+                                        There's no new notification
+                                    </p>
+                                @endforelse
                             </ul>
                         </div>
                     </div>
@@ -295,7 +290,7 @@
                                     <div class="col-lg-12 text-center">
                                         <a href="{{ route('notification.markAllAsRead') }}"
                                             class="float-start mb-2 ms-2">Mark all as read</a>
-                                        <a href="" class="float-end mb-2 me-2">See More</a>
+                                        <a href="" class="float-end mb-2 me-2">See All</a>
                                     </div>
                                 </div>
                             </li>

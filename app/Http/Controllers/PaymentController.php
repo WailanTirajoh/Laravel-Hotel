@@ -23,13 +23,12 @@ class PaymentController extends Controller
 
     public function store(Transaction $transaction, Request $request, PaymentRepository $paymentRepository)
     {
-        $insufficient = $transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment();
+        $insufficient = $transaction->getTotalPrice() - $transaction->getTotalPayment();
         $request->validate([
             'payment' => 'required|numeric|lte:' . $insufficient
         ]);
 
-        $status = 'Payment';
-        $paymentRepository->store($request, $transaction, $status);
+        $paymentRepository->store($request, $transaction, 'Payment');
 
         return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
     }

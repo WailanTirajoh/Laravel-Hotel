@@ -20,10 +20,17 @@ use Illuminate\Http\Request;
 
 class TransactionRoomReservationController extends Controller
 {
-    public function pickFromCustomer(Request $request, ReservationRepository $reservationRepository)
+    private $reservationRepository;
+
+    public function __construct(ReservationRepository $reservationRepository)
     {
-        $customers = $reservationRepository->getCustomer($request);
-        $customersCount = $reservationRepository->countCustomer($request);
+        $this->reservationRepository = $reservationRepository;
+    }
+
+    public function pickFromCustomer(Request $request)
+    {
+        $customers = $this->reservationRepository->getCustomer($request);
+        $customersCount = $this->reservationRepository->countCustomer($request);
         return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
     }
 
@@ -43,15 +50,15 @@ class TransactionRoomReservationController extends Controller
         return view('transaction.reservation.viewCountPerson', compact('customer'));
     }
 
-    public function chooseRoom(Customer $customer, ChooseRoomRequest $request, ReservationRepository $reservationRepository)
+    public function chooseRoom(ChooseRoomRequest $request, Customer $customer)
     {
         $stayFrom = $request->check_in;
         $stayUntil = $request->check_out;
 
         $occupiedRoomId = $this->getOccupiedRoomID($request->check_in, $request->check_out);
 
-        $rooms = $reservationRepository->getUnocuppiedroom($request, $occupiedRoomId);
-        $roomsCount = $reservationRepository->countUnocuppiedroom($request, $occupiedRoomId);
+        $rooms = $this->reservationRepository->getUnocuppiedroom($request, $occupiedRoomId);
+        $roomsCount = $this->reservationRepository->countUnocuppiedroom($request, $occupiedRoomId);
 
         return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'stayFrom', 'stayUntil', 'roomsCount'));
     }
@@ -66,16 +73,14 @@ class TransactionRoomReservationController extends Controller
 
     public function payDownPayment(Customer $customer, Room $room, Request $request, TransactionRepository $transactionRepository, PaymentRepository $paymentRepository)
     {
-        $stayFrom = $request->check_in;
-        $stayUntil = $request->check_out;
-        $dayDifference = Helper::getDateDifference($stayFrom, $stayUntil);
+        $dayDifference = Helper::getDateDifference($request->check_in, $request->check_out);
         $minimumDownPayment = ($room->price * $dayDifference) * 0.15;
 
         $request->validate([
             'downPayment' => 'required|numeric|gte:' . $minimumDownPayment
         ]);
 
-        $occupiedRoomId = $this->getOccupiedRoomID($stayFrom, $stayUntil);
+        $occupiedRoomId = $this->getOccupiedRoomID($request->check_in, $request->check_out);
         $occupiedRoomIdInArray = $occupiedRoomId->toArray();
 
         if (in_array($room->id, $occupiedRoomIdInArray)) {

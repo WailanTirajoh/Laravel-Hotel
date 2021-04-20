@@ -23,7 +23,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('image.create', ['room' => $room->id]) }}"
+                                        <form action="{{ route('image.store', ['room' => $room->id]) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="input-group mb-3">
