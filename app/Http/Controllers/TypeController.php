@@ -4,18 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTypeRequest;
 use App\Models\Type;
+use App\Repositories\TypeRepository;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, TypeRepository $typeRepository)
     {
-        $types = Type::orderBy('id', 'DESC');
-        if (!empty($request->search)) {
-            $types = $types->where('name','LIKE','%'.$request->search.'%');
-        }
-        $types = $types->paginate(5);
-        $types->appends($request->all());
+        $types = $typeRepository->showAll($request);
         return view('type.index', compact('types'));
     }
 
@@ -24,13 +20,9 @@ class TypeController extends Controller
         return view('type.create');
     }
 
-    public function store(StoreTypeRequest $request)
+    public function store(StoreTypeRequest $request, TypeRepository $typeRepository)
     {
-        $type = Type::create([
-            'name' => $request->name,
-            'information' => $request->information,
-        ]);
-
+        $type = $typeRepository->store($request);
         return redirect('type')->with('success', 'Type ' . $type->name . ' created');
     }
 
