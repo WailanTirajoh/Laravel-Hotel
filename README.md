@@ -61,20 +61,3 @@ php artisan websockets:serv     => Terminal 2   //Menjalankan websocket
 ## Laravel License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
-
-## Add to .env
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=warungkuapp@gmail.com
-MAIL_PASSWORD=sbphiqihcwubzzze
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=warungkuapp@gmail.com
-MAIL_FROM_NAME="${APP_NAME}"
-
-PUSHER_APP_ID=12345
-PUSHER_APP_KEY=ABCDE
-PUSHER_APP_SECRET=FGHIJK
-PUSHER_APP_CLUSTER=ap1
