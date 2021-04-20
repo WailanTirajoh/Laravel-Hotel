@@ -1,10 +1,10 @@
 # Laravel Hotel
 
 ## TODO:
-- Nota Pembayaran
-- Notifikasi & Email pemesanan kamar ke super admin
-- Notifikasi & Email status pembayaran ke admin
-- Customer meminta kamar dibersihkan (Pop notifikasi untuk admin)
+- Nota Pembayaran                                                   (Done)
+- Notifikasi & Email pemesanan kamar ke super admin                 (Done)
+- Notifikasi & Email status pembayaran ke admin                     (Done)
+- Customer meminta kamar dibersihkan (Pop notifikasi untuk admin)   
 - Customer pesan makan (Pop notifikasi untuk admin)
 
 ## Init DB
@@ -12,13 +12,15 @@
 ## Init Commands:
 ```
 composer install
+npm install && npm run dev
 php artisan migrate:fresh --seed
-php artisan serv
+php artisan serv                => Terminal 1
+php artisan websockets:serv     => Terminal 2   //Menjalankan websocket
 ```
 
 ## Login:
-- Email: admin@admin.com
-- Password: admin
+- Email: wailantirajoh@gmail.com
+- Password: wailan
 
 ## Notes:
 - Jika tampilan bootstrap tidak terpanggil:
