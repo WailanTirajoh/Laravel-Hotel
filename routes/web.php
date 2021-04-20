@@ -90,4 +90,4 @@ Route::post('/postLogin', [AuthController::class, 'postLogin']);
 
 // Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');

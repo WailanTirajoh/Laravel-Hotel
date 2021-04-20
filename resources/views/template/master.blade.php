@@ -9,6 +9,8 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Bootstrap CSS -->
     <link href="{{ asset('package/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -98,15 +100,26 @@
         @endif
 
     </script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> --}}
+    {{-- <script>
         var pusher = new Pusher('18781accf1f887a59b22', {
             cluster: 'ap1'
         });
         var channel = pusher.subscribe('channel-reservation-{{ auth()->user()->random_key }}');
 
+    </script> --}}
+    {{-- <script src="{{ asset('style/js/pusher.js') }}"></script> --}}
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        Echo.channel('channel-reservation-{{ auth()->user()->random_key }}')
+            .listen('NewReservationEvent', (e) => {
+                console.log(e.message);
+                $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
+                $("#refreshThisDropdown").load(" #refreshThisDropdown > *");
+                toastr.success(e.message, "Success");
+            })
+
     </script>
-    <script src="{{ asset('style/js/pusher.js') }}"></script>
     @yield('footer')
 </body>
 
