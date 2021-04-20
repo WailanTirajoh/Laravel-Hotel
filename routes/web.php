@@ -1,11 +1,11 @@
 <?php
 
-use App\Events\TestEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;

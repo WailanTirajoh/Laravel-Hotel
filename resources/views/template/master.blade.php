@@ -98,17 +98,7 @@
         @if (Session::has('failed'))
             toastr.error("{{ Session::get('failed') }}","Failed")
         @endif
-
     </script>
-    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> --}}
-    {{-- <script>
-        var pusher = new Pusher('18781accf1f887a59b22', {
-            cluster: 'ap1'
-        });
-        var channel = pusher.subscribe('channel-reservation-{{ auth()->user()->random_key }}');
-
-    </script> --}}
-    {{-- <script src="{{ asset('style/js/pusher.js') }}"></script> --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         Echo.channel('channel-reservation-{{ auth()->user()->random_key }}')
@@ -116,9 +106,8 @@
                 console.log(e.message);
                 $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
                 $("#refreshThisDropdown").load(" #refreshThisDropdown > *");
-                toastr.success(e.message, "Success");
+                toastr.success(e.message, "Hello there");
             })
-
     </script>
     @yield('footer')
 </body>

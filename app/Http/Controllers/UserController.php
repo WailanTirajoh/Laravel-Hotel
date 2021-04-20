@@ -6,29 +6,16 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, UserRepository $userRepository)
     {
-        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC');
-        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC');
-
-        if (!empty($request->qu)) {
-            $users = $users->where('email', 'LIKE', '%' . $request->qu . '%');
-        }
-
-        if (!empty($request->qc)) {
-            $customers = $customers->where('email', 'LIKE', '%' . $request->qc . '%');
-        }
-
-        $users = $users->paginate(5, ['*'], 'users');
-        $customers = $customers->Paginate(5, ['*'], 'customers');
-
-        $users->appends($request->all());
-        $customers->appends($request->all());
+        $users = $userRepository->showUser($request);
+        $customers = $userRepository->showCustomer($request);
         return view('user.index', compact('users', 'customers'));
     }
 
@@ -37,16 +24,9 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, UserRepository $userRepository)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => $request->role,
-            'random_key' => Str::random(60)
-        ]);
-
+        $user = $userRepository->store($request);
         return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
     }
 
