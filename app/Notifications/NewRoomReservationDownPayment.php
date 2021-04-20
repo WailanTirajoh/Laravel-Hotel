@@ -37,7 +37,7 @@ class NewRoomReservationDownPayment extends Notification
     public function via($notifiable)
     {
         return [
-            // 'mail',
+            'mail',
             'database',
             'broadcast'
         ];
@@ -52,9 +52,9 @@ class NewRoomReservationDownPayment extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line($this->transaction->room->number . ' has been reservated by ' . $this->transaction->customer->name)
+            ->line('Room '.$this->transaction->room->number . ' has been reservated by ' . $this->transaction->customer->name)
             ->line('Payment: ' . Helper::convertToRupiah($this->payment->price))
-            ->line('Status: ' . $this->payment->status)
+            ->line('Status: ' . $this->payment->status.' Success')
             ->action('See invoice', route('payment.invoice',['payment'=>$this->payment->id]));
     }
 
