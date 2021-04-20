@@ -4,20 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoomStatusRequest;
 use App\Models\RoomStatus;
+use App\Repositories\RoomStatusRepository;
 use Illuminate\Http\Request;
 
 class RoomStatusController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, RoomStatusRepository $roomStatusRepository)
     {
-        $roomstatuses = RoomStatus::orderBy('id');
-
-        if (!empty($request->search)) {
-            $roomstatuses = $roomstatuses->where('name', 'LIKE', '%' . $request->search . '%');
-        }
-
-        $roomstatuses = $roomstatuses->paginate(5);
-        $roomstatuses->appends($request->all());
+        $roomstatuses = $roomStatusRepository->getRoomStatuses($request);
         return view('roomstatus.index', compact('roomstatuses'));
     }
 

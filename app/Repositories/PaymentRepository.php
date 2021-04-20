@@ -6,13 +6,13 @@ use App\Models\Payment;
 
 class PaymentRepository
 {
-    public function store($request, $transaction)
+    public function store($request, $transaction, string $status)
     {
         $payment = Payment::create([
             'user_id' => Auth()->user()->id,
             'transaction_id' => $transaction->id,
             'price' => $request->downPayment,
-            'status' => 'Down Payment'
+            'status' => $status
         ]);
 
         return $payment;

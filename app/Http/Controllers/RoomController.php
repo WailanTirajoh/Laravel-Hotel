@@ -8,18 +8,15 @@ use App\Models\Image;
 use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Models\Type;
+use App\Repositories\ImageRepository;
+use App\Repositories\RoomRepository;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, RoomRepository $roomRepository)
     {
-        $rooms = Room::with('type', 'roomStatus')->orderBy('number');
-        if (!empty($request->search)) {
-            $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
-        }
-        $rooms = $rooms->paginate(5);
-        $rooms->appends($request->all());
+        $rooms = $roomRepository->getRooms($request);
         return view('room.index', compact('rooms'));
     }
 
@@ -55,7 +52,7 @@ class RoomController extends Controller
         return redirect()->route('room.index')->with('success', 'Room ' . $room->name . ' udpated!');
     }
 
-    public function destroy(Room $room)
+    public function destroy(Room $room, ImageRepository $imageRepository)
     {
         try {
             $room->delete();
@@ -64,7 +61,7 @@ class RoomController extends Controller
             $path = public_path($path);
 
             if (is_dir($path)) {
-                ImageService::destroy($path);
+                $imageRepository->destroy($path);
             }
 
             return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');

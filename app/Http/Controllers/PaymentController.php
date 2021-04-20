@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Payment;
 use App\Models\Transaction;
+use App\Repositories\PaymentRepository;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -20,18 +21,15 @@ class PaymentController extends Controller
         return view('transaction.payment.create', compact('transaction'));
     }
 
-    public function store(Transaction $transaction, Request $request)
+    public function store(Transaction $transaction, Request $request, PaymentRepository $paymentRepository)
     {
         $insufficient = $transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment();
         $request->validate([
             'payment' => 'required|numeric|lte:' . $insufficient
         ]);
-        Payment::create([
-            'user_id' => Auth()->user()->id,
-            'transaction_id' => $transaction->id,
-            'price' => $request->payment,
-            'status' => 'Payment'
-        ]);
+
+        $status = 'Payment';
+        $paymentRepository->store($request, $transaction, $status);
 
         return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
     }

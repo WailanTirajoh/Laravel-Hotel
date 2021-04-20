@@ -8,6 +8,8 @@ use app\Helpers\ImageService;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
+use App\Repositories\CustomerRepository;
+use App\Repositories\ImageRepository;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -28,14 +30,14 @@ class CustomerController extends Controller
         return view('customer.create');
     }
 
-    public function store(StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $request, CustomerRepository $customerRepository)
     {
         $request->validate([
             'email' => 'required|unique:users,email',
             'avatar' => 'mimes:png,jpg',
         ]);
 
-        $customer = CustomerService::storeCustomer($request);
+        $customer = $customerRepository->store($request);
 
         return redirect('customer')->with('success', 'Customer ' . $customer->name . ' created');
     }
@@ -56,7 +58,7 @@ class CustomerController extends Controller
         return redirect('customer')->with('success', 'customer ' . $customer->name . ' udpated!');
     }
 
-    public function destroy(Customer $customer)
+    public function destroy(Customer $customer, ImageRepository $imageRepository)
     {
         try {
             $user = User::find($customer->user->id);
@@ -64,7 +66,7 @@ class CustomerController extends Controller
             $avatar_path = public_path($avatar_path);
 
             if (is_dir($avatar_path)) {
-                ImageService::destroy($avatar_path);
+                $imageRepository->destroy($avatar_path);
             }
 
             $customer->delete();

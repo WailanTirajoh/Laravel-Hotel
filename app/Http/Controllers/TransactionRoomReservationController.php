@@ -83,7 +83,8 @@ class TransactionRoomReservationController extends Controller
         }
 
         $transaction = $transactionRepository->store($request, $customer, $room);
-        $payment = $paymentRepository->store($request, $transaction);
+        $status = 'Down Payment';
+        $payment = $paymentRepository->store($request, $transaction, $status);
 
         $superAdmins = User::where('role', 'Super')->get();
 

@@ -6,11 +6,12 @@ use App\Helpers\Helper;
 use app\Helpers\ImageService;
 use App\Models\Image;
 use App\Models\Room;
+use App\Repositories\ImageRepository;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function create(Request $request, Room $room)
+    public function create(Request $request, Room $room, ImageRepository $imageRepository)
     {
         $request->validate([
             'image' => 'required|mimes:png,jpg'
@@ -21,7 +22,7 @@ class ImageController extends Controller
             $path = public_path($path);
             $file = $request->file('image');
 
-            ImageService::uploadImage($path, $file);
+            $imageRepository->uploadImage($path, $file);
 
             Image::create([
                 'room_id' => $room->id,
