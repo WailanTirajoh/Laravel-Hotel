@@ -1,15 +1,15 @@
 <?php
 
-namespace app\Helpers;
+namespace App\Repositories;
 
-use App\Http\Requests\StoreCustomerRequest;
+use app\Helpers\ImageService;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Str;
 
-class CustomerService
+class CustomerRepository
 {
-    public static function storeCustomer(StoreCustomerRequest $request)
+    public static function store($request)
     {
         $user = User::create([
             'name' => $request->name,

@@ -36,7 +36,6 @@
         },
         "files": [
             "app/Helpers/Helpers.php",
-            "app/Helpers/CustomerService.php",
             "app/Helpers/ImageService.php"
         ]
     },

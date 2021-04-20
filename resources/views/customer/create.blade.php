@@ -8,7 +8,8 @@
                     <h2>Add Customer</h2>
                 </div>
                 <div class="card-body p-3">
-                    <form class="row g-3" method="POST" action="{{ route('customer.store') }}" enctype="multipart/form-data">
+                    <form class="row g-3" method="POST" action="{{ route('customer.store') }}"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Name</label>
@@ -35,6 +36,20 @@
                             <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate"
                                 name="birthdate" value="{{ old('birthdate') }}">
                             @error('birthdate')
+                                <div class="text-danger mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender"
+                                aria-label="Default select example">
+                                {{-- <option selected hidden>Select</option> --}}
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            @error('gender')
                                 <div class="text-danger mt-1">
                                     {{ $message }}
                                 </div>

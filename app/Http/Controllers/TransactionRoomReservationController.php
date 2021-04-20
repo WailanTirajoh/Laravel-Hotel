@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewReservationEvent;
-use app\Helpers\CustomerService;
 use App\Helpers\Helper;
 use App\Http\Requests\ChooseRoomRequest;
 use App\Http\Requests\StoreCustomerRequest;
@@ -13,24 +12,18 @@ use App\Models\Room;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\NewRoomReservationDownPayment;
+use App\Repositories\CustomerRepository;
+use App\Repositories\PaymentRepository;
+use App\Repositories\ReservationRepository;
+use App\Repositories\TransactionRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 class TransactionRoomReservationController extends Controller
 {
-    public function pickFromCustomer(Request $request)
+    public function pickFromCustomer(Request $request, ReservationRepository $reservationRepository)
     {
-        $customers = Customer::with('user')->orderBy('id', 'DESC');
-        $customersCount = Customer::with('user')->orderBy('id', 'DESC');
-        if (!empty($request->q)) {
-            $customers = $customers->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-            $customersCount = $customersCount->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-        }
-        $customers = $customers->paginate(8);
-        $customersCount = $customersCount->count();
-        $customers->appends($request->all());
+        $customers = $reservationRepository->getCustomer($request);
+        $customersCount = $reservationRepository->countCustomer($request);
         return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
     }
 
@@ -39,15 +32,9 @@ class TransactionRoomReservationController extends Controller
         return view('transaction.reservation.createIdentity');
     }
 
-    public function storeCustomer(StoreCustomerRequest $request)
+    public function storeCustomer(StoreCustomerRequest $request, CustomerRepository $customerRepository)
     {
-        $request->validate([
-            'email' => 'required|unique:users,email',
-            'avatar' => 'mimes:png,jpg',
-        ]);
-
-        $customer = CustomerService::storeCustomer($request);
-
+        $customer = $customerRepository->store($request);
         return redirect()->route('transaction.reservation.viewCountPerson', ['customer' => $customer->id])->with('success', 'Customer ' . $customer->name . ' created!');
     }
 
@@ -56,33 +43,15 @@ class TransactionRoomReservationController extends Controller
         return view('transaction.reservation.viewCountPerson', compact('customer'));
     }
 
-    public function chooseRoom(Customer $customer, ChooseRoomRequest $request)
+    public function chooseRoom(Customer $customer, ChooseRoomRequest $request, ReservationRepository $reservationRepository)
     {
         $stayFrom = $request->check_in;
         $stayUntil = $request->check_out;
 
-        $occupiedRoomId = $this->getOccupiedRoomID($stayFrom, $stayUntil);
+        $occupiedRoomId = $this->getOccupiedRoomID($request->check_in, $request->check_out);
 
-        $rooms = Room::with('type', 'roomStatus')
-            ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id', $occupiedRoomId);
-        // ->orderBy('price')
-
-        // dd($request->all());
-        if (!empty($request->sort_name)) {
-            $rooms = $rooms->orderBy($request->sort_name, $request->sort_type);
-        }
-
-        $rooms = $rooms
-            ->orderBy('capacity')
-            ->paginate(5);
-
-        $roomsCount = Room::with('type', 'roomStatus')
-            ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id', $occupiedRoomId)
-            ->orderBy('price')
-            ->orderBy('capacity')
-            ->count();
+        $rooms = $reservationRepository->getUnocuppiedroom($request, $occupiedRoomId);
+        $roomsCount = $reservationRepository->countUnocuppiedroom($request, $occupiedRoomId);
 
         return view('transaction.reservation.chooseRoom', compact('customer', 'rooms', 'stayFrom', 'stayUntil', 'roomsCount'));
     }
@@ -95,7 +64,7 @@ class TransactionRoomReservationController extends Controller
         return view('transaction.reservation.confirmation', compact('customer', 'room', 'stayFrom', 'stayUntil', 'downPayment', 'dayDifference'));
     }
 
-    public function payDownPayment(Customer $customer, Room $room, Request $request)
+    public function payDownPayment(Customer $customer, Room $room, Request $request, TransactionRepository $transactionRepository, PaymentRepository $paymentRepository)
     {
         $stayFrom = $request->check_in;
         $stayUntil = $request->check_out;
@@ -113,27 +82,14 @@ class TransactionRoomReservationController extends Controller
             return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' already occupied');
         }
 
-        $transaction = Transaction::create([
-            'user_id' => auth()->user()->id,
-            'customer_id' => $customer->id,
-            'room_id' => $room->id,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out,
-            'status' => 'Reservation'
-        ]);
-
-        $payment = Payment::create([
-            'user_id' => Auth()->user()->id,
-            'transaction_id' => $transaction->id,
-            'price' => $request->downPayment,
-            'status' => 'Down Payment'
-        ]);
+        $transaction = $transactionRepository->store($request, $customer, $room);
+        $payment = $paymentRepository->store($request, $transaction);
 
         $superAdmins = User::where('role', 'Super')->get();
 
-        foreach($superAdmins as $superAdmin) {
-            $message = 'Reservation added by '. $customer->name;
-            event(new NewReservationEvent($message,$superAdmin));
+        foreach ($superAdmins as $superAdmin) {
+            $message = 'Reservation added by ' . $customer->name;
+            event(new NewReservationEvent($message, $superAdmin));
             $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
         }
 

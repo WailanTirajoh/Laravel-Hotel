@@ -39,7 +39,6 @@
                                 <div class="col-lg-6">
                                     <select class="form-select" id="sort_name" name="sort_name"
                                         aria-label="Default select example">
-                                        <option hidden>Sort By Category</option>
                                         <option value="Price" @if (request()->input('sort_name') == 'Price') selected @endif>Price</option>
                                         <option value="Number" @if (request()->input('sort_name') == 'Number') selected @endif>Number</option>
                                         <option value="Capacity" @if (request()->input('sort_name') == 'Capacity') selected @endif>Capacity</option>
@@ -66,7 +65,8 @@
                                             <strong class="d-inline-block mb-2 text-secondary">{{ $room->capacity }}
                                                 {{ Str::plural('Person', $room->capacity) }}</strong>
                                             <h3 class="mb-0">{{ $room->number }} ~ {{ $room->type->name }}</h3>
-                                            <div class="mb-1 text-muted">{{ Helper::convertToRupiah($room->price) }} / Day
+                                            <div class="mb-1 text-muted">{{ Helper::convertToRupiah($room->price) }} /
+                                                Day
                                             </div>
                                             <div class="wrapper">
                                                 <p class="card-text mb-auto demo-1">{{ $room->view }}</p>

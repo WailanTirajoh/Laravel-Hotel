@@ -28,7 +28,9 @@ class StoreCustomerRequest extends FormRequest
             'address' => 'required|max:255',
             'job' => 'required',
             'birthdate' => 'required|date',
-            'gender' => 'required|in:Male,Female'
+            'gender' => 'required|in:Male,Female',
+            'email' => 'required|unique:users,email',
+            'avatar' => 'mimes:png,jpg',
         ];
     }
 }
