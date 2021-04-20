@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Customer;
 use App\Models\Room;
 use App\Models\Transaction;
+use Carbon\Carbon;
 
 class TransactionRepository
 {
@@ -20,5 +21,33 @@ class TransactionRepository
         ]);
 
         return $transaction;
+    }
+
+    public function getTransaction($request)
+    {
+        $transactions = Transaction::with('user', 'room', 'customer')->where('check_out', '>=', Carbon::now());
+
+        if (!empty($request->search)) {
+            $transactions = $transactions->where('id', '=', $request->search);
+        }
+
+        $transactions = $transactions->orderBy('check_out', 'ASC')->orderBy('id', 'DESC')->paginate(20);
+        $transactions->appends($request->all());
+
+        return $transactions;
+    }
+
+    public function getTransactionExpired($request)
+    {
+        $transactionsExpired = Transaction::with('user', 'room', 'customer')->where('check_out', '<', Carbon::now());
+
+        if (!empty($request->search)) {
+            $transactionsExpired = $transactionsExpired->where('id', '=', $request->search);
+        }
+
+        $transactionsExpired = $transactionsExpired->orderBy('check_out', 'ASC')->paginate(20);
+        $transactionsExpired->appends($request->all());
+
+        return $transactionsExpired;
     }
 }

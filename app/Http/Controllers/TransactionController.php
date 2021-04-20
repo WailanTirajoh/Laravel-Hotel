@@ -3,26 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Repositories\TransactionRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, TransactionRepository $transactionRepository)
     {
-        $transactions = Transaction::with('user', 'room', 'customer')->where('check_out', '>=', Carbon::now());
-        $transactionsExpired = Transaction::with('user', 'room', 'customer')->where('check_out', '<', Carbon::now());
-
-        if (!empty($request->search)) {
-            $transactions = $transactions->where('id', '=', $request->search);
-            $transactionsExpired = $transactionsExpired->where('id', '=', $request->search);
-        }
-
-        $transactions = $transactions->orderBy('check_out', 'ASC')->orderBy('id', 'DESC')->paginate(20);
-        $transactionsExpired = $transactionsExpired->orderBy('check_out', 'ASC')->paginate(20);
-
-        $transactions->appends($request->all());
-        $transactionsExpired->appends($request->all());
+        $transactions = $transactionRepository->getTransaction($request);
+        $transactionsExpired = $transactionRepository->getTransactionExpired($request);
         return view('transaction.index', compact('transactions', 'transactionsExpired'));
     }
 }
