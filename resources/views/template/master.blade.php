@@ -96,7 +96,7 @@
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        Echo.private('reservation.{{ auth()->user()->random_key }}')
+        Echo.channel('reservation.{{ auth()->user()->random_key }}')
             .listen('.reservation.event', (e) => {
                 console.log(e.message);
                 $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");

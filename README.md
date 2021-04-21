@@ -1,5 +1,82 @@
 # Laravel Hotel
 
+## Modul
+- Dashboard
+    - Guests Chart
+    - Guests on this day
+
+- Transaction
+    - Payment
+        - Create & Store Payment
+        - Payment History
+    - Room Reservation
+        - Step:
+            1. Choose Customer:
+                - Create New Customer / Pick from existing Customer
+            2. Input Form:
+                - How many people
+                - Date for Check In
+                - Date for Check Out
+            3. Pick Available Room:
+                - Check unoccupied room between date Check in and Check out.
+                - Room Capacity must be > than input how many people.
+            4. Confirmation & Down Payment
+                - Down Payment: 15% of total price
+                - Payment must be equal or higher than Down Payment
+            5. If the transaction Success:
+                - Send Email notification to Super Role about transaction payment.
+                - Send push notification to Super Role.
+
+- CUSTOMER Management
+    - Create Customer
+    - Read Customer
+        - Paginate
+        - Search
+    - Update Customer
+    - Delete Customer
+        - Cannot be deleted if the customer has transaction
+    - Customer Detail
+
+- USER Management
+    - Create User
+    - Read User (Super, Admin)
+        - Paginate
+        - Search
+    - Read User (Customer)
+        - Paginate
+        - Search
+    - Update User
+    - Delete User
+        - Cannot be deleted if the User has transaction
+    - User Detail
+
+- ROOM Management
+    - Create Room
+    - Read Room
+        - Paginate
+        - Search
+    - Update Room
+    - Delete Room
+    - Room Detail
+
+- CRUD ROOM TYPE
+    - Create Room Type
+    - Read Room Type
+        - Paginate 
+        - Search
+    - Update Room Type
+    - Delete Room Type
+
+- CRUD ROOM STATUS
+    - Create Room Status
+    - Read Room Status
+        - Paginate
+        - Search
+    - Update Room Status
+    - Delete Room Status
+
+## Fitur
+
 ## TODO:
 - Nota Pembayaran                                                   (Done)
 - Notifikasi & Email pemesanan kamar ke super admin                 (Done)

@@ -34,7 +34,14 @@ class NewReservationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('reservation.' . $this->random_key);
+        return new Channel('reservation.' . $this->random_key);
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'message' => $this->message,
+        ];
     }
 
     public function broadcastAs()
