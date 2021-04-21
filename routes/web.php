@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Events\NewReservationEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
@@ -61,7 +63,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::post('/transaction/{transaction}/payment/store', [PaymentController::class, 'store'])->name('transaction.payment.store');
 
     Route::get('/get-dialy-guest-chart-data', [ChartController::class, 'dialyGuestPerMonth']);
-    Route::get('/get-dialy-guest-chart-data/{year}/{month}/{day}', [ChartController::class, 'dialyGuest'])->name('chart.dialyGuest');
+    Route::get('/get-dialy-guest/{year}/{month}/{day}', [ChartController::class, 'dialyGuest'])->name('chart.dialyGuest');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
@@ -69,14 +71,25 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
         'show'
     ]);
 
+    Route::view('/notification', 'notification.index')->name('notification.index');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/mark-all-as-read',[NotificationsController::class,'markAllAsRead'])->name('notification.markAllAsRead');
+    Route::get('/mark-all-as-read', [NotificationsController::class, 'markAllAsRead'])->name('notification.markAllAsRead');
 });
 
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/sendEvent', function () {
+    $superAdmins = User::where('role', 'Super')->get();
+
+    foreach ($superAdmins as $superAdmin) {
+        $message = 'Reservation added by';
+        event(new NewReservationEvent($message, $superAdmin));
+    }
+});

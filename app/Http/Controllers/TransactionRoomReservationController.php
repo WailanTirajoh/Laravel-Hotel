@@ -7,7 +7,6 @@ use App\Helpers\Helper;
 use App\Http\Requests\ChooseRoomRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
-use App\Models\Payment;
 use App\Models\Room;
 use App\Models\Transaction;
 use App\Models\User;
@@ -27,10 +26,10 @@ class TransactionRoomReservationController extends Controller
         $this->reservationRepository = $reservationRepository;
     }
 
-    public function pickFromCustomer(Request $request)
+    public function pickFromCustomer(Request $request, CustomerRepository $customerRepository)
     {
-        $customers = $this->reservationRepository->getCustomer($request);
-        $customersCount = $this->reservationRepository->countCustomer($request);
+        $customers = $customerRepository->get($request);
+        $customersCount = $customerRepository->count($request);
         return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
     }
 

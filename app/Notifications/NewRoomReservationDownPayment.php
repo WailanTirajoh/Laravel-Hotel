@@ -37,7 +37,7 @@ class NewRoomReservationDownPayment extends Notification
     public function via($notifiable)
     {
         return [
-            'mail',
+            // 'mail',
             'database',
             'broadcast'
         ];
@@ -67,7 +67,7 @@ class NewRoomReservationDownPayment extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Room ' . $this->transaction->room->number . ' reservated by ' . $this->transaction->customer->name,
+            'message' => 'Room ' . $this->transaction->room->number . ' reservated by ' . $this->transaction->customer->name . '. Payment: ' . Helper::convertToRupiah($this->payment->price),
             'url' => route('payment.invoice', ['payment' => $this->payment->id])
         ];
     }

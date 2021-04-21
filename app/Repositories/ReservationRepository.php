@@ -7,33 +7,6 @@ use App\Models\Room;
 
 class ReservationRepository
 {
-    public function getCustomer($request)
-    {
-        $customers = Customer::with('user')->orderBy('id', 'DESC');
-
-        if (!empty($request->q)) {
-            $customers = $customers->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-        }
-
-        $customers = $customers->paginate(8);
-        $customers->appends($request->all());
-        return $customers;
-    }
-
-    public function countCustomer($request)
-    {
-        $customersCount = Customer::with('user')->orderBy('id', 'DESC');
-
-        if (!empty($request->q)) {
-            $customersCount = $customersCount->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-        }
-
-        $customersCount = $customersCount->count();
-        return $customersCount;
-    }
-
     public function getUnocuppiedroom($request, $occupiedRoomId)
     {
         $rooms = Room::with('type', 'roomStatus')

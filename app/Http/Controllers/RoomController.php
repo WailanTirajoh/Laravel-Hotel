@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use app\Helpers\ImageService;
 use App\Http\Requests\StoreRoomRequest;
-use App\Models\Image;
 use App\Models\Room;
 use App\Models\RoomStatus;
+use App\Models\Transaction;
 use App\Models\Type;
 use App\Repositories\ImageRepository;
 use App\Repositories\RoomRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -35,8 +35,13 @@ class RoomController extends Controller
 
     public function show(Room $room)
     {
-        $roomimages = Image::where('room_id', $room->id)->get();
-        return view('room.show', compact('room', 'roomimages'));
+        $customer = [];
+        $transaction = Transaction::where([['check_in', '<=', Carbon::now()], ['check_out', '>=', Carbon::now()], ['room_id', $room->id]])->first();
+        if(!empty($transaction)) {
+            // dd($transaction);
+            $customer = $transaction->customer;
+        }
+        return view('room.show', compact('customer', 'room'));
     }
 
     public function edit(Room $room)

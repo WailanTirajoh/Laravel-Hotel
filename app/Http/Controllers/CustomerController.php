@@ -11,14 +11,16 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    private $customerRepository;
+
+    public function __construct(CustomerRepository $customerRepository)
+    {
+        $this->customerRepository = $customerRepository;
+    }
+
     public function index(Request $request)
     {
-        $customers = Customer::with('user')->orderBy('id', 'DESC');
-        if (!empty($request->search)) {
-            $customers = $customers->where('name', 'LIKE', '%' . $request->search . '%');
-        }
-        $customers = $customers->paginate(6);
-        $customers->appends($request->all());
+        $customers = $this->customerRepository->get($request);
         return view('customer.index', compact('customers'));
     }
 
@@ -27,9 +29,9 @@ class CustomerController extends Controller
         return view('customer.create');
     }
 
-    public function store(StoreCustomerRequest $request, CustomerRepository $customerRepository)
+    public function store(StoreCustomerRequest $request)
     {
-        $customer = $customerRepository->store($request);
+        $customer = $this->customerRepository->store($request);
         return redirect('customer')->with('success', 'Customer ' . $customer->name . ' created');
     }
 
@@ -55,15 +57,20 @@ class CustomerController extends Controller
             $user = User::find($customer->user->id);
             $avatar_path = public_path('img/user/' . $user->name . '-' . $user->id);
 
+            $customer->delete();
+            $user->delete();
+
             if (is_dir($avatar_path)) {
                 $imageRepository->destroy($avatar_path);
             }
 
-            $customer->delete();
-            $user->delete();
             return redirect('customer')->with('success', 'Customer ' . $customer->name . ' deleted!');
         } catch (\Exception $e) {
-            return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
+            $errorMessage = "";
+            if($e->errorInfo[0] == "23000") {
+                $errorMessage = "Data still connected to other tables";
+            }
+            return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! ' . $errorMessage);
         }
     }
 }

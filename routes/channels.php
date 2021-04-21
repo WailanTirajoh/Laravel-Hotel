@@ -17,6 +17,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-// Broadcast::channel('testChannel', function ($user, $id) {
-//     return true;
-// });
+Broadcast::channel('reservation.{random_key}', function ($user, $random_key){
+    return true;
+}, ['guards' => ['web', 'auth']]);

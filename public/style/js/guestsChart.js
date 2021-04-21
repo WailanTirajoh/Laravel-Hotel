@@ -102,7 +102,7 @@ $(function() {
                 var slice = myVisitorChart.getElementAtEvent(e)
                 if (!slice.length) return // return if not clicked on slice
                 var label = (slice[0]._index) + 1
-                window.location.href = ('/get-dialy-guest-chart-data/' + this_year + '/' + this_month + '/' + label)
+                window.location.href = ('/get-dialy-guest/' + this_year + '/' + this_month + '/' + label)
 
             }
 

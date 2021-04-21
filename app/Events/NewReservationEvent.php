@@ -2,10 +2,8 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -36,11 +34,11 @@ class NewReservationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel-reservation-' . $this->random_key);
+        return new PrivateChannel('reservation.' . $this->random_key);
     }
 
-    // public function broadcastAs()
-    // {
-    //     return 'reservation-event';
-    // }
+    public function broadcastAs()
+    {
+        return 'reservation.event';
+    }
 }

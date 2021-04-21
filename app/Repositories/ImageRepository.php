@@ -24,7 +24,7 @@ class ImageRepository
             $fullpathfile = $path . '/' . $url;
         }
         $img = InterImage::make($file->path());
-        $img->resize(600, 600, function ($constraint) {
+        $img->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();
         })->save($path . '/' . $url);
     }

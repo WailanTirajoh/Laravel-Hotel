@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <p class="d-flex flex-column">
                             <span class="text-bold text-lg">Belum</span>
-                            <span>Total Guests at {{ Helper::thisMonth() }}</span>
+                            <span>Total Guests at {{ Helper::thisMonth().'/'.Helper::thisYear()}}</span>
                         </p>
                         {{-- <p class="ml-auto d-flex flex-column text-right">
                             <span class="text-success">
@@ -131,7 +131,7 @@
         </div>
     </div>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> --}}
-    <canvas id="pieChart"></canvas>
+    {{-- <canvas id="pieChart"></canvas> --}}
 @endsection
 @section('footer')
 <script src="{{ asset('style/js/jquery.js') }}"></script>

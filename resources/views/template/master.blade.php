@@ -45,13 +45,8 @@
             @include('template.include._sidebar')
             <!-- Page Content -->
             <div id="page-content-wrapper">
-                <div class="mt-3 ms-1">
+                <div class="">
                     <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-lg-12">
-                                @include('template.include._sidebarToggle')
-                            </div>
-                        </div>
                         @yield('content')
                     </div>
                 </div>
@@ -101,8 +96,8 @@
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        Echo.channel('channel-reservation-{{ auth()->user()->random_key }}')
-            .listen('NewReservationEvent', (e) => {
+        Echo.private('reservation.{{ auth()->user()->random_key }}')
+            .listen('.reservation.event', (e) => {
                 console.log(e.message);
                 $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
                 $("#refreshThisDropdown").load(" #refreshThisDropdown > *");

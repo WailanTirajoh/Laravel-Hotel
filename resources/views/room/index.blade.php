@@ -51,7 +51,6 @@
                                             <th scope="col">Capacity</th>
                                             <th scope="col">Price / Day</th>
                                             {{-- <th scope="col">View</th> --}}
-                                            <th scope="col">Images</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -67,12 +66,6 @@
                                                 <td>{{ $room->capacity }}</td>
                                                 <td>{{ Helper::convertToRupiah($room->price) }}</td>
                                                 {{-- <td><span class="text">{{ $room->view }}</span></td> --}}
-                                                <td>
-                                                    @foreach ($room->image as $image)
-                                                        <img src="{{ asset($image->getRoomImage()) }}" alt="" width="150"
-                                                            height="150">
-                                                    @endforeach
-                                                </td>
                                                 <td>{{ $room->roomStatus->name }}</td>
                                                 <td>
                                                     <a class="btn btn-light btn-sm rounded shadow-sm border"
