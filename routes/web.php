@@ -2,10 +2,12 @@
 
 use App\Models\User;
 use App\Events\NewReservationEvent;
+use App\Events\RefreshDashboardEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotificationsController;
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
     Route::resource('room', RoomController::class);
     Route::resource('roomstatus', RoomStatusController::class);
     Route::resource('transaction', TransactionController::class);
+    Route::resource('facility', FacilityController::class);
 
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
     Route::get('/payment/{payment}/invoice', [PaymentController::class, 'invoice'])->name('payment.invoice');
@@ -87,9 +90,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/sendEvent', function () {
     $superAdmins = User::where('role', 'Super')->get();
+    event(new RefreshDashboardEvent("Someone reserved a room"));
 
     foreach ($superAdmins as $superAdmin) {
         $message = 'Reservation added by';
-        event(new NewReservationEvent($message, $superAdmin));
+        // event(new NewReservationEvent($message, $superAdmin));
     }
 });

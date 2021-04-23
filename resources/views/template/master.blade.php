@@ -96,12 +96,12 @@
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        Echo.channel('private-reservation.{{ auth()->user()->random_key }}')
+        toastr.options.timeOut = 10000;
+        Echo.channel('reservation.{{ auth()->user()->random_key }}')
             .listen('.reservation.event', (e) => {
-                console.log(e.message);
                 $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
-                $("#refreshThisDropdown").load(" #refreshThisDropdown > *");
-                toastr.success(e.message, "Hello there");
+                // $("#refreshThisDropdown").load(" #refreshThisDropdown > *");
+                toastr.success(e.message);
             })
     </script>
     @yield('footer')

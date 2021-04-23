@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewReservationEvent;
+use App\Events\RefreshDashboardEvent;
 use App\Helpers\Helper;
 use App\Http\Requests\ChooseRoomRequest;
 use App\Http\Requests\StoreCustomerRequest;
@@ -97,6 +98,8 @@ class TransactionRoomReservationController extends Controller
             event(new NewReservationEvent($message, $superAdmin));
             $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
         }
+
+        event(new RefreshDashboardEvent("Someone reserved a room"));
 
         return redirect()->route('transaction.index')->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
     }
