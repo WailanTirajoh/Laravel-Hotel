@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('reservation.{random_key}', function ($user, $random_key){
+Broadcast::channel('reservation.*', function ($user, $random_key){
     return $user->random_key === $random_key;
-});
+}, ['middleware' => ['auth', 'checkRole:Super']]);

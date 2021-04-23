@@ -57,6 +57,7 @@
         - Search
     - Update Room
     - Delete Room
+        - Cannot be deleted if the Room already connected in transaction
     - Room Detail
 
 - CRUD ROOM TYPE

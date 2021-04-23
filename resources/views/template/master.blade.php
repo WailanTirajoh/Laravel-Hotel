@@ -9,7 +9,7 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
     <!-- Bootstrap CSS -->
     <link href="{{ asset('package/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"
@@ -96,7 +96,7 @@
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        Echo.channel('reservation.{{ auth()->user()->random_key }}')
+        Echo.channel('private-reservation.{{ auth()->user()->random_key }}')
             .listen('.reservation.event', (e) => {
                 console.log(e.message);
                 $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
