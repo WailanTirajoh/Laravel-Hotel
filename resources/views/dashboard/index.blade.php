@@ -31,6 +31,7 @@
                                         <th></th>
                                         <th>Name</th>
                                         <th>Room</th>
+                                        <th class="text-center">Stay</th>
                                         <th>Day Left</th>
                                         <th>Debt</th>
                                         <th class="text-center">Status</th>
@@ -47,6 +48,9 @@
                                                 {{ $transaction->customer->name }}
                                             </td>
                                             <td>{{ $transaction->room->number }}</td>
+                                            <td>
+                                                {{ Helper::dateFormat($transaction->check_in) }} ~ {{ Helper::dateFormat($transaction->check_out) }}
+                                            </td>
                                             <td>{{ Helper::getDateDifference(now(), $transaction->check_out) }}
                                                 {{ Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                             </td>

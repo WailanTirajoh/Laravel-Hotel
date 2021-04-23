@@ -1,5 +1,13 @@
 # Laravel Hotel
 
+## TODO:
+- Customer asks for room to be cleaned (Pop notifikasi untuk admin)   
+- Customer Order meals (Pop notifikasi untuk admin)
+- Room Facility
+- User Profile
+- User Activity Log
+- User Settings
+
 ## Modul
 - Dashboard
     - Guests Chart
@@ -77,11 +85,6 @@
     - Delete Room Status
 
 ## Fitur
-
-## TODO:
-- Customer asks for room to be cleaned (Pop notifikasi untuk admin)   
-- Customer Order meals (Pop notifikasi untuk admin)
-- Room Facility
 
 ## Init DB
 - Create DB Name: hotel_app

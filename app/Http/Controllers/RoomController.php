@@ -14,9 +14,15 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function index(Request $request, RoomRepository $roomRepository)
+    private $roomRepository;
+
+    public function __construct(RoomRepository $roomRepository)
     {
-        $rooms = $roomRepository->getRooms($request);
+        $this->roomRepository = $roomRepository;
+    }
+    public function index(Request $request)
+    {
+        $rooms = $this->roomRepository->getRooms($request);
         return view('room.index', compact('rooms'));
     }
 

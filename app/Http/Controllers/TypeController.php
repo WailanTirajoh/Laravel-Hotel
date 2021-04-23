@@ -9,9 +9,16 @@ use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    public function index(Request $request, TypeRepository $typeRepository)
+    private $typeRepository;
+
+    public function __construct(TypeRepository $typeRepository)
     {
-        $types = $typeRepository->showAll($request);
+        $this->typeRepository = $typeRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $types = $this->typeRepository->showAll($request);
         return view('type.index', compact('types'));
     }
 
@@ -20,9 +27,9 @@ class TypeController extends Controller
         return view('type.create');
     }
 
-    public function store(StoreTypeRequest $request, TypeRepository $typeRepository)
+    public function store(StoreTypeRequest $request)
     {
-        $type = $typeRepository->store($request);
+        $type = $this->typeRepository->store($request);
         return redirect('type')->with('success', 'Type ' . $type->name . ' created');
     }
 

@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public $paymentRepository;
+
+    public function __construct(PaymentRepository $paymentRepository)
+    {
+        $this->paymentRepository = $paymentRepository;
+    }
+
     public function index()
     {
         $payments = Payment::orderBy('id','DESC')->paginate(5);
@@ -21,14 +28,14 @@ class PaymentController extends Controller
         return view('transaction.payment.create', compact('transaction'));
     }
 
-    public function store(Transaction $transaction, Request $request, PaymentRepository $paymentRepository)
+    public function store(Transaction $transaction, Request $request)
     {
         $insufficient = $transaction->getTotalPrice() - $transaction->getTotalPayment();
         $request->validate([
             'payment' => 'required|numeric|lte:' . $insufficient
         ]);
 
-        $paymentRepository->store($request, $transaction, 'Payment');
+        $this->paymentRepository->store($request, $transaction, 'Payment');
 
         return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
     }

@@ -9,10 +9,17 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index(Request $request, TransactionRepository $transactionRepository)
+    private $transactionRepository;
+
+    public function __construct(TransactionRepository $transactionRepository)
     {
-        $transactions = $transactionRepository->getTransaction($request);
-        $transactionsExpired = $transactionRepository->getTransactionExpired($request);
+        $this->transactionRepository = $transactionRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $transactions = $this->transactionRepository->getTransaction($request);
+        $transactionsExpired = $this->transactionRepository->getTransactionExpired($request);
         return view('transaction.index', compact('transactions', 'transactionsExpired'));
     }
 }

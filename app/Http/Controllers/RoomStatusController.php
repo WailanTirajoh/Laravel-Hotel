@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class RoomStatusController extends Controller
 {
-    public function index(Request $request, RoomStatusRepository $roomStatusRepository)
+    private $roomStatusRepository;
+
+    public function __construct(RoomStatusRepository $roomStatusRepository)
     {
-        $roomstatuses = $roomStatusRepository->getRoomStatuses($request);
+        $this->roomStatusRepository = $roomStatusRepository;
+    }
+    public function index(Request $request)
+    {
+        $roomstatuses = $this->roomStatusRepository->getRoomStatuses($request);
         return view('roomstatus.index', compact('roomstatuses'));
     }
 

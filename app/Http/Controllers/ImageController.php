@@ -11,7 +11,14 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function store(Request $request, Room $room, ImageRepository $imageRepository)
+    private $imageRepository;
+
+    public function __construct(ImageRepository $imageRepository)
+    {
+        $this->imageRepository = $imageRepository;
+    }
+
+    public function store(Request $request, Room $room)
     {
         $request->validate([
             'image' => 'required|mimes:png,jpg'
@@ -20,7 +27,7 @@ class ImageController extends Controller
         $path = public_path('img/room/' . $room->number);
         $file = $request->file('image');
 
-        $imageRepository->uploadImage($path, $file);
+        $this->imageRepository->uploadImage($path, $file);
 
         Image::create([
             'room_id' => $room->id,

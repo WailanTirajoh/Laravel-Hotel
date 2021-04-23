@@ -12,10 +12,17 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request, UserRepository $userRepository)
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
-        $users = $userRepository->showUser($request);
-        $customers = $userRepository->showCustomer($request);
+        $this->userRepository = $userRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $users = $this->userRepository->showUser($request);
+        $customers = $this->userRepository->showCustomer($request);
         return view('user.index', compact('users', 'customers'));
     }
 
@@ -24,9 +31,9 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(StoreUserRequest $request, UserRepository $userRepository)
+    public function store(StoreUserRequest $request)
     {
-        $user = $userRepository->store($request);
+        $user = $this->userRepository->store($request);
         return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
     }
 
