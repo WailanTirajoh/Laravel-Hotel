@@ -79,11 +79,9 @@
 ## Fitur
 
 ## TODO:
-- Nota Pembayaran                                                   (Done)
-- Notifikasi & Email pemesanan kamar ke super admin                 (Done)
-- Notifikasi & Email status pembayaran ke admin                     (Done)
-- Customer meminta kamar dibersihkan (Pop notifikasi untuk admin)   
-- Customer pesan makan (Pop notifikasi untuk admin)
+- Customer asks for room to be cleaned (Pop notifikasi untuk admin)   
+- Customer Order meals (Pop notifikasi untuk admin)
+- Room Facility
 
 ## Init DB
 - Create DB Name: hotel_app
@@ -101,40 +99,31 @@ php artisan websockets:serv     => Terminal 2   //Menjalankan websocket
 - Password: wailan
 
 ## Notes:
-- Jika tampilan bootstrap tidak terpanggil:
+- If the bootstrap view is not called properly:
     1. [Download bootstrap 5](https://github.com/twbs/bootstrap/releases/download/v5.0.0-beta3/bootstrap-5.0.0-beta3-dist.zip)
-    2. Extract dan copy folder JS dan CSS.
-    3. Ganti file pada hotel-app -> public -> package -> bootstrap (Didalam sini ada JS dan CSS, ganti file tersebut dengan JS dan CSS yang telah didownload)
+    2. Extract, copy folder JS and CSS.
+    3. Change file at hotel-app/public/package/bootstrap (Theres JS and CSS folder here, change with the new one)
 
 
 ## ERD
 ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/erd.PNG?raw=true)
 
-## Alur Laravel Hotel
+## Reservation Plot
 
-- Pelanggan Daftar ke Admin
-- Isi identitas diri pelanggan (berdasarkan KTP)
-    - Diisi oleh Admin
-- Pesan kamar (berapa orang?)
-    - Diisi oleh Admin berdasarkan permintaan pelanggan
-        - kamar direkomendasikan oleh sistem berdasarkan nilai yang diinput.
-- Pilih kamar berdasarkan banyak orang
-    - Diisi oleh Admin berdasarkan permintaan pelanggan
-        - Pilih tipe kamar, fasilitas, dan harga.
-- Masuk dan Selesai kapan?
-    - Diisi oleh Admin berdasarkan kesepakatan Check In, dan Check Out sementara untuk kalkulasi harga (dapat bertambah jika bermalam lebih lama)
-- DP awal
-    - Diisi oleh Admin berdasarkan nilai DP Minimal berdasarkan Tipe
-- Selesai (Check Out) dan pelunasan kekurangan pembayaran
+- Customer Register to Admin
+- Fill in customer's identity (based on KTP)
+    - Fill in by the Admin
+- Book a room (how much people? and when?)
+    - Fill in by the Admin based on customers order
+        - rooms are recommended by the system based on the input value.
+- Choose the room
+    - Fill in by the Admin based on customers order
+        - Choose based on room type, price, and facility.
+- Make a down payment
+    - Fill in by the Admin based on minimum down payment (15% of total price)
+- Stay
+- Finish (Check Out) and pay the insufficient payment
 
-
-## Alur App untuk Admin
-1. Identity Card
-2. For how many person?
-3. Choose a room
-4. Pick day for Check in and check out
-5. Down payment for first transaction (25% of total price)
-6. Check out and Pay off the bill
 
 ## Laravel License
 
