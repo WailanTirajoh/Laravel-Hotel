@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use app\Helpers\ImageService;
+use App\Http\Requests\StoreImageRequest;
 use App\Models\Image;
 use App\Models\Room;
 use App\Repositories\ImageRepository;
@@ -18,20 +19,16 @@ class ImageController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
-    public function store(Request $request, Room $room)
+    public function store(StoreImageRequest $request, Room $room)
     {
-        $request->validate([
-            'image' => 'required|mimes:png,jpg'
-        ]);
-
         $path = public_path('img/room/' . $room->number);
         $file = $request->file('image');
 
-        $this->imageRepository->uploadImage($path, $file);
+        $lastFileName = $this->imageRepository->uploadImage($path, $file);
 
         Image::create([
             'room_id' => $room->id,
-            'url' => $file->getClientOriginalName(),
+            'url' => $lastFileName,
         ]);
 
         return redirect()->route('room.show', ['room' => $room->id])->with('success', 'Image upload successfully!');

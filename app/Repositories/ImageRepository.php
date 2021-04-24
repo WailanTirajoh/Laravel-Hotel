@@ -27,6 +27,8 @@ class ImageRepository
         $img->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();
         })->save($path . '/' . $url);
+
+        return $url;
     }
 
     public function destroy($dir)

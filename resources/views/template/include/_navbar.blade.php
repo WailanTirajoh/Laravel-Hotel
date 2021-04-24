@@ -6,7 +6,7 @@
                 class="d-inline-block align-text-top">
         </a>
         <div id="menu-toggle">
-            <div class="text-center d-inline-block"  data-bs-toggle="tooltip" data-bs-placement="right"
+            <div class="text-center d-inline-block" data-bs-toggle="tooltip" data-bs-placement="right"
                 title="Toggle Sidebar">
                 <div class="vc-toggle-container">
                     <label class="vc-switch">
@@ -46,7 +46,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <ul class="timeline timeline-icons timeline-sm p-2" style="width:210px; max-height:300px; overflow:auto">
+                            <ul class="timeline timeline-icons timeline-sm p-2"
+                                style="width:210px; max-height:300px; overflow:auto">
                                 @forelse (auth()->user()->unreadNotifications as $notification)
                                     <li>
                                         <p>
@@ -54,7 +55,8 @@
                                                 href="{{ $notification->data['url'] }}">here</a>
                                             <span class="timeline-icon"><i class="fa fa-file-pdf-o"
                                                     style="color:red"></i></span>
-                                            <span class="timeline-date">{{ $notification->created_at->diffForHumans() }}</span>
+                                            <span
+                                                class="timeline-date">{{ $notification->created_at->diffForHumans() }}</span>
                                         </p>
                                     </li>
                                 @empty
@@ -73,7 +75,8 @@
                                     <div class="col-lg-12 text-center">
                                         <a href="{{ route('notification.markAllAsRead') }}"
                                             class="float-start mb-2 ms-2">Mark all as read</a>
-                                        <a href="{{ route('notification.index') }}" class="float-end mb-2 me-2">See All</a>
+                                        <a href="{{ route('notification.index') }}" class="float-end mb-2 me-2">See
+                                            All</a>
                                     </div>
                                 </div>
                             </li>

@@ -57,7 +57,7 @@
                                                     {{ Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                                 </td>
                                                 <td>
-                                                    {{ Helper::convertToRupiah($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
+                                                    {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
                                                 </td>
                                                 <td>
                                                     <span

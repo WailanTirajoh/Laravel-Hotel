@@ -1,12 +1,35 @@
 # Laravel Hotel
 
 ## TODO:
-- Customer asks for room to be cleaned (Pop notifikasi untuk admin)   
-- Customer Order meals (Pop notifikasi untuk admin)
-- Room Facility
+- Customer's Room:
+    - Asks for room to be cleaned
+        - Send realtime notification to Admin
+    - Order meals
+        - Send realtime notification to Admin, and food
+
+- Room Facility:
+    - Create
+    - Read
+        - Pagination
+        - Search
+    - Update
+    - Delete
+
 - User Profile
-- User Activity Log
-- User Settings
+    - View
+    - User Activity Log
+        - View:
+            - Paginate
+            - see all
+    - User Settings
+        - Edit Profile
+        - Edit Password
+
+- Dashboard
+    - Guests Chart
+        - Get total customer / month
+    - Income Chart for Super only
+        - Get total income / month
 
 ## Modul
 - Dashboard
@@ -34,6 +57,7 @@
             5. If the transaction Success:
                 - Send Email notification to Super Role about transaction payment.
                 - Send push notification to Super Role.
+                - Update all dashboard view
 
 - CUSTOMER Management
     - Create Customer
@@ -83,8 +107,6 @@
         - Search
     - Update Room Status
     - Delete Room Status
-
-## Fitur
 
 ## Init DB
 - Create DB Name: hotel_app

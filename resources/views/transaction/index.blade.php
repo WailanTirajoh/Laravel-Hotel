@@ -184,7 +184,7 @@
                             new account!</a>
                         <a class="btn btn-sm btn-success m-1"
                             href="{{ route('transaction.reservation.pickFromCustomer') }}">Yes, use
-                            my account please!</a>
+                            their account!</a>
                     </div>
                 </div>
                 <div class="modal-footer">
