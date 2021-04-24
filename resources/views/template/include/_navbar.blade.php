@@ -46,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <ul class="timeline timeline-icons timeline-sm" style="margin:10px;width:210px">
+                            <ul class="timeline timeline-icons timeline-sm p-2" style="width:210px; max-height:300px; overflow:auto">
                                 @forelse (auth()->user()->unreadNotifications as $notification)
                                     <li>
                                         <p>
