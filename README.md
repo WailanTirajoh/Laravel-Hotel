@@ -3,6 +3,8 @@
 ## TODO:
 - Customer's Room:
     - Asks for room to be cleaned
+        - Update room status
+            - Auth id must be == room->customer->id 
         - Send realtime notification to Admin
     - Order meals
         - Send realtime notification to Admin, and food
@@ -116,7 +118,7 @@ composer install
 npm install && npm run dev
 php artisan migrate:fresh --seed
 php artisan serv                => Terminal 1
-php artisan websockets:serv     => Terminal 2   //Menjalankan websocket
+php artisan websockets:serv     => Terminal 2   //run the websocket server for realtime notification
 ```
 
 ## Login:

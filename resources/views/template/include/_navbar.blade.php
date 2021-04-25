@@ -51,10 +51,11 @@
                                 @forelse (auth()->user()->unreadNotifications as $notification)
                                     <li>
                                         <p>
-                                            {{ $notification->data['message'] }} <a
-                                                href="{{ $notification->data['url'] }}">here</a>
-                                            <span class="timeline-icon"><i class="fa fa-file-pdf-o"
-                                                    style="color:red"></i></span>
+                                            {{ $notification->data['message'] }}
+                                            <a href="{{ route('notification.routeTo',['id' => $notification->id]) }}">here</a>
+                                            {{-- <a href="{{ $notification->data['url'] }}">here</a> --}}
+                                            <span class="timeline-icon" style="margin-left: -1px; margin-top:-3px"><i
+                                                    class="fa fa-cash-register"></i></span>
                                             <span
                                                 class="timeline-date">{{ $notification->created_at->diffForHumans() }}</span>
                                         </p>

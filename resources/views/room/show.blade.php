@@ -2,7 +2,7 @@
 @section('title', 'Room')
 @section('content')
     <div class="row">
-        <div class="{{!empty($customer) ? 'col-md-3' : ''}}">
+        <div class="col-md-3">
             @if (!empty($customer))
             <div class="card shadow-sm justify-content-start" style="min-height:350px; ">
                 <img class="myImages" src="{{ $customer->user->getAvatar() }}"
@@ -67,9 +67,15 @@
                     <hr>
                 </div>
             </div>
+            @else
+            <div class="card">
+                <div class="card-body">
+                    <h4>Currently Empty</h4>
+                </div>
+            </div>
             @endif
         </div>
-        <div class="{{!empty($customer) ? 'col-md-5' : 'col-md-8'}} mb-3">
+        <div class="col-md-5 mb-3">
             <div class="card shadow-sm">
                 <div class="card-header">
                     <div class="row">
@@ -125,8 +131,12 @@
                         </div>
                     </div>
                 @empty
-                <div class="col">
-                    <p>Theres no picture for this room</p>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Theres no image for this room</h4>
+                        </div>
+                    </div>
                 </div>
                 @endforelse
             </div>

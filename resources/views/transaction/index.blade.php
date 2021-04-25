@@ -45,7 +45,6 @@
                                     <th>Check In</th>
                                     <th>Check Out</th>
                                     <th>Days</th>
-                                    <th>Status</th>
                                     <th>Total Price</th>
                                     <th>Paid Off</th>
                                     <th>Debt</th>
@@ -64,7 +63,6 @@
                                         <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
                                         <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
                                         </td>
-                                        <td>{{ $transaction->status }}</td>
                                         <td>{{ Helper::convertToRupiah($transaction->getTotalPrice()) }}
                                         </td>
                                         <td>
@@ -115,7 +113,6 @@
                                     <th>Check In</th>
                                     <th>Check Out</th>
                                     <th>Days</th>
-                                    <th>Status</th>
                                     <th>Total Price</th>
                                     <th>Paid Off</th>
                                     <th>Debt</th>
@@ -134,7 +131,6 @@
                                     <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
                                     <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
                                     </td>
-                                    <td>{{ $transaction->status }}</td>
                                     <td>{{ Helper::convertToRupiah($transaction->getTotalPrice()) }}
                                     </td>
                                     <td>
@@ -180,7 +176,7 @@
                 <div class="modal-body">
                     <div class="d-flex justify-content-center">
                         <a class="btn btn-sm btn-primary m-1"
-                            href="{{ route('transaction.reservation.createIdentity') }}">No, Create
+                            href="{{ route('transaction.reservation.createIdentity') }}">No, create
                             new account!</a>
                         <a class="btn btn-sm btn-success m-1"
                             href="{{ route('transaction.reservation.pickFromCustomer') }}">Yes, use

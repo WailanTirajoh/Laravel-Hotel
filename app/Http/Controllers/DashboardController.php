@@ -12,7 +12,7 @@ class DashboardController extends Controller
         $transactions = Transaction::with('user', 'room', 'customer')
             ->where([['check_in', '<=', Carbon::now()], ['check_out', '>=', Carbon::now()]])
             ->orderBy('check_out', 'ASC')
-            ->orderBy('id', 'DESC')->paginate(10);
+            ->orderBy('id', 'DESC')->get();
         return view('dashboard.index', compact('transactions'));
     }
 }

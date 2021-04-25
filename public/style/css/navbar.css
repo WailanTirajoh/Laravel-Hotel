@@ -70,7 +70,7 @@
     }
     
     .timeline.timeline-icons li .timeline-icon [class*=glyphicon] {
-        top: -1px !important;
+        top: -5px !important;
     }
     
     .timeline.timeline-icons.timeline-sm li {

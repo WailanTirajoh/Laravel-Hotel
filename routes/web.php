@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/mark-all-as-read', [NotificationsController::class, 'markAllAsRead'])->name('notification.markAllAsRead');
+
+    Route::get('/notification-to/{id}',[NotificationsController::class, 'routeTo'])->name('notification.routeTo');
 });
 
 Route::view('/login', 'auth.login')->name('login');

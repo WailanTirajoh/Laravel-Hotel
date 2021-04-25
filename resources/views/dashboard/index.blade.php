@@ -8,6 +8,24 @@
         <div class="row">
             <div class="col-lg-6 mb-3">
                 <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border" style="border-radius: 0.5rem">
+                            <div class="card-body">
+                                <h5>{{ count($transactions) }} Guests this day</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border" style="border-radius: 0.5rem">
+                            <div class="card-body text-center">
+                                <h5>Dashboard</h5>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box border -->
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <div class="col-lg-12">
                         <div class="card shadow-sm border">
                             <div class="card-header">
@@ -46,15 +64,20 @@
                                                         class="rounded-circle img-thumbnail" width="40" height="40" alt="">
                                                 </td>
                                                 <td>
-                                                    {{ $transaction->customer->name }}
+                                                    <a href="{{route('customer.show',['customer'=>$transaction->customer->id])}}">
+                                                        {{ $transaction->customer->name }}
+                                                    </a>
                                                 </td>
-                                                <td>{{ $transaction->room->number }}</td>
+                                                <td>
+                                                    <a href="{{route('room.show', ['room'=>$transaction->room->id])}}">
+                                                        {{ $transaction->room->number }}
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     {{ Helper::dateFormat($transaction->check_in) }} ~
                                                     {{ Helper::dateFormat($transaction->check_out) }}
                                                 </td>
-                                                <td>{{ Helper::getDateDifference(now(), $transaction->check_out) }}
-                                                    {{ Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
+                                                <td>{{ Helper::getDateDifference(now(), $transaction->check_out) == 0 ? 'Last Day' :  Helper::getDateDifference(now(), $transaction->check_out). ' '. Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out))}}
                                                 </td>
                                                 <td>
                                                     {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
@@ -80,18 +103,26 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                                <div class="row justify-content-md-center mt-3">
+                                {{-- <div class="row justify-content-md-center mt-3">
                                     <div class="col-sm-10 d-flex mx-auto justify-content-md-center">
                                         <div class="pagination-block">
                                             {{ $transactions->onEachSide(1)->links('template.paginationlinks') }}
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-12">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row mb-3">
                     <div class="col-lg-12">
                         <div class="card shadow-sm border">
                             <div class="card-header border-0">
@@ -128,27 +159,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="row mb-3">
-                    <div class="col-lg-6">
-                        <div class="card shadow-sm border" style="border-radius: 0.5rem">
-                            <div class="card-body">
-                                <h5>{{ count($transactions) }} Guests this day</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card shadow-sm border" style="border-radius: 0.5rem">
-                            <div class="card-body text-center">
-                                <h5>Dashboard</h5>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box border -->
                     </div>
                 </div>
             </div>
