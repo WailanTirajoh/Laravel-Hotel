@@ -47,7 +47,7 @@ class User extends Authenticatable
     public function getAvatar()
     {
         if (!$this->avatar) {
-            return asset('img/user/default/default.jpg');
+            return asset('img/default/default-user.jpg');
         }
         return asset('img/user/' . $this->name . '-' . $this->id . '/' . $this->avatar);
     }

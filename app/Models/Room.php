@@ -37,6 +37,6 @@ class Room extends Model
         if (count($this->image) > 0) {
             return $this->image->first()->getRoomImage();
         }
-        return asset('img/room/default/default.png');
+        return asset('img/default/default-room.png');
     }
 }
