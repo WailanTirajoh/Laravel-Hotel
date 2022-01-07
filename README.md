@@ -1,5 +1,34 @@
 # Laravel Hotel
 
+## Example
+![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.PNG?raw=true)
+
+## Instalation
+
+### Init DB
+- Create DB Name: hotel_app
+or via terminal
+```
+mysql -u root -p
+```
+enter your db credential
+```
+create database hotel_app;
+exit;
+```
+### Init Commands:
+```
+composer install
+npm install && npm run dev
+php artisan migrate:fresh --seed
+php artisan serv                => Terminal 1
+php artisan websockets:serv     => Terminal 2   //run the websocket server for realtime notification
+```
+
+### Login:
+- Email: wailantirajoh@gmail.com
+- Password: wailan
+
 ## TODO:
 - Customer's Room:
     - Asks for room to be cleaned
@@ -110,26 +139,8 @@
     - Update Room Status
     - Delete Room Status
 
-## Init DB
-- Create DB Name: hotel_app
-## Init Commands:
-```
-composer install
-npm install && npm run dev
-php artisan migrate:fresh --seed
-php artisan serv                => Terminal 1
-php artisan websockets:serv     => Terminal 2   //run the websocket server for realtime notification
-```
 
-## Login:
-- Email: wailantirajoh@gmail.com
-- Password: wailan
 
-## Notes:
-- If the bootstrap view is not called properly:
-    1. [Download bootstrap 5](https://github.com/twbs/bootstrap/releases/download/v5.0.0-beta3/bootstrap-5.0.0-beta3-dist.zip)
-    2. Extract, copy folder JS and CSS.
-    3. Change file at hotel-app/public/package/bootstrap (Theres JS and CSS folder here, change with the new one)
 
 
 ## ERD

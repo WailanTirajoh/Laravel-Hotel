@@ -96,7 +96,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">
+                                                <td colspan="10" class="text-center">
                                                     There's no data in this table
                                                 </td>
                                             </tr>
