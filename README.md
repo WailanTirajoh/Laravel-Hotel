@@ -1,12 +1,14 @@
 # Laravel Hotel
-## Example
-### Reservation
+Laravel Hotel is an open-source web application built with laravel 8.0, enchanced with laravel websockets features to have realtime notification experience.
+## Examples
+- Reservation
 ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example-b.png?raw=true)
 
-### Dashboard
+- Dashboard
 ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.png?raw=true)
+- And more ...
 
-## Instalation
+## Instalation 
 
 ### Init DB
 - Create DB Name: hotel_app
