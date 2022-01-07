@@ -2,6 +2,7 @@
 
 ## Example
 ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.PNG?raw=true)
+![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example-b.PNG?raw=true)
 
 ## Instalation
 
