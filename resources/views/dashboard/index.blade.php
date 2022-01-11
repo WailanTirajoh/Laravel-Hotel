@@ -133,8 +133,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <p class="d-flex flex-column">
-                                        <span class="text-bold text-lg">Belum</span>
-                                        <span>Total Guests at {{ Helper::thisMonth() . '/' . Helper::thisYear() }}</span>
+                                        {{-- <span class="text-bold text-lg">Belum</span> --}}
+                                        {{-- <span>Total Guests at {{ Helper::thisMonth() . '/' . Helper::thisYear() }}</span> --}}
                                     </p>
                                     {{-- <p class="ml-auto d-flex flex-column text-right">
                                     <span class="text-success">

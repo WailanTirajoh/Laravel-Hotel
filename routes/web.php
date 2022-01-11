@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
 });
 
 Route::view('/login', 'auth.login')->name('login');
-Route::post('/postLogin', [AuthController::class, 'postLogin']);
+Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postlogin');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
