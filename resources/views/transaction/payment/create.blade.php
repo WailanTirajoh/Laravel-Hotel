@@ -146,7 +146,6 @@
     </div>
 @endsection
 @section('footer')
-<script src="{{ asset('style/js/jquery.js') }}"></script>
 <script>
     $('#payment').keyup(function() {
         $('#showPaymentType').text('Rp. ' + parseFloat($(this).val(), 10).toFixed(2).replace(

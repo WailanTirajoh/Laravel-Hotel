@@ -1,13 +1,13 @@
 $(function() {
-    var charts = {
+    const charts = {
         init: function() {
             this.ajaxGetDialyGuestPerMonthData();
         },
 
         ajaxGetDialyGuestPerMonthData: function() {
-            var urlPath = '/get-dialy-guest-chart-data';
-            var request = $.ajax({
-                method: 'GET',
+            const urlPath = "/get-dialy-guest-chart-data";
+            const request = $.ajax({
+                method: "GET",
                 url: urlPath
             });
 
@@ -18,40 +18,30 @@ $(function() {
         },
 
         createGuestsChart: function(response) {
-            var ticksStyle = {
-                fontColor: '#495057',
-                fontStyle: 'bold'
-            }
+            const ticksStyle = {
+                fontColor: "#495057",
+                fontStyle: "bold"
+            };
 
-            var mode = 'index'
-            var intersect = true
+            const mode = "index";
+            const intersect = true;
 
-            var visitorsChart = $('#visitors-chart')
-            var this_year = $('#visitors-chart').attr('this-year')
-            var this_month = $('#visitors-chart').attr('this-month')
-            var visitorsChart = $('#visitors-chart')
-            var myVisitorChart = new Chart(visitorsChart, {
+            let visitorsChart = $("#visitors-chart");
+            const this_year = visitorsChart.attr("this-year");
+            const this_month = visitorsChart.attr("this-month");
+            const myVisitorChart = new Chart(visitorsChart, {
                 data: {
                     labels: response.day,
-                    datasets: [{
-                            type: 'line',
+                    datasets: [
+                        {
+                            type: "line",
                             data: response.guest_count_data,
-                            backgroundColor: 'transparent',
-                            borderColor: '#007bff',
-                            pointBorderColor: '#007bff',
-                            pointBackgroundColor: '#007bff',
+                            backgroundColor: "transparent",
+                            borderColor: "#007bff",
+                            pointBorderColor: "#007bff",
+                            pointBackgroundColor: "#007bff",
                             fill: false
-                        },
-                        // {
-                        //     type: 'line',
-                        //     // Data bulan sebelumnya
-                        //     data: [60, 80, 70, 67, 80, 77, 100],
-                        //     backgroundColor: 'tansparent',
-                        //     borderColor: '#ced4da',
-                        //     pointBorderColor: '#ced4da',
-                        //     pointBackgroundColor: '#ced4da',
-                        //     fill: false
-                        // }
+                        }
                     ]
                 },
                 options: {
@@ -64,50 +54,60 @@ $(function() {
                         mode: mode,
                         intersect: intersect,
                         onHover: function(e) {
-                            var point = this.getElementAtEvent(e);
-                            if (point.length) e.target.style.cursor = 'pointer';
-                            else e.target.style.cursor = 'default';
+                            const point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = "pointer";
+                            else e.target.style.cursor = "default";
                         }
                     },
                     legend: {
-                        display: false,
+                        display: false
                     },
                     scales: {
-                        yAxes: [{
-                            display: true,
-                            gridLines: {
+                        yAxes: [
+                            {
                                 display: true,
-                                lineWidth: '4px',
-                                color: 'rgba(0, 0, 0, .2)',
-                                zeroLineColor: 'transparent'
-                            },
-                            ticks: $.extend({
-                                beginAtZero: true,
-                                suggestedMax: response.max
-                            }, ticksStyle)
-                        }],
-                        xAxes: [{
-                            display: true,
-                            gridLines: {
-                                display: true
-                            },
-                            ticks: ticksStyle
-                        }]
+                                gridLines: {
+                                    display: true,
+                                    lineWidth: "4px",
+                                    color: "rgba(0, 0, 0, .2)",
+                                    zeroLineColor: "transparent"
+                                },
+                                ticks: $.extend(
+                                    {
+                                        beginAtZero: true,
+                                        suggestedMax: response.max
+                                    },
+                                    ticksStyle
+                                )
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                display: true,
+                                gridLines: {
+                                    display: true
+                                },
+                                ticks: ticksStyle
+                            }
+                        ]
                     }
                 }
-            })
+            });
 
-            var visitorsChart = document.getElementById("visitors-chart");
-            visitorsChart.onclick = function(e) {
-                var slice = myVisitorChart.getElementAtEvent(e)
-                if (!slice.length) return // return if not clicked on slice
-                var label = (slice[0]._index) + 1
-                window.location.href = ('/get-dialy-guest/' + this_year + '/' + this_month + '/' + label)
-
-            }
-
+            visitorsChart.on("click", function(e) {
+                const slice = myVisitorChart.getElementAtEvent(e);
+                if (!slice.length) return; // return if not clicked on slice
+                const label = slice[0]._index + 1;
+                window.location.href =
+                    "/get-dialy-guest/" +
+                    this_year +
+                    "/" +
+                    this_month +
+                    "/" +
+                    label;
+            });
         }
-    }
+    };
 
     charts.init();
-})
+});

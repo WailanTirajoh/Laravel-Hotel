@@ -1,8 +1,5 @@
 @extends('template.master')
 @section('title', 'Dashboard')
-@section('head')
-    {{-- <link rel="stylesheet" href="{{ asset('style/css/admin.css') }}"> --}}
-@endsection
 @section('content')
     <div id="dashboard">
         <div class="row">
@@ -61,15 +58,17 @@
                                             <tr>
                                                 <td>
                                                     <img src="{{ $transaction->customer->user->getAvatar() }}"
-                                                        class="rounded-circle img-thumbnail" width="40" height="40" alt="">
+                                                        class="rounded-circle img-thumbnail" width="40" height="40"
+                                                        alt="">
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('customer.show',['customer'=>$transaction->customer->id])}}">
+                                                    <a
+                                                        href="{{ route('customer.show', ['customer' => $transaction->customer->id]) }}">
                                                         {{ $transaction->customer->name }}
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('room.show', ['room'=>$transaction->room->id])}}">
+                                                    <a href="{{ route('room.show', ['room' => $transaction->room->id]) }}">
                                                         {{ $transaction->room->number }}
                                                     </a>
                                                 </td>
@@ -77,7 +76,7 @@
                                                     {{ Helper::dateFormat($transaction->check_in) }} ~
                                                     {{ Helper::dateFormat($transaction->check_out) }}
                                                 </td>
-                                                <td>{{ Helper::getDateDifference(now(), $transaction->check_out) == 0 ? 'Last Day' :  Helper::getDateDifference(now(), $transaction->check_out). ' '. Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out))}}
+                                                <td>{{ Helper::getDateDifference(now(), $transaction->check_out) == 0 ? 'Last Day' : Helper::getDateDifference(now(), $transaction->check_out) . ' ' . Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                                 </td>
                                                 <td>
                                                     {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
@@ -144,9 +143,8 @@
                                 </p> --}}
                                 </div>
                                 <div class="position-relative mb-4">
-                                    <canvas this-year="{{ Helper::thisYear() }}"
-                                        this-month="{{ Helper::thisMonth() }}" id="visitors-chart" height="400"
-                                        width="100%" class="chartjs-render-monitor"
+                                    <canvas this-year="{{ Helper::thisYear() }}" this-month="{{ Helper::thisMonth() }}"
+                                        id="visitors-chart" height="400" width="100%" class="chartjs-render-monitor"
                                         style="display: block; width: 249px; height: 200px;"></canvas>
                                 </div>
                                 <div class="d-flex flex-row justify-content-between">
@@ -164,29 +162,24 @@
             </div>
         </div>
     </div>
-
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> --}}
-    {{-- <canvas id="pieChart"></canvas> --}}
 @endsection
 @section('footer')
-<script src="{{ asset('style/js/jquery.js') }}"></script>
-<script src="{{ asset('style/js/chart.min.js') }}"></script>
-<script src="{{ asset('style/js/guestsChart.js') }}"></script>
-<script>
-    function reloadJs(src) {
-        src = $('script[src$="' + src + '"]').attr("src");
-        $('script[src$="' + src + '"]').remove();
-        $('<script/>').attr('src', src).appendTo('head');
-    }
+    <script src="{{ asset('style/js/chart.min.js') }}"></script>
+    <script src="{{ asset('style/js/guestsChart.js') }}"></script>
+    <script>
+        function reloadJs(src) {
+            src = $('script[src$="' + src + '"]').attr("src");
+            $('script[src$="' + src + '"]').remove();
+            $('<script/>').attr('src', src).appendTo('head');
+        }
 
-    Echo.channel('dashboard')
-        .listen('.dashboard.event', (e) => {
-            $("#dashboard").hide()
-            $("#dashboard").load(window.location.href + " #dashboard");
-            $("#dashboard").show(150)
-            reloadJs('style/js/guestsChart.js');
-            toastr.warning(e.message, "Hello, {{auth()->user()->name}}");
-        })
-
-</script>
+        Echo.channel('dashboard')
+            .listen('.dashboard.event', (e) => {
+                $("#dashboard").hide()
+                $("#dashboard").load(window.location.href + " #dashboard");
+                $("#dashboard").show(150)
+                reloadJs('style/js/guestsChart.js');
+                toastr.warning(e.message, "Hello, {{ auth()->user()->name }}");
+            })
+    </script>
 @endsection
