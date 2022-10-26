@@ -6,11 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "beyondcode/laravel-websockets": "master",
+        "beyondcode/laravel-websockets": "^1.13.1",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4.5",
         "intervention/image": "^2.5",
-        "laravel/framework": "^9",
+        "laravel/framework": "^9.3.9",
         "laravel/tinker": "^2.5",
         "pusher/pusher-php-server": "~5.0"
     },
