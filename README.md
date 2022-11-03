@@ -26,13 +26,19 @@ exit;
 ### Init Commands:
 ```
 composer install
-npm install && npm run dev
+npm install 
+npm run dev
 php artisan migrate:fresh --seed
 php artisan serv                => Terminal 1
 php artisan websockets:serv     => Terminal 2   //run the websocket server for realtime notification
 ```
 
-### Asset deployment
+### Development build
+```
+npm run watch
+```
+
+### Production Build
 ```
 // run this on your terminal to generate production build
 npm run prod
