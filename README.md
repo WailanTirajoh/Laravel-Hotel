@@ -25,6 +25,8 @@ exit;
 ```
 ### Init Commands:
 ```
+cp .env.example .env // after that start filling credential at .env
+
 composer install
 npm install 
 npm run dev
