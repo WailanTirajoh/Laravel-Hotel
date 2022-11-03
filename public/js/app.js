@@ -5370,7 +5370,25 @@ try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
   window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-  window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+  var toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+  toastr.options = {
+    closeButton: false,
+    debug: false,
+    newestOnTop: false,
+    progressBar: false,
+    positionClass: "toast-bottom-right",
+    preventDuplicates: false,
+    onclick: null,
+    showDuration: "300",
+    hideDuration: "1000",
+    timeOut: "5000",
+    extendedTimeOut: "1000",
+    showEasing: "swing",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
+  };
+  window.toastr = toastr;
   __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 } catch (e) {}
 // require('bootstrap');

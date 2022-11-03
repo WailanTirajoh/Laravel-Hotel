@@ -9,7 +9,6 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
     {{-- style --}}
-    <link rel="stylesheet" href="{{ asset('style/css/style.css') }}">
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <title>@yield('title')</title>
     @yield('head')

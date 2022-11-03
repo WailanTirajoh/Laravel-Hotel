@@ -4,7 +4,6 @@
                 !!!!
                 */
 
-
 /*
                 =====
                 DEPENDENCES
@@ -26,109 +25,99 @@ p:not([class]):first-child {
     margin-top: 0;
 }
 
-
 /*
-                        text component
-                        */
+                                        text component
+                                        */
 
 .text {
     display: var(--textDisplay, inline-flex);
     font-size: var(--textFontSize, 1rem);
 }
 
+/*
+                                        time component
+                                        */
 
 /*
-                        time component
-                        */
-
-
-/*
-                        core styles
-                        */
+                                        core styles
+                                        */
 
 .time {
     display: var(--timeDisplay, inline-flex);
 }
 
-
 /*
-                        extensions
-                        */
+                                        extensions
+                                        */
 
 .time__month {
-    margin-left: var(--timelineMounthMarginLeft, .25em);
+    margin-left: var(--timelineMounthMarginLeft, 0.25em);
 }
 
-
 /*
-                        skin
-                        */
+                                        skin
+                                        */
 
 .time {
-    padding: var(--timePadding, .25rem 1.25rem .25rem);
+    padding: var(--timePadding, 0.25rem 1.25rem 0.25rem);
     background-color: var(--timeBackgroundColor, #f0f0f0);
-    font-size: var(--timeFontSize, .75rem);
+    font-size: var(--timeFontSize, 0.75rem);
     font-weight: var(--timeFontWeight, 700);
     text-transform: var(--timeTextTransform, uppercase);
     color: var(--timeColor, currentColor);
 }
 
+/*
+                                        card component
+                                        */
 
 /*
-                        card component
-                        */
-
-
-/*
-                        core styles
-                        */
+                                        core styles
+                                        */
 
 .card {
     padding: var(--timelineCardPadding, 1.5rem 1.5rem 1.25rem);
 }
 
 .card__content {
-    margin-top: var(--cardContentMarginTop, .5rem);
+    margin-top: var(--cardContentMarginTop, 0.5rem);
 }
 
-
 /*
-                        skin
-                        */
+                                        skin
+                                        */
 
 .card {
     border-radius: var(--timelineCardBorderRadius, 2px);
-    border-left: var(--timelineCardBorderLeftWidth, 3px) solid var(--timelineCardBorderLeftColor, var(--uiTimelineMainColor));
-    box-shadow: var(--timelineCardBoxShadow, 0 1px 3px 0 rgba(0, 0, 0, .12), 0 1px 2px 0 rgba(0, 0, 0, .24));
+    border-left: var(--timelineCardBorderLeftWidth, 3px) solid
+        var(--timelineCardBorderLeftColor, var(--uiTimelineMainColor));
+    box-shadow: var(--timelineCardBoxShadow, 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24));
     background-color: var(--timelineCardBackgroundColor, #fff);
 }
 
-
 /*
-                        extensions
-                        */
+                                        extensions
+                                        */
 
 .card__title {
     --rTitleMarginTop: var(--cardTitleMarginTop, 1rem);
     font-size: var(--cardTitleFontSize, 1.25rem);
 }
 
-
 /*
-                        =====
-                        CORE STYLES
-                        =====
-                        */
+                                        =====
+                                        CORE STYLES
+                                        =====
+                                        */
 
 .timelines {
     display: var(--timelineDisplay, grid);
     grid-row-gap: var(--timelineGroupsGap, 2rem);
 }
 
-
 /*
-                        1. If timeline__year isn't displaed the gap between it and timeline__cards isn't displayed too
-                        */
+                                        1. If timeline__year isn't displaed the gap between it and timeline__cards isn't displayed too
+                                        */
 
 .timeline__year {
     margin-bottom: 1.25rem;
@@ -139,12 +128,11 @@ p:not([class]):first-child {
     grid-row-gap: var(--timeloneCardsGap, 1.5rem);
 }
 
-
 /*
-                        =====
-                        SKIN
-                        =====
-                        */
+                                        =====
+                                        SKIN
+                                        =====
+                                        */
 
 .timelines {
     --uiTimelineMainColor: var(--timelineMainColor, #222);
@@ -155,7 +143,7 @@ p:not([class]):first-child {
 }
 
 .timeline__year {
-    --timePadding: var(--timelineYearPadding, .5rem 1.5rem);
+    --timePadding: var(--timelineYearPadding, 0.5rem 1.5rem);
     --timeColor: var(--uiTimelineSecondaryColor);
     --timeBackgroundColor: var(--uiTimelineMainColor);
     --timeFontWeight: var(--timelineYearFontWeight, 400);
@@ -166,16 +154,15 @@ p:not([class]):first-child {
     margin-left: var(--timelineCardLineGap, 1rem);
 }
 
-
 /*
-                        1. Stoping cut box shadow
-                        */
+                                        1. Stoping cut box shadow
+                                        */
 
 .timeline__cards {
     overflow: hidden;
-    padding-top: .25rem;
+    padding-top: 0.25rem;
     /* 1 */
-    padding-bottom: .25rem;
+    padding-bottom: 0.25rem;
     /* 1 */
 }
 
@@ -190,13 +177,11 @@ p:not([class]):first-child {
     z-index: -1;
 }
 
-
 /*
-                        =====
-                        SETTINGS
-                        =====
-                        */
-
+                                        =====
+                                        SETTINGS
+                                        =====
+                                        */
 
 /**/
 
@@ -204,15 +189,15 @@ p:not([class]):first-child {
     --timelineMainColor: #4557bb;
 }
 
-
 /*
-                        =====
-                        DEMO
-                        =====
-                        */
+                                        =====
+                                        DEMO
+                                        =====
+                                        */
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue,
+        sans-serif;
     color: #222;
     background-color: #f0f0f0;
     margin: 0;

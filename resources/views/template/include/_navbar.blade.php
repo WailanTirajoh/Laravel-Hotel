@@ -1,23 +1,9 @@
-<link rel="stylesheet" href="{{ asset('style/css/navbar.css') }}">
-<nav class="navbar navbar-expand navbar-light px-1 bg-white shadow-sm" style="height: 55px">
+<nav class="navbar navbar-expand navbar-light px-1 bg-white shadow-sm fixed-top" style="height: 55px">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/logo/sip.png') }}" alt="" width="40" height="40"
-                class="d-inline-block align-text-top">
-        </a>
-        <div id="menu-toggle">
-            <div class="text-center d-inline-block" data-bs-toggle="tooltip" data-bs-placement="right"
-                title="Toggle Sidebar">
-                <div class="vc-toggle-container">
-                    <label class="vc-switch">
-                        <input type="checkbox" class="vc-switch-input">
-                        <span class="vc-switch-label"></span>
-                        <span class="vc-handle"></span>
-                    </label>
-                </div>
-            </div>
+        <div id="menu-toggle" class="p-2 border rounded d-flex justify-content-center align-items-center cursor-pointer"
+            style="width: 2rem; height: 2rem;">
+            <i class="fa fa-bars"></i>
         </div>
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +17,8 @@
                                 <span
                                     class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                                     {{ auth()->user()->unreadNotifications->count() }}
-                                    <span class="visually-hidden">unread messages</span></span>
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
                             @endif
                         </i>
                     </div>
@@ -52,7 +39,8 @@
                                     <li>
                                         <p>
                                             {{ $notification->data['message'] }}
-                                            <a href="{{ route('notification.routeTo',['id' => $notification->id]) }}">here</a>
+                                            <a
+                                                href="{{ route('notification.routeTo', ['id' => $notification->id]) }}">here</a>
                                             {{-- <a href="{{ $notification->data['url'] }}">here</a> --}}
                                             <span class="timeline-icon" style="margin-left: -1px; margin-top:-3px"><i
                                                     class="fa fa-cash-register"></i></span>

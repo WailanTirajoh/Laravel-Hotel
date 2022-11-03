@@ -25,13 +25,23 @@ body {
 }
 
 #sidebar-wrapper {
-    min-height: 100vh;
-    margin-left: -4.5rem;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
-    transition: margin .25s ease-out;
+    position: fixed;
+    left: 10px;
+    top: 5rem;
+    z-index: 1;
+    margin-left: -6rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
     border-radius: 0.5rem;
+}
+
+.footer {
+    height: 55px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -44,11 +54,24 @@ body {
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    padding-left: unset;
+    padding-top: unset;
+    padding-bottom: 5rem;
 }
-
 #wrapper.toggled #sidebar-wrapper {
     margin-left: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card {
+    padding: unset!important;
 }
 
 @media (min-width: 768px) {
@@ -60,13 +83,19 @@ body {
         width: 100%;
     }
     #wrapper.toggled #sidebar-wrapper {
-        margin-left: -4.5rem;
+        margin-left: -6rem;
+    }
+    #page-content-wrapper {
+        min-width: 100vw;
+        padding-left: 6rem;
+        padding-top: 4rem;
+    }
+    #wrapper.toggled #page-content-wrapper {
+        padding-left: unset;
     }
 }
 
-
 /* Scrollbar */
-
 
 /* width */
 
@@ -75,29 +104,25 @@ body {
     height: 5px;
 }
 
-
 /* Track */
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
 
-
 /* Handle */
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #909090;
     border-radius: 10px;
 }
 
-
 /* Handle on hover */
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #cccccc;
 }
-
 
 /* End Scrollbar */
 

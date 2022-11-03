@@ -48,7 +48,7 @@
             <div class="row">
                 @forelse ($customers as $customer)
                     <div class="col-lg-2 col-md-4 col-sm-6 my-1">
-                        <div class="card shadow-sm justify-content-start" style="min-height:350px; ">
+                        <div class="card shadow-sm justify-content-start p-0 rounded" style="min-height:350px; ">
                             <div class="row w-100" style="position:absolute;">
                                 <div class="d-flex">
                                     <h5 class="card-title text-white numbering bg-dark ">

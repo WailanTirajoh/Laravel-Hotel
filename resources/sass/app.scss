@@ -1,14 +1,14 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 // Toastr
-@import '~toastr/toastr';
+@import "~toastr/toastr";
 
 // Select2
 @import "~select2/dist/css/select2.css";
@@ -20,4 +20,8 @@
 @import "@fortawesome/fontawesome-free/scss/brands";
 
 // Custom scss
-@import "toggle"
+@import "navbar";
+@import "notification";
+@import "progressindicatior";
+
+@import "custom";

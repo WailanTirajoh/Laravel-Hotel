@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-//     return (int) $user->id === (int) $id;
-// });
-
 Broadcast::channel('reservation.*', function ($user, $random_key){
     return $user->random_key === $random_key;
 }, ['middleware' => ['auth', 'checkRole:Super']]);
