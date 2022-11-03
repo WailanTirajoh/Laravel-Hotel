@@ -32,6 +32,12 @@ php artisan serv                => Terminal 1
 php artisan websockets:serv     => Terminal 2   //run the websocket server for realtime notification
 ```
 
+### Asset deployment
+```
+// run this on your terminal to generate production build
+npm run prod
+```
+
 ### Login:
 - Email: wailantirajoh@gmail.com
 - Password: wailan
