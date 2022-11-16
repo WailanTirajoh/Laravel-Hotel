@@ -21,11 +21,12 @@ class RoomRepository
     public function getRoomsDatatable($request)
     {
         $columns = array(
-            0 => 'number',
-            1 => 'type',
-            2 => 'capacity',
-            3 => 'price',
-            4 => 'status',
+            0 => 'rooms.number',
+            1 => 'types.name',
+            2 => 'rooms.capacity',
+            3 => 'rooms.price',
+            4 => 'room_statuses.name',
+            5 => 'types.id',
         );
 
         $limit          = $request->input('length');
@@ -53,9 +54,9 @@ class RoomRepository
                 $i = 0;
                 foreach ($columns as $column) {
                     if ($i = 0) {
-                        $query->where($column, 'ILIKE', "%{$search}%");
+                        $query->where($column, 'LIKE', "%{$search}%");
                     } else {
-                        $query->orWhere($column, 'ILIKE', "%{$search}%");
+                        $query->orWhere($column, 'LIKE', "%{$search}%");
                     }
                     $i++;
                 }
