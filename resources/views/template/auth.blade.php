@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
 
@@ -15,7 +15,7 @@
             @yield('content')
         </div>
     </main>
-    <script src="{{ mix('/js/app.js') }}"></script>
+    @vite('resources/js/app.js')
     <script src="{{ asset('style/js/global.js') }}"></script>
     <script>
         @if (Session::has('success'))
