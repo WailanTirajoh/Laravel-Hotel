@@ -9,7 +9,7 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
     {{-- style --}}
-    @vite('resources/css/app.css')
+    @vite('resources/sass/app.scss')
     <title>@yield('title')</title>
     @yield('head')
 </head>
@@ -30,7 +30,8 @@
                     <div class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-modal-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btn-modal-close" type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
                         <button id="btn-modal-save" type="button" class="btn btn-primary text-white">Save</button>
                     </div>
                 </div>
@@ -59,28 +60,6 @@
         @include('template.include._footer')
     </footer>
     @vite('resources/js/app.js')
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
-    <script>
-        @if (Session::has('success'))
-            toastr.success("{{ Session::get('success') }}", "Success")
-        @endif
-        @if (Session::has('failed'))
-            toastr.error("{{ Session::get('failed') }}", "Failed")
-        @endif
-    </script>
-    <script>
-        toastr.options.timeOut = 10000;
-        Echo.channel('reservation.{{ auth()->user()->random_key }}')
-            .listen('.reservation.event', (e) => {
-                $("#refreshThisDropdown").load(window.location.href + " #refreshThisDropdown");
-                toastr.success(e.message);
-            })
-    </script>
     @yield('footer')
 </body>
 

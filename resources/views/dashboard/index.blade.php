@@ -163,7 +163,7 @@
         </div>
     </div>
 @endsection
-@section('footer')
+{{-- @section('footer')
     <script src="{{ asset('style/js/chart.min.js') }}"></script>
     <script src="{{ asset('style/js/guestsChart.js') }}"></script>
     <script>
@@ -182,4 +182,4 @@
                 toastr.warning(e.message, "Hello, {{ auth()->user()->name }}");
             })
     </script>
-@endsection
+@endsection --}}

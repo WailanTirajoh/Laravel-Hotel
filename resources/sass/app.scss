@@ -5,22 +5,19 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 // Toastr
-@import "~toastr/toastr";
+@import "toastr/toastr";
 
 // Select2
-@import "~select2/dist/css/select2.css";
+@import "select2/dist/css/select2.css";
 
 // Datatable
-@import "~datatables.net-bs5/css/dataTables.bootstrap5.css";
+@import "datatables.net-bs5/css/dataTables.bootstrap5.css";
 
 // Font awesome
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "@fortawesome/fontawesome-free/scss/regular";
-@import "@fortawesome/fontawesome-free/scss/solid";
-@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/css/all.css";
 
 // Custom scss
 @import "navbar";

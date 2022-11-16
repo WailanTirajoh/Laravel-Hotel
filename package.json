@@ -5,23 +5,25 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^6.2.0",
+        "@fortawesome/fontawesome-free": "^6.2.1",
         "@popperjs/core": "^2.11.2",
         "axios": "^0.21.1",
         "laravel-echo": "^1.10.0",
+        "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "pusher-js": "^7.0.3",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.10",
         "sass-loader": "^11.0.1",
-        "vue-loader": "^15.9.5",
-        "vue-template-compiler": "^2.6.12",
         "vite": "^3.0.2",
-        "laravel-vite-plugin": "^0.6.0"
+        "vite-plugin-compression": "^0.5.1",
+        "vue-loader": "^15.9.5",
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "@types/lodash": "^4.14.178",
+        "@vitejs/plugin-vue2": "^1.1.2",
         "bootstrap": "^5.1.3",
         "datatables.net": "^1.13.1",
         "datatables.net-bs5": "^1.13.1",
@@ -31,7 +33,6 @@
         "select2": "^4.1.0-rc.0",
         "sweetalert2": "^11.6.2",
         "toastr": "^2.1.4",
-        "vue": "^2.7.0",
-        "@vitejs/plugin-vue2": "^1.1.2"
+        "vue": "^2.7.0"
     }
 }

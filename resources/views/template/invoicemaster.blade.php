@@ -11,7 +11,7 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
 
-    @vite('resources/css/app.css')
+    @vite('resources/sass/app.scss')
     @yield('head')
 </head>
 
