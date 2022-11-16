@@ -9,8 +9,10 @@ window._ = require("lodash");
 try {
     window.Popper = require("popper.js").default;
     window.$ = window.jQuery = require("jquery");
+    require('datatables.net');
+    require('datatables.net-bs5')
 
-    require("bootstrap");
+    window.bootstrap = require("bootstrap");
 
     window.Swal = require("sweetalert2");
     const toastr = require("toastr");
@@ -35,7 +37,7 @@ try {
     window.toastr = toastr;
     require("select2");
 } catch (e) {}
-// require('bootstrap');
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -64,3 +66,16 @@ window.Echo = new Echo({
     wsHost: window.location.hostname,
     wsPort: 6001,
 });
+
+window.CustomHelper = {
+    errorHandlerForm(e) {
+        for(const error in e.responseJSON.errors) {
+            const errorLabel = error
+            const errorList = e.responseJSON.errors[error]
+            $(`#error_${errorLabel}`).text(errorList.join(', '))
+        }
+    },
+    clearError() {
+        $(".error").text('')
+    },
+}
