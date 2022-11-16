@@ -9,7 +9,7 @@
     {{-- Icon --}}
     <link rel="icon" href="{{ asset('img/logo/sip.png') }}">
     {{-- style --}}
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    @vite('resources/css/app.css')
     <title>@yield('title')</title>
     @yield('head')
 </head>
@@ -58,7 +58,7 @@
     <footer class="footer mt-auto py-2 shadow-sm border-top mt-3" style="background: #f8f9fa; height:55px">
         @include('template.include._footer')
     </footer>
-    <script src="{{ mix('/js/app.js') }}"></script>
+    @vite('resources/js/app.js')
     <script>
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
