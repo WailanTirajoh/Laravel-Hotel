@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row mt-2 mb-2">
-                <div class="col-lg-6 mb-2">
+                <div class="col-lg-12 mb-2">
                     <div class="d-grid gap-2 d-md-block">
                         <button id="add-button" type="button" class="btn btn-sm shadow-sm myBtn border rounded">
                             <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -27,13 +27,6 @@
                             </svg>
                         </button>
                     </div>
-                </div>
-                <div class="col-lg-6 mb-2">
-                    <form class="d-flex" method="GET" action="{{ route('room.index') }}">
-                        <input class="form-control me-2" room="search" placeholder="Search by number" aria-label="Search"
-                            id="search" name="search" value="{{ request()->input('search') }}">
-                        <button class="btn btn-outline-dark" room="submit">Search</button>
-                    </form>
                 </div>
             </div>
             <div class="row">
