@@ -71,7 +71,7 @@ body {
 }
 
 .card {
-    padding: unset!important;
+    padding: unset !important;
 }
 
 @media (min-width: 768px) {
@@ -129,4 +129,17 @@ body {
 a,
 a:active {
     color: #65676b;
+}
+
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+    border-radius: 0px !important;
+}
+
+.select2-container--open {
+    z-index: 1055!important;
 }

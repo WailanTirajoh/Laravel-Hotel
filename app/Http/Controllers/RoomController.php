@@ -22,29 +22,37 @@ class RoomController extends Controller
     }
     public function index(Request $request)
     {
-        $rooms = $this->roomRepository->getRooms($request);
-        return view('room.index', compact('rooms'));
+        if ($request->ajax()) {
+            return $this->roomRepository->getRoomsDatatable($request);
+        }
+        return view('room.index');
     }
 
     public function create()
     {
         $types = Type::all();
         $roomstatuses = RoomStatus::all();
-        return view('room.create', compact('types', 'roomstatuses'));
+        $view = view('room.create', compact('types', 'roomstatuses'))->render();
+
+        return response()->json([
+            'view' => $view
+        ]);
     }
 
     public function store(StoreRoomRequest $request)
     {
         $room = Room::create($request->all());
-        return redirect()->route('room.index')->with('success', 'Room ' . $room->number . ' created');
+
+        return response()->json([
+            'message' => 'Room ' . $room->number . ' created'
+        ]);
     }
 
     public function show(Room $room)
     {
         $customer = [];
         $transaction = Transaction::where([['check_in', '<=', Carbon::now()], ['check_out', '>=', Carbon::now()], ['room_id', $room->id]])->first();
-        if(!empty($transaction)) {
-            // dd($transaction);
+        if (!empty($transaction)) {
             $customer = $transaction->customer;
         }
         return view('room.show', compact('customer', 'room'));
@@ -54,13 +62,20 @@ class RoomController extends Controller
     {
         $types = Type::all();
         $roomstatuses = RoomStatus::all();
-        return view('room.edit', compact('room', 'types', 'roomstatuses'));
+        $view = view('room.edit', compact('room', 'types', 'roomstatuses'))->render();
+
+        return response()->json([
+            'view' => $view
+        ]);
     }
 
     public function update(Room $room, StoreRoomRequest $request)
     {
         $room->update($request->all());
-        return redirect()->route('room.index')->with('success', 'Room ' . $room->name . ' udpated!');
+
+        return response()->json([
+            'message' => 'Room ' . $room->number . ' udpated!'
+        ]);
     }
 
     public function destroy(Room $room, ImageRepository $imageRepository)
@@ -75,9 +90,13 @@ class RoomController extends Controller
                 $imageRepository->destroy($path);
             }
 
-            return redirect()->route('room.index')->with('success', 'Room number ' . $room->number . ' deleted!');
+            return response()->json([
+                'message' => 'Room number ' . $room->number . ' deleted!'
+            ]);
         } catch (\Exception $e) {
-            return redirect()->route('room.index')->with('failed', 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
+            return response()->json([
+                'message' => 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]
+            ], 500);
         }
     }
 }

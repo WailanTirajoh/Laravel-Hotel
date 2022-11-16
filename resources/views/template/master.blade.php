@@ -19,6 +19,23 @@
         @include('template.include._navbar')
     </header>
     <main class="my-3">
+        <!-- Modal -->
+        <div class="modal fade" id="main-modal" tabindex="-1" aria-labelledby="main-modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-modal-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btn-modal-save" type="button" class="btn btn-primary text-white">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar -->
 
