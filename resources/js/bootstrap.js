@@ -91,6 +91,7 @@ import Pusher from "pusher-js";
 
     await Promise.all([
         import("./pages/room"),
+        import("./pages/dashboard"),
         import("./pages/global")
     ])
 })();

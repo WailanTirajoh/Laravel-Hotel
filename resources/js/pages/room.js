@@ -1,4 +1,7 @@
 $(function() {
+    const currentRoute = window.location.pathname;
+    if(!currentRoute.startsWith('/room')) return
+
     const datatable = $("#room-table").DataTable({
         processing: true,
         serverSide: true,
