@@ -17,9 +17,7 @@
         "sass": "^1.32.10",
         "sass-loader": "^11.0.1",
         "vite": "^3.0.2",
-        "vite-plugin-compression": "^0.5.1",
-        "vue-loader": "^15.9.5",
-        "vue-template-compiler": "^2.6.12"
+        "vite-plugin-compression": "^0.5.1"
     },
     "dependencies": {
         "@types/lodash": "^4.14.178",
@@ -33,7 +31,6 @@
         "popper.js": "^1.16.1",
         "select2": "^4.1.0-rc.0",
         "sweetalert2": "^11.6.2",
-        "toastr": "^2.1.4",
-        "vue": "^2.7.0"
+        "toastr": "^2.1.4"
     }
 }
