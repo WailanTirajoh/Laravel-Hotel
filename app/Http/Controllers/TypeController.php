@@ -18,39 +18,57 @@ class TypeController extends Controller
 
     public function index(Request $request)
     {
-        $types = $this->typeRepository->showAll($request);
-        return view('type.index', compact('types'));
+        if ($request->ajax()) {
+            return $this->typeRepository->getTypesDatatable($request);
+        }
+        return view('type.index');
     }
 
     public function create()
     {
-        return view('type.create');
+        $view =  view('type.create')->render();
+
+        return response()->json([
+            'view' => $view,
+        ]);
     }
 
     public function store(StoreTypeRequest $request)
     {
         $type = $this->typeRepository->store($request);
-        return redirect('type')->with('success', 'Type ' . $type->name . ' created');
+        return response()->json([
+            'message' => 'success', 'Type ' . $type->name . ' created'
+        ]);
     }
 
     public function edit(Type $type)
     {
-        return view('type.edit', compact('type'));
+        $view = view('type.edit', compact('type'))->render();
+
+        return response()->json([
+            'view' => $view,
+        ]);
     }
 
     public function update(Type $type, StoreTypeRequest $request)
     {
         $type->update($request->all());
-        return redirect('type')->with('success', 'Type ' . $type->name . ' udpated!');
+        return response()->json([
+            'message' => 'success', 'Type ' . $type->name . ' udpated!'
+        ]);
     }
 
     public function destroy(Type $type)
     {
         try {
             $type->delete();
-            return redirect('type')->with('success', 'Type ' . $type->name . ' deleted!');
+            return response()->json([
+                'message' => 'Type ' . $type->name . ' deleted!'
+            ]);
         } catch (\Exception $e) {
-            return redirect('type')->with('failed', 'Type ' . $type->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+            return response()->json([
+                'message' => 'Type ' . $type->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]
+            ], 500);
         }
     }
 }

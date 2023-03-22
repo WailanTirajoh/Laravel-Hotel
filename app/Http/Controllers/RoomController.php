@@ -20,6 +20,7 @@ class RoomController extends Controller
     {
         $this->roomRepository = $roomRepository;
     }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

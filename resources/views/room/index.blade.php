@@ -7,13 +7,11 @@
             width: 150px;
             height: 100px;
             overflow: hidden;
-            /* white-space: nowrap; */
             text-overflow: ellipsis;
         }
     </style>
 @endsection
 @section('content')
-
     <div class="row">
         <div class="col-lg-12">
             <div class="row mt-2 mb-2">
@@ -46,46 +44,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @forelse ($rooms as $room)
-                                            <tr>
-                                                <td>{{ $room->number }}</td>
-                                                <td>{{ $room->type->name }}</td>
-                                                <td>{{ $room->capacity }}</td>
-                                                <td>{{ Helper::convertToRupiah($room->price) }}</td>
-                                                <td>{{ $room->roomStatus->name }}</td>
-                                                <td>
-                                                    <button class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        data-action="edit-room" data-room-id="{{ $room->id }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit room">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <form class="btn btn-sm delete-room" method="POST"
-                                                        id="delete-room-form-{{ $room->id }}"
-                                                        action="{{ route('room.destroy', ['room' => $room->id]) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="btn btn-light btn-sm rounded shadow-sm border delete"
-                                                            href="#" room-id="{{ $room->id }}" room-role="room"
-                                                            room-name="{{ $room->name }}" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Delete room">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </a>
-                                                    </form>
-                                                    <a class="btn btn-light btn-sm rounded shadow-sm border"
-                                                        href="{{ route('room.show', ['room' => $room->id]) }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Room detail">
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="10" class="text-center">
-                                                    There's no data in this table
-                                                </td>
-                                            </tr>
-                                        @endforelse --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -98,11 +56,4 @@
             </div>
         </div>
     </div>
-
-
-@endsection
-
-@section('footer')
-    <script>
-    </script>
 @endsection
