@@ -1,12 +1,12 @@
 $(function() {
     const currentRoute = window.location.pathname;
-    if(!currentRoute.split('/').includes('room')) return
+    if(!currentRoute.split('/').includes('roomstatus')) return
 
-    const datatable = $("#room-table").DataTable({
+    const datatable = $("#roomstatus-table").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: `/room`,
+            url: `/roomstatus`,
             type: 'GET',
             error: function(xhr, status, error) {
 
@@ -17,49 +17,38 @@ $(function() {
                 "data": "number"
             },
             {
-                "name": "type",
-                "data": "type"
+                "name": "name",
+                "data": "name"
             },
             {
-                "name": "capacity",
-                "data": "capacity"
+                "name": "code",
+                "data": "code"
             },
             {
-                "name": "price",
-                "data": "price",
-                "render": function(price) {
-                    return `<div>${new Intl.NumberFormat().format(price)}</div>`
-                }
-            },
-            {
-                "name": "status",
-                "data": "status"
+                "name": "information",
+                "data": "information"
             },
             {
                 "name": "id",
                 "data": "id",
-                "render": function(roomId) {
+                "width": "100px",
+                "render": function(roomstatusId) {
                     return `
                         <button class="btn btn-light btn-sm rounded shadow-sm border"
-                            data-action="edit-room" data-room-id="${roomId}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="Edit room">
+                            data-action="edit-roomstatus" data-roomstatus-id="${roomstatusId}"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Edit roomstatus">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <form class="btn btn-sm delete-room" method="POST"
-                            id="delete-room-form-${roomId}"
-                            action="/room/${roomId}">
+                        <form class="btn btn-sm delete-roomstatus" method="POST"
+                            id="delete-roomstatus-form-${roomstatusId}"
+                            action="/roomstatus/${roomstatusId}">
+                            <input type="hidden" name="_method" value="DELETE">
                             <a class="btn btn-light btn-sm rounded shadow-sm border delete"
-                                href="#" room-id="${roomId}" room-role="room" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Delete room">
+                                href="#" roomstatus-id="${roomstatusId}" roomstatus-role="roomstatus" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Delete roomstatus">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </form>
-                        <a class="btn btn-light btn-sm rounded shadow-sm border"
-                            href="/room/${roomId}"
-                            data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Room detail">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
 
                     `
                 }
@@ -74,9 +63,9 @@ $(function() {
     })
 
     $(document).on('click', '.delete', function() {
-        var room_id = $(this).attr('room-id');
-        var room_name = $(this).attr('room-name');
-        var room_url = $(this).attr('room-url');
+        var roomstatus_id = $(this).attr('roomstatus-id');
+        var roomstatus_name = $(this).attr('roomstatus-name');
+        var roomstatus_url = $(this).attr('roomstatus-url');
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -87,7 +76,7 @@ $(function() {
 
         swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
-            text: "Room will be deleted, You won't be able to revert this!",
+            text: "Type will be deleted, You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
@@ -95,7 +84,7 @@ $(function() {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                $(`#delete-room-form-${room_id}`).submit();
+                $(`#delete-roomstatus-form-${roomstatus_id}`).submit();
             }
         })
     }).on('click', '#add-button', async function() {
@@ -103,15 +92,15 @@ $(function() {
 
         $('#main-modal .modal-body').html(`Fetching data`)
 
-        const response = await $.get(`/room/create`);
+        const response = await $.get(`/roomstatus/create`);
         if (!response) return
 
-        $('#main-modal .modal-title').text('Create new room')
+        $('#main-modal .modal-title').text('Create new roomstatus')
         $('#main-modal .modal-body').html(response.view)
         $('.select2').select2();
     }).on('click', '#btn-modal-save', function() {
-        $('#form-save-room').submit()
-    }).on('submit', '#form-save-room', async function(e) {
+        $('#form-save-roomstatus').submit()
+    }).on('submit', '#form-save-roomstatus', async function(e) {
         e.preventDefault();
         CustomHelper.clearError()
         $('#btn-modal-save').attr('disabled', true)
@@ -150,20 +139,20 @@ $(function() {
         } finally {
             $('#btn-modal-save').attr('disabled', false)
         }
-    }).on('click', '[data-action="edit-room"]', async function() {
+    }).on('click', '[data-action="edit-roomstatus"]', async function() {
         modal.show()
 
         $('#main-modal .modal-body').html(`Fetching data`)
 
-        const roomId = $(this).data('room-id')
+        const roomstatusId = $(this).data('roomstatus-id')
 
-        const response = await $.get(`/room/${roomId}/edit`);
+        const response = await $.get(`/roomstatus/${roomstatusId}/edit`);
         if (!response) return
 
-        $('#main-modal .modal-title').text('Edit room')
+        $('#main-modal .modal-title').text('Edit Room Status')
         $('#main-modal .modal-body').html(response.view)
         $('.select2').select2();
-    }).on('submit', '.delete-room', async function(e) {
+    }).on('submit', '.delete-roomstatus', async function(e) {
         e.preventDefault()
 
         try {
@@ -171,9 +160,7 @@ $(function() {
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 method: $(this).attr('method'),
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             })
 
             if (!response) return
@@ -188,7 +175,15 @@ $(function() {
 
             datatable.ajax.reload()
         } catch (e) {
-
+            if(e && e.responseJSON && e.responseJSON.message) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: e.responseJSON.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         }
     })
 });
