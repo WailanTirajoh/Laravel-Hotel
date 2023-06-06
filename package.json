@@ -16,7 +16,7 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.10",
         "sass-loader": "^11.0.1",
-        "vite": "^3.0.2",
+        "vite": "^3.2.7",
         "vite-plugin-compression": "^0.5.1"
     },
     "dependencies": {
