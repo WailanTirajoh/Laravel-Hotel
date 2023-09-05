@@ -8,7 +8,7 @@ use App\Models\RoomStatus;
 use App\Models\Transaction;
 use App\Models\Type;
 use App\Repositories\ImageRepository;
-use App\Repositories\RoomRepository;
+use App\Repositories\Interface\RoomRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class RoomController extends Controller
 {
     private $roomRepository;
 
-    public function __construct(RoomRepository $roomRepository)
+    public function __construct(RoomRepositoryInterface $roomRepository)
     {
         $this->roomRepository = $roomRepository;
     }

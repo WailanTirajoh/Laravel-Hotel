@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Room;
+use App\Repositories\Interface\RoomRepositoryInterface;
 
-class RoomRepository
+class RoomRepository implements RoomRepositoryInterface
 {
     public function getRooms($request)
     {
