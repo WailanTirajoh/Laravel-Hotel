@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
-use App\Repositories\TransactionRepository;
-use Carbon\Carbon;
+use App\Repositories\Interface\TransactionRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
     private $transactionRepository;
 
-    public function __construct(TransactionRepository $transactionRepository)
+    public function __construct(TransactionRepositoryInterface $transactionRepository)
     {
         $this->transactionRepository = $transactionRepository;
     }
