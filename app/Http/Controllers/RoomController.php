@@ -7,7 +7,7 @@ use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Models\Transaction;
 use App\Models\Type;
-use App\Repositories\ImageRepository;
+use App\Repositories\Interface\ImageRepositoryInterface;
 use App\Repositories\Interface\RoomRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -79,7 +79,7 @@ class RoomController extends Controller
         ]);
     }
 
-    public function destroy(Room $room, ImageRepository $imageRepository)
+    public function destroy(Room $room, ImageRepositoryInterface $imageRepository)
     {
         try {
             $room->delete();

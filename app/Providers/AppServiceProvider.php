@@ -2,8 +2,15 @@
 
 namespace App\Providers;
 
-use App\Repositories\CustomerRepository;
-use App\Repositories\ImageRepository;
+use App\Repositories\Implementation\CustomerRepository;
+use App\Repositories\Implementation\ImageRepository;
+use App\Repositories\Implementation\PaymentRepository;
+use App\Repositories\Implementation\ReservationRepository;
+use App\Repositories\Implementation\RoomRepository;
+use App\Repositories\Implementation\RoomStatusRepository;
+use App\Repositories\Implementation\TransactionRepository;
+use App\Repositories\Implementation\TypeRepository;
+use App\Repositories\Implementation\UserRepository;
 use App\Repositories\Interface\CustomerRepositoryInterface;
 use App\Repositories\Interface\ImageRepositoryInterface;
 use App\Repositories\Interface\PaymentRepositoryInterface;
@@ -13,13 +20,6 @@ use App\Repositories\Interface\RoomStatusRepositoryInterface;
 use App\Repositories\Interface\TransactionRepositoryInterface;
 use App\Repositories\Interface\TypeRepositoryInterface;
 use App\Repositories\Interface\UserRepositoryInterface;
-use App\Repositories\PaymentRepository;
-use App\Repositories\ReservationRepository;
-use App\Repositories\RoomRepository;
-use App\Repositories\RoomStatusRepository;
-use App\Repositories\TransactionRepository;
-use App\Repositories\TypeRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

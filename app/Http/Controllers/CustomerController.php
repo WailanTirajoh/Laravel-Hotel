@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
-use App\Repositories\ImageRepository;
+use App\Repositories\Interface\ImageRepositoryInterface;
 use App\Repositories\Interface\CustomerRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -51,7 +51,7 @@ class CustomerController extends Controller
         return redirect('customer')->with('success', 'customer ' . $customer->name . ' udpated!');
     }
 
-    public function destroy(Customer $customer, ImageRepository $imageRepository)
+    public function destroy(Customer $customer, ImageRepositoryInterface $imageRepository)
     {
         try {
             $user = User::find($customer->user->id);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
 use App\Repositories\Interface\ImageRepositoryInterface;
 use Intervention\Image\Facades\Image as InterImage;

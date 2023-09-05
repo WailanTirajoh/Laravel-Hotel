@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
 use App\Models\Payment;
 use App\Repositories\Interface\PaymentRepositoryInterface;
