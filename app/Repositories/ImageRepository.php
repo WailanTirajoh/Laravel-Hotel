@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Interface\ImageRepositoryInterface;
 use Intervention\Image\Facades\Image as InterImage;
 
-class ImageRepository
+class ImageRepository implements ImageRepositoryInterface
 {
     public function uploadImage($path, $file)
     {
-        dd($path);
         if (!is_dir($path)) {
             mkdir($path);
         }
