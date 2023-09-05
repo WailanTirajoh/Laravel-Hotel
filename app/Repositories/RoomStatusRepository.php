@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\RoomStatus;
+use App\Repositories\Interface\RoomStatusRepositoryInterface;
 
-class RoomStatusRepository
+class RoomStatusRepository implements RoomStatusRepositoryInterface
 {
     /**
      * @deprecated since updated to getDatatable
