@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Payment;
 use App\Models\Transaction;
-use App\Repositories\PaymentRepository;
+use App\Repositories\Interface\PaymentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
     public $paymentRepository;
 
-    public function __construct(PaymentRepository $paymentRepository)
+    public function __construct(PaymentRepositoryInterface $paymentRepository)
     {
         $this->paymentRepository = $paymentRepository;
     }
 
     public function index()
     {
-        $payments = Payment::orderBy('id','DESC')->paginate(5);
+        $payments = Payment::orderBy('id', 'DESC')->paginate(5);
         return view('payment.index', compact('payments'));
     }
 

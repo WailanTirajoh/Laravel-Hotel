@@ -3,23 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\Payment;
+use App\Repositories\Interface\PaymentRepositoryInterface;
 
-class PaymentRepository
+class PaymentRepository implements PaymentRepositoryInterface
 {
     public function store($request, $transaction, string $status)
     {
-        if(!empty($request->downPayment)){
-            $price = $request->downPayment;
-        } else {
-            $price = $request->payment;
-        }
-        $payment = Payment::create([
+        return Payment::create([
             'user_id' => Auth()->user()->id,
             'transaction_id' => $transaction->id,
-            'price' => $price,
+            'price' => !empty($request->downPayment) ? $request->downPayment : $request->payment,
             'status' => $status
         ]);
-
-        return $payment;
     }
 }
