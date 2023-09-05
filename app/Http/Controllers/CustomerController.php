@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
-use App\Repositories\CustomerRepository;
 use App\Repositories\ImageRepository;
+use App\Repositories\Interface\CustomerRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     private $customerRepository;
 
-    public function __construct(CustomerRepository $customerRepository)
+    public function __construct(CustomerRepositoryInterface $customerRepository)
     {
         $this->customerRepository = $customerRepository;
     }
@@ -67,7 +67,7 @@ class CustomerController extends Controller
             return redirect('customer')->with('success', 'Customer ' . $customer->name . ' deleted!');
         } catch (\Exception $e) {
             $errorMessage = "";
-            if($e->errorInfo[0] == "23000") {
+            if ($e->errorInfo[0] == "23000") {
                 $errorMessage = "Data still connected to other tables";
             }
             return redirect('customer')->with('failed', 'Customer ' . $customer->name . ' cannot be deleted! ' . $errorMessage);

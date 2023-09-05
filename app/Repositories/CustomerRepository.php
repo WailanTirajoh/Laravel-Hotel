@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use app\Helpers\ImageService;
 use App\Models\Customer;
 use App\Models\User;
+use App\Repositories\Interface\CustomerRepositoryInterface;
 use Illuminate\Support\Str;
 
-class CustomerRepository
+class CustomerRepository implements CustomerRepositoryInterface
 {
     public function get($request)
     {
