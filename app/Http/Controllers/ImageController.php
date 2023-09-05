@@ -7,14 +7,14 @@ use app\Helpers\ImageService;
 use App\Http\Requests\StoreImageRequest;
 use App\Models\Image;
 use App\Models\Room;
-use App\Repositories\ImageRepository;
+use App\Repositories\Interface\ImageRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
     private $imageRepository;
 
-    public function __construct(ImageRepository $imageRepository)
+    public function __construct(ImageRepositoryInterface $imageRepository)
     {
         $this->imageRepository = $imageRepository;
     }

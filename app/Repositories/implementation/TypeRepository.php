@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
-use App\Models\Room;
+use App\Models\Type;
+use App\Repositories\Interface\TypeRepositoryInterface;
 
-class RoomRepository
+class TypeRepository implements TypeRepositoryInterface
 {
-    public function getRooms($request)
+    public function showAll($request)
     {
-        $rooms = Room::with('type', 'roomStatus')->orderBy('number');
+        $types = Type::orderBy('id', 'DESC');
         if (!empty($request->search)) {
-            $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
+            $types = $types->where('name', 'LIKE', '%' . $request->search . '%');
         }
-        $rooms = $rooms->paginate(5);
-        $rooms->appends($request->all());
+        $types = $types->paginate(5);
+        $types->appends($request->all());
 
-        return $rooms;
+        return $types;
     }
 
-    public function getRoomsDatatable($request)
+
+    public function getTypesDatatable($request)
     {
         $columns = array(
-            0 => 'rooms.number',
+            0 => 'types.id',
             1 => 'types.name',
-            2 => 'rooms.capacity',
-            3 => 'rooms.price',
-            4 => 'room_statuses.name',
-            5 => 'types.id',
+            2 => 'types.information',
+            3 => 'types.id',
         );
 
         $limit          = $request->input('length');
@@ -34,18 +34,14 @@ class RoomRepository
         $order          = $columns[$request->input('order.0.column')];
         $dir            = $request->input('order.0.dir');
 
-        $main_query = Room::select(
-            'rooms.id',
-            'rooms.number',
-            'types.name as type',
-            'rooms.capacity',
-            'rooms.price',
-            'room_statuses.name as status',
-        )
-            ->leftJoin("types", "rooms.type_id", "=", "types.id")
-            ->leftJoin("room_statuses", "rooms.room_status_id", "=", "room_statuses.id");
+        $main_query = Type::select(
+            'types.id as number',
+            'types.name',
+            'types.information',
+            'types.id',
+        );
 
-        $totalData  =   $main_query->get()->count();
+        $totalData = $main_query->get()->count();
 
         // Filter global column
         if ($request->input('search.value')) {
@@ -75,12 +71,10 @@ class RoomRepository
         if (!empty($models)) {
             foreach ($models as $model) {
                 $data[] = array(
+                    "number" => $model->id,
+                    "name" => $model->name,
+                    "information" => $model->information,
                     "id" => $model->id,
-                    "number" => $model->number,
-                    "type" => $model->type,
-                    "price" => $model->price,
-                    "capacity" => $model->capacity,
-                    "status" => $model->status,
                 );
             }
         }
@@ -93,5 +87,15 @@ class RoomRepository
         );
 
         return json_encode($response);
+    }
+
+    public function store($typeData)
+    {
+        $type = new Type;
+        $type->name = $typeData->name;
+        $type->information = $typeData->information;
+        $type->save();
+
+        return $type;
     }
 }

@@ -1,31 +1,37 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
-use App\Models\Type;
+use App\Models\RoomStatus;
+use App\Repositories\Interface\RoomStatusRepositoryInterface;
 
-class TypeRepository
+class RoomStatusRepository implements RoomStatusRepositoryInterface
 {
-    public function showAll($request)
+    /**
+     * @deprecated since updated to getDatatable
+     */
+    public function getRoomStatuses($request)
     {
-        $types = Type::orderBy('id', 'DESC');
-        if (!empty($request->search)) {
-            $types = $types->where('name', 'LIKE', '%' . $request->search . '%');
-        }
-        $types = $types->paginate(5);
-        $types->appends($request->all());
+        $roomStatuses = RoomStatus::orderBy('id');
 
-        return $types;
+        if (!empty($request->search)) {
+            $roomStatuses = $roomStatuses->where('name', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $roomStatuses = $roomStatuses->paginate(5);
+        $roomStatuses->appends($request->all());
+
+        return $roomStatuses;
     }
 
-
-    public function getTypesDatatable($request)
+    public function getDatatable($request)
     {
         $columns = array(
-            0 => 'types.id',
-            1 => 'types.name',
-            2 => 'types.information',
-            3 => 'types.id',
+            0 => 'room_statuses.id',
+            1 => 'room_statuses.name',
+            2 => 'room_statuses.code',
+            3 => 'room_statuses.information',
+            4 => 'room_statuses.id',
         );
 
         $limit          = $request->input('length');
@@ -33,11 +39,12 @@ class TypeRepository
         $order          = $columns[$request->input('order.0.column')];
         $dir            = $request->input('order.0.dir');
 
-        $main_query = Type::select(
-            'types.id as number',
-            'types.name',
-            'types.information',
-            'types.id',
+        $main_query = RoomStatus::select(
+            'room_statuses.id as number',
+            'room_statuses.name',
+            'room_statuses.code',
+            'room_statuses.information',
+            'room_statuses.id',
         );
 
         $totalData = $main_query->get()->count();
@@ -72,6 +79,7 @@ class TypeRepository
                 $data[] = array(
                     "number" => $model->id,
                     "name" => $model->name,
+                    "code" => $model->code,
                     "information" => $model->information,
                     "id" => $model->id,
                 );
@@ -86,15 +94,5 @@ class TypeRepository
         );
 
         return json_encode($response);
-    }
-
-    public function store($typeData)
-    {
-        $type = new Type;
-        $type->name = $typeData->name;
-        $type->information = $typeData->information;
-        $type->save();
-
-        return $type;
     }
 }

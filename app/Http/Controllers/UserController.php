@@ -6,7 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Repositories\Interface\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
 
@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

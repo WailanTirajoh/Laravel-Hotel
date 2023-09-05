@@ -1,36 +1,33 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Implementation;
 
-use App\Models\RoomStatus;
+use App\Models\Room;
+use App\Repositories\Interface\RoomRepositoryInterface;
 
-class RoomStatusRepository
+class RoomRepository implements RoomRepositoryInterface
 {
-    /**
-     * @deprecated since updated to getDatatable
-     */
-    public function getRoomStatuses($request)
+    public function getRooms($request)
     {
-        $roomStatuses = RoomStatus::orderBy('id');
-
+        $rooms = Room::with('type', 'roomStatus')->orderBy('number');
         if (!empty($request->search)) {
-            $roomStatuses = $roomStatuses->where('name', 'LIKE', '%' . $request->search . '%');
+            $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
         }
+        $rooms = $rooms->paginate(5);
+        $rooms->appends($request->all());
 
-        $roomStatuses = $roomStatuses->paginate(5);
-        $roomStatuses->appends($request->all());
-
-        return $roomStatuses;
+        return $rooms;
     }
 
-    public function getDatatable($request)
+    public function getRoomsDatatable($request)
     {
         $columns = array(
-            0 => 'room_statuses.id',
-            1 => 'room_statuses.name',
-            2 => 'room_statuses.code',
-            3 => 'room_statuses.information',
-            4 => 'room_statuses.id',
+            0 => 'rooms.number',
+            1 => 'types.name',
+            2 => 'rooms.capacity',
+            3 => 'rooms.price',
+            4 => 'room_statuses.name',
+            5 => 'types.id',
         );
 
         $limit          = $request->input('length');
@@ -38,15 +35,18 @@ class RoomStatusRepository
         $order          = $columns[$request->input('order.0.column')];
         $dir            = $request->input('order.0.dir');
 
-        $main_query = RoomStatus::select(
-            'room_statuses.id as number',
-            'room_statuses.name',
-            'room_statuses.code',
-            'room_statuses.information',
-            'room_statuses.id',
-        );
+        $main_query = Room::select(
+            'rooms.id',
+            'rooms.number',
+            'types.name as type',
+            'rooms.capacity',
+            'rooms.price',
+            'room_statuses.name as status',
+        )
+            ->leftJoin("types", "rooms.type_id", "=", "types.id")
+            ->leftJoin("room_statuses", "rooms.room_status_id", "=", "room_statuses.id");
 
-        $totalData = $main_query->get()->count();
+        $totalData  =   $main_query->get()->count();
 
         // Filter global column
         if ($request->input('search.value')) {
@@ -76,11 +76,12 @@ class RoomStatusRepository
         if (!empty($models)) {
             foreach ($models as $model) {
                 $data[] = array(
-                    "number" => $model->id,
-                    "name" => $model->name,
-                    "code" => $model->code,
-                    "information" => $model->information,
                     "id" => $model->id,
+                    "number" => $model->number,
+                    "type" => $model->type,
+                    "price" => $model->price,
+                    "capacity" => $model->capacity,
+                    "status" => $model->status,
                 );
             }
         }

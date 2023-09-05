@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoomStatusRequest;
 use App\Models\RoomStatus;
-use App\Repositories\RoomStatusRepository;
+use App\Repositories\Interface\RoomStatusRepositoryInterface;
 use Illuminate\Http\Request;
 
 class RoomStatusController extends Controller
 {
     private $roomStatusRepository;
 
-    public function __construct(RoomStatusRepository $roomStatusRepository)
+    public function __construct(RoomStatusRepositoryInterface $roomStatusRepository)
     {
         $this->roomStatusRepository = $roomStatusRepository;
     }
