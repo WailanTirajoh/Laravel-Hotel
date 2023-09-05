@@ -13,8 +13,8 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\NewRoomReservationDownPayment;
 use App\Repositories\CustomerRepository;
+use App\Repositories\Interface\ReservationRepositoryInterface;
 use App\Repositories\PaymentRepository;
-use App\Repositories\ReservationRepository;
 use App\Repositories\TransactionRepository;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class TransactionRoomReservationController extends Controller
 {
     private $reservationRepository;
 
-    public function __construct(ReservationRepository $reservationRepository)
+    public function __construct(ReservationRepositoryInterface $reservationRepository)
     {
         $this->reservationRepository = $reservationRepository;
     }
@@ -42,7 +42,9 @@ class TransactionRoomReservationController extends Controller
     public function storeCustomer(StoreCustomerRequest $request, CustomerRepository $customerRepository)
     {
         $customer = $customerRepository->store($request);
-        return redirect()->route('transaction.reservation.viewCountPerson', ['customer' => $customer->id])->with('success', 'Customer ' . $customer->name . ' created!');
+        return redirect()
+            ->route('transaction.reservation.viewCountPerson', ['customer' => $customer->id])
+            ->with('success', 'Customer ' . $customer->name . ' created!');
     }
 
     public function viewCountPerson(Customer $customer)

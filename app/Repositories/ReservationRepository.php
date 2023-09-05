@@ -2,26 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Models\Customer;
 use App\Models\Room;
+use App\Repositories\Interface\ReservationRepositoryInterface;
 
-class ReservationRepository
+class ReservationRepository implements ReservationRepositoryInterface
 {
     public function getUnocuppiedroom($request, $occupiedRoomId)
     {
-        $rooms = Room::with('type', 'roomStatus')
+        return Room::with('type', 'roomStatus')
             ->where('capacity', '>=', $request->count_person)
-            ->whereNotIn('id', $occupiedRoomId);
-
-        if (!empty($request->sort_name)) {
-            $rooms = $rooms->orderBy($request->sort_name, $request->sort_type);
-        }
-
-        $rooms = $rooms
+            ->whereNotIn('id', $occupiedRoomId)
+            ->when(!empty($request->sort_name), function ($query) use ($request) {
+                $query->orderBy($request->sort_name, $request->sort_type);
+            })
             ->orderBy('capacity')
             ->paginate(5);
-
-        return $rooms;
     }
 
     public function countUnocuppiedroom($request, $occupiedRoomId)
