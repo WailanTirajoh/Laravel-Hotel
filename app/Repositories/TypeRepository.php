@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Type;
+use App\Repositories\Interface\TypeRepositoryInterface;
 
-class TypeRepository
+class TypeRepository implements TypeRepositoryInterface
 {
     public function showAll($request)
     {

@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTypeRequest;
 use App\Models\Type;
-use App\Repositories\TypeRepository;
+use App\Repositories\Interface\TypeRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
     private $typeRepository;
 
-    public function __construct(TypeRepository $typeRepository)
+    public function __construct(TypeRepositoryInterface $typeRepository)
     {
         $this->typeRepository = $typeRepository;
     }
