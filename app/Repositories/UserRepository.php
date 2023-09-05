@@ -3,9 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Repositories\Interface\UserRepositoryInterface;
 use Illuminate\Support\Str;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function store($userData)
     {
@@ -22,27 +23,21 @@ class UserRepository
 
     public function showUser($request)
     {
-        $users = User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC');
-
-        if (!empty($request->qu)) {
-            $users = $users->where('email', 'LIKE', '%' . $request->qu . '%');
-        }
-
-        $users = $users->paginate(5, ['*'], 'users');
-        $users->appends($request->all());
-
-        return $users;
+        return User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')
+            ->when($request->qu, function ($query) use ($request) {
+                $query->where('email', 'LIKE', '%' . $request->qu . '%');
+            })
+            ->paginate(5, ['*'], 'users')
+            ->appends($request->all());
     }
 
     public function showCustomer($request)
     {
-        $customers = User::where('role', 'Customer')->orderBy('id', 'DESC');
-        if (!empty($request->qc)) {
-            $customers = $customers->where('email', 'LIKE', '%' . $request->qc . '%');
-        }
-        $customers = $customers->Paginate(5, ['*'], 'customers');
-        $customers->appends($request->all());
-
-        return $customers;
+        return User::where('role', 'Customer')->orderBy('id', 'DESC')
+            ->when($request->qc, function ($query) use ($request) {
+                $query->where('email', 'LIKE', '%' . $request->qc . '%');
+            })
+            ->paginate(5, ['*'], 'customers')
+            ->appends($request->all());
     }
 }
