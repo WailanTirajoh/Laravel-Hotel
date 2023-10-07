@@ -11,7 +11,7 @@
         "laravel-echo": "^1.10.0",
         "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
+        "postcss": "^8.4.31",
         "pusher-js": "^7.0.3",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.10",
