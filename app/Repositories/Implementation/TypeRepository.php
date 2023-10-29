@@ -98,4 +98,9 @@ class TypeRepository implements TypeRepositoryInterface
 
         return $type;
     }
+
+    public function getTypeList($request)
+    {
+        return Type::get();
+    }
 }

@@ -31,6 +31,39 @@
                 <div class="col-lg-12">
                     <div class="card shadow-sm border">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" class="form-select" aria-label="Choose status">
+                                            <option selected>All</option>
+                                            @forelse ($roomStatuses as $roomStatus)
+                                                <option value="{{ $roomStatus->id }}">{{ $roomStatus->name }}</option>
+                                            @empty
+                                                <option value="">No room status</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="mb-3">
+                                        <label for="type" class="form-label">Type</label>
+                                        <select id="type" class="form-select" aria-label="Choose type">
+                                            <option selected>All</option>
+                                            @forelse ($types as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @empty
+                                                <option value="">No type</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table id="room-table" class="table table-sm table-hover" style="width: 100%;">
                                     <thead>
