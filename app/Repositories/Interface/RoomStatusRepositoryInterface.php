@@ -10,4 +10,5 @@ interface RoomStatusRepositoryInterface
     public function getRoomStatuses($request);
 
     public function getDatatable($request);
+    public function getRoomStatusList($request);
 }

@@ -9,7 +9,14 @@ class RoomRepository implements RoomRepositoryInterface
 {
     public function getRooms($request)
     {
-        $rooms = Room::with('type', 'roomStatus')->orderBy('number');
+        $rooms = Room::with('type', 'roomStatus')
+            ->orderBy('number')
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('room_status_id', $request->status);
+            })
+            ->when($request->type, function ($query) use ($request) {
+                $query->where('type_id', $request->type);
+            });
         if (!empty($request->search)) {
             $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
         }
@@ -43,6 +50,12 @@ class RoomRepository implements RoomRepositoryInterface
             'rooms.price',
             'room_statuses.name as status',
         )
+            ->when($request->status !== 'All', function ($query) use ($request) {
+                $query->where('room_status_id', $request->status);
+            })
+            ->when($request->type !== 'All', function ($query) use ($request) {
+                $query->where('type_id', $request->type);
+            })
             ->leftJoin("types", "rooms.type_id", "=", "types.id")
             ->leftJoin("room_statuses", "rooms.room_status_id", "=", "room_statuses.id");
 

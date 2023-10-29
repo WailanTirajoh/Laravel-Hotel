@@ -95,4 +95,9 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
 
         return json_encode($response);
     }
+
+    public function getRoomStatusList($request)
+    {
+        return RoomStatus::get();
+    }
 }
