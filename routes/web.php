@@ -82,11 +82,23 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
 
     Route::get('/mark-all-as-read', [NotificationsController::class, 'markAllAsRead'])->name('notification.markAllAsRead');
 
-    Route::get('/notification-to/{id}',[NotificationsController::class, 'routeTo'])->name('notification.routeTo');
+    Route::get('/notification-to/{id}', [NotificationsController::class, 'routeTo'])->name('notification.routeTo');
 });
 
+// Login routes
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postlogin');
+
+// Forgot Password routes
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/forgot-password', fn () => view('auth.passwords.email'))->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+
+    // Reset Password routes
+    Route::get('/reset-password/{token}', fn (string $token) => view('auth.reset-password', ['token' => $token]))
+        ->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
