@@ -1,6 +1,23 @@
-@extends('layouts.app')
+@extends('template.auth')
 
 @section('content')
+<style>
+    #btn_submit {
+        width: 100%;
+        transition: all 0.5s ease-in-out;
+    }
+
+    #btn_submit.isLoading {
+        width: 50px;
+        border-radius: 100vw;
+    }
+
+    .hide {
+        display: none;
+    }
+
+</style>
+<link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
