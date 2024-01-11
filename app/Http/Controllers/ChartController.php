@@ -25,13 +25,11 @@ class ChartController extends Controller
         $max_no = max($guests_count_array);
         $max = round(($max_no + 10 / 2) / 10) * 10;
 
-        $dialyGuestPerMonth = array(
+        return array(
             'day' => $day_array,
             'guest_count_data' => $guests_count_array,
             'max' => $max
         );
-
-        return $dialyGuestPerMonth;
     }
 
     private function countGuestsPerDay($year, $month, $day)
@@ -39,18 +37,16 @@ class ChartController extends Controller
         $time = strtotime($month . '/' . $day . '/' . $year);
         $date = date('Y-m-d', $time);
 
-        $room_count = Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->count();
-
-        return $room_count;
+        return Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->count();
     }
 
-    public function dialyGuest($year,$month,$day)
+    public function dialyGuest($year, $month, $day)
     {
         $time = strtotime($month . '/' . $day . '/' . $year);
         $date = date('Y-m-d', $time);
 
         $transactions = Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->get();
 
-        return view('dashboard.chart_detail', compact('transactions','date'));
+        return view('dashboard.chart_detail', compact('transactions', 'date'));
     }
 }
