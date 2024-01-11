@@ -9,21 +9,19 @@ class RoomRepository implements RoomRepositoryInterface
 {
     public function getRooms($request)
     {
-        $rooms = Room::with('type', 'roomStatus')
+        return Room::with('type', 'roomStatus')
             ->orderBy('number')
             ->when($request->status, function ($query) use ($request) {
                 $query->where('room_status_id', $request->status);
             })
             ->when($request->type, function ($query) use ($request) {
                 $query->where('type_id', $request->type);
-            });
-        if (!empty($request->search)) {
-            $rooms = $rooms->where('number', 'LIKE', '%' . $request->search . '%');
-        }
-        $rooms = $rooms->paginate(5);
-        $rooms->appends($request->all());
-
-        return $rooms;
+            })
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('number', 'LIKE', '%' . $request->search . '%');
+            })
+            ->paginate(5)
+            ->appends($request->all());
     }
 
     public function getRoomsDatatable($request)
@@ -42,6 +40,7 @@ class RoomRepository implements RoomRepositoryInterface
         $order          = $columns[$request->input('order.0.column')];
         $dir            = $request->input('order.0.dir');
 
+        $search = $request->input('search.value');
         $main_query = Room::select(
             'rooms.id',
             'rooms.number',
@@ -61,21 +60,19 @@ class RoomRepository implements RoomRepositoryInterface
 
         $totalData  =   $main_query->get()->count();
 
-        // Filter global column
-        if ($request->input('search.value')) {
-            $search = $request->input('search.value');
-            $main_query->where(function ($query) use ($search, $columns) {
+        $main_query->when($search, function ($query) use ($search, $columns) {
+            $query->where(function ($q) use ($search, $columns) {
                 $i = 0;
                 foreach ($columns as $column) {
                     if ($i = 0) {
-                        $query->where($column, 'LIKE', "%{$search}%");
+                        $q->where($column, 'LIKE', "%{$search}%");
                     } else {
-                        $query->orWhere($column, 'LIKE', "%{$search}%");
+                        $q->orWhere($column, 'LIKE', "%{$search}%");
                     }
                     $i++;
                 }
             });
-        }
+        });
 
         $totalFiltered = $main_query->count();
 
@@ -86,18 +83,17 @@ class RoomRepository implements RoomRepositoryInterface
         $models = $main_query->get();
 
         $data = [];
-        if (!empty($models)) {
-            foreach ($models as $model) {
-                $data[] = array(
-                    "id" => $model->id,
-                    "number" => $model->number,
-                    "type" => $model->type,
-                    "price" => $model->price,
-                    "capacity" => $model->capacity,
-                    "status" => $model->status,
-                );
-            }
+        foreach ($models as $model) {
+            $data[] = array(
+                "id" => $model->id,
+                "number" => $model->number,
+                "type" => $model->type,
+                "price" => $model->price,
+                "capacity" => $model->capacity,
+                "status" => $model->status,
+            );
         }
+
 
         $response = array(
             "draw" => intval($request->input('draw')),

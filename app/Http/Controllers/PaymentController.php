@@ -37,7 +37,7 @@ class PaymentController extends Controller
 
         $this->paymentRepository->store($request, $transaction, 'Payment');
 
-        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRupiah($request->payment) . ' paid');
+        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helpers::convertToRupiah($request->payment) . ' paid');
     }
 
     public function invoice(Payment $payment)
