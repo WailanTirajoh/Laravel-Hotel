@@ -11,29 +11,23 @@ class CustomerRepository implements CustomerRepositoryInterface
 {
     public function get($request)
     {
-        $customers = Customer::with('user')->orderBy('id', 'DESC');
-
-        if (!empty($request->q)) {
-            $customers = $customers->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-        }
-
-        $customers = $customers->paginate(8);
-        $customers->appends($request->all());
-        return $customers;
+        return Customer::with('user')->orderBy('id', 'DESC')
+            ->when($request->q, function ($query) use ($request) {
+                $query->where('name', 'Like', '%' . $request->q . '%')
+                    ->orWhere('id', 'Like', '%' . $request->q . '%');
+            })
+            ->paginate(8)
+            ->appends($request->all());
     }
 
     public function count($request)
     {
-        $customersCount = Customer::with('user')->orderBy('id', 'DESC');
-
-        if (!empty($request->q)) {
-            $customersCount = $customersCount->where('name', 'Like', '%' . $request->q . '%')
-                ->orWhere('id', 'Like', '%' . $request->q . '%');
-        }
-
-        $customersCount = $customersCount->count();
-        return $customersCount;
+        return Customer::with('user')->orderBy('id', 'DESC')
+            ->when($request->q, function ($query) use ($request) {
+                $query->where('name', 'Like', '%' . $request->q . '%')
+                    ->orWhere('id', 'Like', '%' . $request->q . '%');
+            })
+            ->count();
     }
 
     public static function store($request)
@@ -59,7 +53,7 @@ class CustomerRepository implements CustomerRepositoryInterface
             $user->save();
         }
 
-        $customer = Customer::create([
+        return Customer::create([
             'name' => $user->name,
             'address' => $request->address,
             'job' => $request->job,
@@ -67,7 +61,5 @@ class CustomerRepository implements CustomerRepositoryInterface
             'gender' => $request->gender,
             'user_id' => $user->id
         ]);
-
-        return $customer;
     }
 }
