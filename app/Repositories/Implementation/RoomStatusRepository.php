@@ -4,27 +4,24 @@ namespace App\Repositories\Implementation;
 
 use App\Models\RoomStatus;
 use App\Repositories\Interface\RoomStatusRepositoryInterface;
+use Illuminate\Http\Request;
 
 class RoomStatusRepository implements RoomStatusRepositoryInterface
 {
     /**
      * @deprecated since updated to getDatatable
      */
-    public function getRoomStatuses($request)
+    public function getRoomStatuses(Request $request)
     {
-        $roomStatuses = RoomStatus::orderBy('id');
-
-        if (!empty($request->search)) {
-            $roomStatuses = $roomStatuses->where('name', 'LIKE', '%' . $request->search . '%');
-        }
-
-        $roomStatuses = $roomStatuses->paginate(5);
-        $roomStatuses->appends($request->all());
-
-        return $roomStatuses;
+        return RoomStatus::orderBy('id')
+            ->when(!empty($request->search), function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            })
+            ->paginate(5)
+            ->appends($request->all());
     }
 
-    public function getDatatable($request)
+    public function getDatatable(Request $request)
     {
         $columns = array(
             0 => 'room_statuses.id',
@@ -49,10 +46,9 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
 
         $totalData = $main_query->get()->count();
 
-        // Filter global column
-        if ($request->input('search.value')) {
-            $search = $request->input('search.value');
-            $main_query->where(function ($query) use ($search, $columns) {
+        $search = $request->input('search.value');
+        $main_query->when(!empty($request->input('search.value')), function ($query) use ($search, $columns) {
+            $query->where(function ($query) use ($search, $columns) {
                 $i = 0;
                 foreach ($columns as $column) {
                     if ($i = 0) {
@@ -63,40 +59,33 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
                     $i++;
                 }
             });
-        }
+        });
 
         $totalFiltered = $main_query->count();
 
-        $main_query->offset($start)
+        $data = $main_query->offset($start)
             ->limit($limit)
-            ->orderBy($order, $dir);
-
-        $models = $main_query->get();
-
-        $data = [];
-        if (!empty($models)) {
-            foreach ($models as $model) {
-                $data[] = array(
+            ->orderBy($order, $dir)
+            ->get()
+            ->map(function ($model) {
+                return [
                     "number" => $model->id,
                     "name" => $model->name,
                     "code" => $model->code,
                     "information" => $model->information,
                     "id" => $model->id,
-                );
-            }
-        }
+                ];
+            });
 
-        $response = array(
+        return json_encode([
             "draw" => intval($request->input('draw')),
             "iTotalRecords" => $totalData,
             "iTotalDisplayRecords" => $totalFiltered,
             "aaData" => $data
-        );
-
-        return json_encode($response);
+        ]);
     }
 
-    public function getRoomStatusList($request)
+    public function getRoomStatusList(Request $request)
     {
         return RoomStatus::get();
     }
