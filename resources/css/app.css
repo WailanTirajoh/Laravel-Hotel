@@ -1,0 +1,7 @@
+.select2-container {
+    width: 100%;
+}
+
+#page-content-wrapper {
+    min-height: calc(100svh - 55px);
+}

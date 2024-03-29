@@ -3,6 +3,11 @@
         display: block;
         margin-top: 0;
     }
+
+    #sidebar-wrapper .dropdown-menu.show {
+        top: -60px !important;
+        left: 80px !important;
+    }
 </style>
 <div class="" id="sidebar-wrapper">
     <div class="d-flex flex-column"

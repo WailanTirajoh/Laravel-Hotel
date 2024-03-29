@@ -54,6 +54,13 @@ class UserController extends Controller
     public function update(User $user, UpdateCustomerRequest $request)
     {
         $user->update($request->all());
+
+        if ($user->isCustomer()) {
+            $user->customer->update([
+                'name' => $request->name,
+            ]);
+        }
+
         return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' udpated!');
     }
 

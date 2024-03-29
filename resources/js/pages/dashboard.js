@@ -1,9 +1,10 @@
 import Chart from "chart.js/auto";
+
 $(function () {
     const currentRoute = window.location.pathname;
     if (!currentRoute.startsWith("/dashboard")) return;
-    let myVisitorChart;
 
+    let myVisitorChart;
     const charts = {
         init: function () {
             this.ajaxGetDialyGuestPerMonthData();
@@ -42,6 +43,7 @@ $(function () {
                     labels: response.day,
                     datasets: [
                         {
+                            label: "Occupied",
                             data: response.guest_count_data,
                             backgroundColor: "transparent",
                             borderColor: "#007bff",
@@ -75,7 +77,7 @@ $(function () {
                         },
                     },
                     legend: {
-                        display: false,
+                        display: true,
                     },
                     scales: {
                         y: {

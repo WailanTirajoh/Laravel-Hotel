@@ -51,4 +51,14 @@ class User extends Authenticatable
         }
         return asset('img/user/' . $this->name . '-' . $this->id . '/' . $this->avatar);
     }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+    public function isCustomer()
+    {
+        return $this->role === 'Customer';
+    }
 }
