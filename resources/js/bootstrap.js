@@ -1,8 +1,8 @@
 import _ from "lodash";
-import jquery from "jquery"
-import popper from "popper.js"
-import sweetalert2 from "sweetalert2"
-import toastr from "toastr"
+import jquery from "jquery";
+import popper from "popper.js";
+import sweetalert2 from "sweetalert2";
+import toastr from "toastr";
 import axios from "axios";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
@@ -19,10 +19,10 @@ import Pusher from "pusher-js";
         window.$ = window.jQuery = jquery;
         const [bootstrap, select2] = await Promise.all([
             import("bootstrap"),
-            import("select2")
-        ])
-        window.bootstrap = bootstrap
-        select2.default()
+            import("select2"),
+        ]);
+        window.bootstrap = bootstrap;
+        select2.default();
 
         window.Swal = sweetalert2;
         const ttoastr = toastr;
@@ -61,39 +61,27 @@ import Pusher from "pusher-js";
      * allows your team to easily build robust real-time web applications.
      */
 
-    window.Pusher = Pusher;
-    window.Echo = new Echo({
-        broadcaster: "pusher",
-        key: import.meta.env.VITE_PUSHER_APP_KEY,
-        cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-        forceTLS: false,
-        wsHost: window.location.hostname,
-        wsPort: 6001,
-    });
-
     window.CustomHelper = {
         errorHandlerForm(e) {
-            for(const error in e.responseJSON.errors) {
-                const errorLabel = error
-                const errorList = e.responseJSON.errors[error]
-                $(`#error_${errorLabel}`).text(errorList.join(', '))
+            for (const error in e.responseJSON.errors) {
+                const errorLabel = error;
+                const errorList = e.responseJSON.errors[error];
+                $(`#error_${errorLabel}`).text(errorList.join(", "));
             }
         },
         clearError() {
-            $(".error").text('')
+            $(".error").text("");
         },
-    }
+    };
+
+    await Promise.all([import("datatables.net"), import("datatables.net-bs5")]);
 
     await Promise.all([
-        import('datatables.net'),
-        import('datatables.net-bs5'),
-    ])
-
-    await Promise.all([
+        import("./echo"),
         import("./pages/room-status"),
         import("./pages/type"),
         import("./pages/room"),
         import("./pages/dashboard"),
-        import("./pages/global")
-    ])
+        import("./pages/global"),
+    ]);
 })();
