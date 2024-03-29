@@ -8,17 +8,16 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "beyondcode/laravel-websockets": "^1.13.1",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4.5",
         "intervention/image": "^2.5",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^10.0",
         "laravel/tinker": "^2.5",
         "pusher/pusher-php-server": "~5.0"
     },
     "require-dev": {
-        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
