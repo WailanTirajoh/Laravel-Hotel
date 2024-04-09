@@ -13,6 +13,9 @@ class DashboardController extends Controller
             ->where([['check_in', '<=', Carbon::now()], ['check_out', '>=', Carbon::now()]])
             ->orderBy('check_out', 'ASC')
             ->orderBy('id', 'DESC')->get();
-        return view('dashboard.index', compact('transactions'));
+
+        return view('dashboard.index', [
+            'transactions' => $transactions
+        ]);
     }
 }

@@ -18,8 +18,8 @@ class ChartController extends Controller
         $guests_count_array = array();
 
         for ($i = 1; $i <= $days_in_month; $i++) {
-            array_push($day_array, $i);
-            array_push($guests_count_array, $this->countGuestsPerDay($year, $month, $i));
+            $day_array[] = $i;
+            $guests_count_array[] = $this->countGuestsPerDay($year, $month, $i);
         }
 
         $max_no = max($guests_count_array);
@@ -47,6 +47,9 @@ class ChartController extends Controller
 
         $transactions = Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->get();
 
-        return view('dashboard.chart_detail', compact('transactions', 'date'));
+        return view('dashboard.chart_detail', [
+            'transactions' => $transactions,
+            'date' => $date
+        ]);
     }
 }

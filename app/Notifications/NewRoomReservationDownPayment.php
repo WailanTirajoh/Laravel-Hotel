@@ -14,7 +14,13 @@ use Illuminate\Notifications\Notification;
 class NewRoomReservationDownPayment extends Notification
 {
     use Queueable;
+    /**
+     * @var \App\Models\Transaction
+     */
     public $transaction;
+    /**
+     * @var \App\Models\Payment
+     */
     public $payment;
 
     /**

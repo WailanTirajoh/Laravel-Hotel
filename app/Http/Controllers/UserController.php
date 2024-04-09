@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
@@ -23,7 +23,11 @@ class UserController extends Controller
     {
         $users = $this->userRepository->showUser($request);
         $customers = $this->userRepository->showCustomer($request);
-        return view('user.index', compact('users', 'customers'));
+
+        return view('user.index', [
+            'users' => $users,
+            'customers' => $customers
+        ]);
     }
 
     public function create()
@@ -41,9 +45,13 @@ class UserController extends Controller
     {
         if ($user->role === "Customer") {
             $customer = Customer::where('user_id', $user->id)->first();
-            return view('customer.show', compact('customer'));
+            return view('customer.show', [
+                'customer' => $customer
+            ]);
         }
-        return view('user.show', compact('user'));
+        return view('user.show', [
+            'user' => $user
+        ]);
     }
 
     public function edit(User $user)

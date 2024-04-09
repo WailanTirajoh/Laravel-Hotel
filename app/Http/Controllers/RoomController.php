@@ -32,14 +32,20 @@ class RoomController extends Controller
 
         $types = $this->typeRepository->getTypeList($request);
         $roomStatuses = $this->roomStatusRepositoryInterface->getRoomStatusList($request);
-        return view('room.index', compact('types', 'roomStatuses'));
+        return view('room.index', [
+            'types' => $types,
+            'roomStatuses' => $roomStatuses
+        ]);
     }
 
     public function create()
     {
         $types = Type::all();
         $roomstatuses = RoomStatus::all();
-        $view = view('room.create', compact('types', 'roomstatuses'))->render();
+        $view = view('room.create', [
+            'types' => $types,
+            'roomstatuses' => $roomstatuses
+        ])->render();
 
         return response()->json([
             'view' => $view
@@ -62,14 +68,21 @@ class RoomController extends Controller
         if (!empty($transaction)) {
             $customer = $transaction->customer;
         }
-        return view('room.show', compact('customer', 'room'));
+        return view('room.show', [
+            'customer' => $customer,
+            'room' => $room
+        ]);
     }
 
     public function edit(Room $room)
     {
         $types = Type::all();
         $roomstatuses = RoomStatus::all();
-        $view = view('room.edit', compact('room', 'types', 'roomstatuses'))->render();
+        $view = view('room.edit', [
+            'room' => $room,
+            'types' => $types,
+            'roomstatuses' => $roomstatuses
+        ])->render();
 
         return response()->json([
             'view' => $view

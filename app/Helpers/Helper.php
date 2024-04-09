@@ -9,8 +9,7 @@ class Helper
 {
     public static function convertToRupiah($price)
     {
-        $price_rupiah = "Rp. " . number_format($price, 2, ',', '.');
-        return $price_rupiah;
+        return "Rp. " . number_format($price, 2, ',', '.');
     }
 
     public static function thisMonth()
@@ -48,8 +47,7 @@ class Helper
         $check_in = strtotime($check_in);
         $check_out = strtotime($check_out);
         $date_difference = $check_out - $check_in;
-        $date_difference = round($date_difference / (60 * 60 * 24));
-        return $date_difference;
+        return round($date_difference / (60 * 60 * 24));
     }
 
     public static function plural($value, $count)
@@ -62,7 +60,7 @@ class Helper
         $color = '';
         if ($day == 1) {
             $color = 'bg-danger';
-        } else if ($day > 1 && $day < 4) {
+        } elseif ($day > 1 && $day < 4) {
             $color = 'bg-warning';
         } else {
             $color = 'bg-success';

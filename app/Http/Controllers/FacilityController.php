@@ -15,7 +15,9 @@ class FacilityController extends Controller
     public function index()
     {
         $facilities = Facility::paginate(5);
-        return view('facility.index', compact('facilities'));
+        return view('facility.index', [
+            'facilities' => $facilities
+        ]);
     }
 
     /**
@@ -31,7 +33,6 @@ class FacilityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +43,6 @@ class FacilityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
     public function show(Facility $facility)
@@ -53,7 +53,6 @@ class FacilityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
     public function edit(Facility $facility)
@@ -64,8 +63,6 @@ class FacilityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Facility $facility)
@@ -76,7 +73,6 @@ class FacilityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
     public function destroy(Facility $facility)

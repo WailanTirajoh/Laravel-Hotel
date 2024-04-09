@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public $paymentRepository;
+    private PaymentRepositoryInterface $paymentRepository;
 
     public function __construct(PaymentRepositoryInterface $paymentRepository)
     {
@@ -20,12 +20,14 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::orderBy('id', 'DESC')->paginate(5);
-        return view('payment.index', compact('payments'));
+        return view('payment.index', ['payments' => $payments]);
     }
 
     public function create(Transaction $transaction)
     {
-        return view('transaction.payment.create', compact('transaction'));
+        return view('transaction.payment.create', [
+            'transaction' => $transaction
+        ]);
     }
 
     public function store(Transaction $transaction, Request $request)
@@ -42,6 +44,8 @@ class PaymentController extends Controller
 
     public function invoice(Payment $payment)
     {
-        return view('payment.invoice', compact('payment'));
+        return view('payment.invoice', [
+            'payment' => $payment
+        ]);
     }
 }
