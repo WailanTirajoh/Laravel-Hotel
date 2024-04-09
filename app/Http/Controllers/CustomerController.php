@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    private CustomerRepositoryInterface $customerRepository;
-
-    public function __construct(CustomerRepositoryInterface $customerRepository)
-    {
-        $this->customerRepository = $customerRepository;
+    public function __construct(
+        private CustomerRepositoryInterface $customerRepository
+    ) {
     }
 
     public function index(Request $request)

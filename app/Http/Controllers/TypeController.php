@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    private TypeRepositoryInterface $typeRepository;
-
-    public function __construct(TypeRepositoryInterface $typeRepository)
-    {
+    public function __construct(
+        private TypeRepositoryInterface $typeRepository
+    ) {
         $this->typeRepository = $typeRepository;
     }
 

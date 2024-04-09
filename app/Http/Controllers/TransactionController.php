@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    private TransactionRepositoryInterface $transactionRepository;
-
-    public function __construct(TransactionRepositoryInterface $transactionRepository)
-    {
-        $this->transactionRepository = $transactionRepository;
+    public function __construct(
+        private TransactionRepositoryInterface $transactionRepository
+    ) {
     }
 
     public function index(Request $request)

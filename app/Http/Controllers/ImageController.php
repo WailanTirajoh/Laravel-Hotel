@@ -9,11 +9,9 @@ use App\Repositories\Interface\ImageRepositoryInterface;
 
 class ImageController extends Controller
 {
-    private ImageRepositoryInterface $imageRepository;
-
-    public function __construct(ImageRepositoryInterface $imageRepository)
-    {
-        $this->imageRepository = $imageRepository;
+    public function __construct(
+        private ImageRepositoryInterface $imageRepository
+    ) {
     }
 
     public function store(StoreImageRequest $request, Room $room)

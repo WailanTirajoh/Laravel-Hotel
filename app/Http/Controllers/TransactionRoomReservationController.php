@@ -20,11 +20,9 @@ use Illuminate\Http\Request;
 
 class TransactionRoomReservationController extends Controller
 {
-    private ReservationRepositoryInterface $reservationRepository;
-
-    public function __construct(ReservationRepositoryInterface $reservationRepository)
-    {
-        $this->reservationRepository = $reservationRepository;
+    public function __construct(
+        private ReservationRepositoryInterface $reservationRepository
+    ) {
     }
 
     public function pickFromCustomer(Request $request, CustomerRepositoryInterface $customerRepository)

@@ -9,11 +9,9 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    private PaymentRepositoryInterface $paymentRepository;
-
-    public function __construct(PaymentRepositoryInterface $paymentRepository)
-    {
-        $this->paymentRepository = $paymentRepository;
+    public function __construct(
+        private PaymentRepositoryInterface $paymentRepository
+    ) {
     }
 
     public function index()
