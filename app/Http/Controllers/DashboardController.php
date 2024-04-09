@@ -15,7 +15,7 @@ class DashboardController extends Controller
             ->orderBy('id', 'DESC')->get();
 
         return view('dashboard.index', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
         ]);
     }
 }

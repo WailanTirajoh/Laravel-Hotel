@@ -87,7 +87,7 @@ class RoomStatusSeeder extends Seeder
             RoomStatus::create([
                 'name' => $names[$i],
                 'code' => $codes[$i],
-                'information' => $informations[$i]
+                'information' => $informations[$i],
             ]);
         }
     }

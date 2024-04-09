@@ -23,16 +23,17 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->user->role == "Customer") {
+        if ($this->user->role == 'Customer') {
             return [
                 'name' => 'required',
-                'email' => 'required|unique:users,email,' . $this->user->id,
+                'email' => 'required|unique:users,email,'.$this->user->id,
                 'role' => 'required|in:Customer',
             ];
         }
+
         return [
             'name' => 'required',
-            'email' => 'required|unique:users,email,' . $this->user->id,
+            'email' => 'required|unique:users,email,'.$this->user->id,
             'role' => 'required|in:Super,Admin',
         ];
     }

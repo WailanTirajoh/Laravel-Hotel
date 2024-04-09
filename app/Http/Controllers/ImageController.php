@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
-use app\Helpers\ImageService;
 use App\Http\Requests\StoreImageRequest;
 use App\Models\Image;
 use App\Models\Room;
 use App\Repositories\Interface\ImageRepositoryInterface;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -21,7 +18,7 @@ class ImageController extends Controller
 
     public function store(StoreImageRequest $request, Room $room)
     {
-        $path = public_path('img/room/' . $room->number);
+        $path = public_path('img/room/'.$room->number);
         $file = $request->file('image');
 
         $lastFileName = $this->imageRepository->uploadImage($path, $file);
@@ -36,11 +33,12 @@ class ImageController extends Controller
 
     public function destroy(Image $image)
     {
-        $path = public_path('img/room/' . $image->room->number . '/' . $image->url);
+        $path = public_path('img/room/'.$image->room->number.'/'.$image->url);
         if (file_exists($path)) {
             unlink($path);
         }
         $image->delete();
-        return redirect()->back()->with('success', 'Image ' . $image->url . ' has been deleted!');
+
+        return redirect()->back()->with('success', 'Image '.$image->url.' has been deleted!');
     }
 }

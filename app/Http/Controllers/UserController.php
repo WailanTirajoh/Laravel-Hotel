@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Repositories\Interface\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
-
 class UserController extends Controller
 {
     private UserRepositoryInterface $userRepository;
@@ -26,7 +25,7 @@ class UserController extends Controller
 
         return view('user.index', [
             'users' => $users,
-            'customers' => $customers
+            'customers' => $customers,
         ]);
     }
 
@@ -38,19 +37,22 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = $this->userRepository->store($request);
-        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
+
+        return redirect()->route('user.index')->with('success', 'User '.$user->name.' created');
     }
 
     public function show(User $user)
     {
-        if ($user->role === "Customer") {
+        if ($user->role === 'Customer') {
             $customer = Customer::where('user_id', $user->id)->first();
+
             return view('customer.show', [
-                'customer' => $customer
+                'customer' => $customer,
             ]);
         }
+
         return view('user.show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -69,16 +71,17 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' udpated!');
+        return redirect()->route('user.index')->with('success', 'User '.$user->name.' udpated!');
     }
 
     public function destroy(User $user)
     {
         try {
             $user->delete();
-            return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' deleted!');
+
+            return redirect()->route('user.index')->with('success', 'User '.$user->name.' deleted!');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);;
+            return redirect()->route('user.index')->with('failed', 'Customer '.$user->name.' cannot be deleted! Error Code:'.$e->errorInfo[1]);
         }
     }
 }

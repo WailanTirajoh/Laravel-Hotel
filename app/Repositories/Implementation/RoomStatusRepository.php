@@ -14,8 +14,8 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
     public function getRoomStatuses(Request $request)
     {
         return RoomStatus::orderBy('id')
-            ->when(!empty($request->search), function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            ->when(! empty($request->search), function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%'.$request->search.'%');
             })
             ->paginate(5)
             ->appends($request->all());
@@ -23,18 +23,18 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
 
     public function getDatatable(Request $request)
     {
-        $columns = array(
+        $columns = [
             0 => 'room_statuses.id',
             1 => 'room_statuses.name',
             2 => 'room_statuses.code',
             3 => 'room_statuses.information',
             4 => 'room_statuses.id',
-        );
+        ];
 
-        $limit          = $request->input('length');
-        $start          = $request->input('start');
-        $order          = $columns[$request->input('order.0.column')];
-        $dir            = $request->input('order.0.dir');
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
 
         $main_query = RoomStatus::select(
             'room_statuses.id as number',
@@ -47,7 +47,7 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
         $totalData = $main_query->get()->count();
 
         $search = $request->input('search.value');
-        $main_query->when(!empty($request->input('search.value')), function ($query) use ($search, $columns) {
+        $main_query->when(! empty($request->input('search.value')), function ($query) use ($search, $columns) {
             $query->where(function ($query) use ($search, $columns) {
                 $i = 0;
                 foreach ($columns as $column) {
@@ -69,19 +69,19 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
             ->get()
             ->map(function ($model) {
                 return [
-                    "number" => $model->id,
-                    "name" => $model->name,
-                    "code" => $model->code,
-                    "information" => $model->information,
-                    "id" => $model->id,
+                    'number' => $model->id,
+                    'name' => $model->name,
+                    'code' => $model->code,
+                    'information' => $model->information,
+                    'id' => $model->id,
                 ];
             });
 
         return json_encode([
-            "draw" => intval($request->input('draw')),
-            "iTotalRecords" => $totalData,
-            "iTotalDisplayRecords" => $totalFiltered,
-            "aaData" => $data
+            'draw' => intval($request->input('draw')),
+            'iTotalRecords' => $totalData,
+            'iTotalDisplayRecords' => $totalFiltered,
+            'aaData' => $data,
         ]);
     }
 

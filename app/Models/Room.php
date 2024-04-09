@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'type_id',
         'room_status_id',
@@ -37,6 +38,7 @@ class Room extends Model
         if (count($this->image) > 0) {
             return $this->image->first()->getRoomImage();
         }
+
         return asset('img/default/default-room.png');
     }
 }

@@ -18,7 +18,7 @@ class RoomRepository implements RoomRepositoryInterface
                 $query->where('type_id', $request->type);
             })
             ->when($request->search, function ($query) use ($request) {
-                $query->where('number', 'LIKE', '%' . $request->search . '%');
+                $query->where('number', 'LIKE', '%'.$request->search.'%');
             })
             ->paginate(5)
             ->appends($request->all());
@@ -26,19 +26,19 @@ class RoomRepository implements RoomRepositoryInterface
 
     public function getRoomsDatatable($request)
     {
-        $columns = array(
+        $columns = [
             0 => 'rooms.number',
             1 => 'types.name',
             2 => 'rooms.capacity',
             3 => 'rooms.price',
             4 => 'room_statuses.name',
             5 => 'types.id',
-        );
+        ];
 
-        $limit          = $request->input('length');
-        $start          = $request->input('start');
-        $order          = $columns[$request->input('order.0.column')];
-        $dir            = $request->input('order.0.dir');
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
 
         $search = $request->input('search.value');
         $main_query = Room::select(
@@ -55,10 +55,10 @@ class RoomRepository implements RoomRepositoryInterface
             ->when($request->type !== 'All', function ($query) use ($request) {
                 $query->where('type_id', $request->type);
             })
-            ->leftJoin("types", "rooms.type_id", "=", "types.id")
-            ->leftJoin("room_statuses", "rooms.room_status_id", "=", "room_statuses.id");
+            ->leftJoin('types', 'rooms.type_id', '=', 'types.id')
+            ->leftJoin('room_statuses', 'rooms.room_status_id', '=', 'room_statuses.id');
 
-        $totalData  =   $main_query->get()->count();
+        $totalData = $main_query->get()->count();
 
         $main_query->when($search, function ($query) use ($search, $columns) {
             $query->where(function ($q) use ($search, $columns) {
@@ -84,23 +84,22 @@ class RoomRepository implements RoomRepositoryInterface
 
         $data = [];
         foreach ($models as $model) {
-            $data[] = array(
-                "id" => $model->id,
-                "number" => $model->number,
-                "type" => $model->type,
-                "price" => $model->price,
-                "capacity" => $model->capacity,
-                "status" => $model->status,
-            );
+            $data[] = [
+                'id' => $model->id,
+                'number' => $model->number,
+                'type' => $model->type,
+                'price' => $model->price,
+                'capacity' => $model->capacity,
+                'status' => $model->status,
+            ];
         }
 
-
-        $response = array(
-            "draw" => intval($request->input('draw')),
-            "iTotalRecords" => $totalData,
-            "iTotalDisplayRecords" => $totalFiltered,
-            "aaData" => $data
-        );
+        $response = [
+            'draw' => intval($request->input('draw')),
+            'iTotalRecords' => $totalData,
+            'iTotalDisplayRecords' => $totalFiltered,
+            'aaData' => $data,
+        ];
 
         return json_encode($response);
     }

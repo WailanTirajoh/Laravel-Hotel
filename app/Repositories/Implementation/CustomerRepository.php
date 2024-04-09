@@ -13,8 +13,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         return Customer::with('user')->orderBy('id', 'DESC')
             ->when($request->q, function ($query) use ($request) {
-                $query->where('name', 'Like', '%' . $request->q . '%')
-                    ->orWhere('id', 'Like', '%' . $request->q . '%');
+                $query->where('name', 'Like', '%'.$request->q.'%')
+                    ->orWhere('id', 'Like', '%'.$request->q.'%');
             })
             ->paginate(8)
             ->appends($request->all());
@@ -24,8 +24,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         return Customer::with('user')->orderBy('id', 'DESC')
             ->when($request->q, function ($query) use ($request) {
-                $query->where('name', 'Like', '%' . $request->q . '%')
-                    ->orWhere('id', 'Like', '%' . $request->q . '%');
+                $query->where('name', 'Like', '%'.$request->q.'%')
+                    ->orWhere('id', 'Like', '%'.$request->q.'%');
             })
             ->count();
     }
@@ -37,11 +37,11 @@ class CustomerRepository implements CustomerRepositoryInterface
             'email' => $request->email,
             'password' => bcrypt($request->birthdate),
             'role' => 'Customer',
-            'random_key' => Str::random(60)
+            'random_key' => Str::random(60),
         ]);
 
         if ($request->hasFile('avatar')) {
-            $path = 'img/user/' . $user->name . '-' . $user->id;
+            $path = 'img/user/'.$user->name.'-'.$user->id;
             $path = public_path($path);
             $file = $request->file('avatar');
 
@@ -59,7 +59,7 @@ class CustomerRepository implements CustomerRepositoryInterface
             'job' => $request->job,
             'birthdate' => $request->birthdate,
             'gender' => $request->gender,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 }

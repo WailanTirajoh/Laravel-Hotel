@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Helpers\Helper;
 
 class Transaction extends Model
 {
@@ -18,7 +17,7 @@ class Transaction extends Model
         'room_id',
         'check_in',
         'check_out',
-        'status'
+        'status',
     ];
 
     public function user()
@@ -45,6 +44,7 @@ class Transaction extends Model
     {
         $day = Helper::getDateDifference($this->check_in, $this->check_out);
         $room_price = $this->room->price;
+
         return $room_price * $day;
     }
 
@@ -52,7 +52,8 @@ class Transaction extends Model
     {
         $day = Helper::getDateDifference($this->check_in, $this->check_out);
         $plural = Str::plural('Day', $day);
-        return $day . ' ' . $plural;
+
+        return $day.' '.$plural;
     }
 
     public function getTotalPayment()
@@ -61,12 +62,14 @@ class Transaction extends Model
         foreach ($this->payment as $payment) {
             $totalPayment += $payment->price;
         }
+
         return $totalPayment;
     }
 
     public function getMinimumDownPayment()
     {
         $dayDifference = Helper::getDateDifference($this->check_in, $this->check_out);
+
         return ($this->room->price * $dayDifference) * 0.15;
     }
 }

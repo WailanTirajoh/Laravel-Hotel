@@ -9,7 +9,7 @@ class ImageRepository implements ImageRepositoryInterface
 {
     public function uploadImage($path, $file)
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             mkdir($path);
         }
 
@@ -18,16 +18,16 @@ class ImageRepository implements ImageRepositoryInterface
         $urlExtension = $file->getClientOriginalExtension();
 
         $i = 0;
-        $fullpathfile = $path . '/' . $url;
+        $fullpathfile = $path.'/'.$url;
         while (file_exists($fullpathfile)) {
             $i++;
-            $url = $filename . '-' . $i . '.' . $urlExtension;
-            $fullpathfile = $path . '/' . $url;
+            $url = $filename.'-'.$i.'.'.$urlExtension;
+            $fullpathfile = $path.'/'.$url;
         }
         $img = InterImage::make($file->path());
         $img->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();
-        })->save($path . '/' . $url);
+        })->save($path.'/'.$url);
 
         return $url;
     }
@@ -37,11 +37,11 @@ class ImageRepository implements ImageRepositoryInterface
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
-                if ($object !== "." && $object !== "..") {
-                    filetype($dir . "/" . $object) == "dir" ?
-                        $this->destroy($dir . "/" . $object)
+                if ($object !== '.' && $object !== '..') {
+                    filetype($dir.'/'.$object) == 'dir' ?
+                        $this->destroy($dir.'/'.$object)
                         :
-                        unlink($dir . "/" . $object);
+                        unlink($dir.'/'.$object);
                 }
             }
             reset($objects);

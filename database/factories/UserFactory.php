@@ -23,9 +23,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $roles = array(
+        $roles = [
             'Admin',
-        );
+        ];
 
         return [
             'name' => $this->faker->name,

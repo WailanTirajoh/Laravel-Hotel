@@ -10,8 +10,8 @@ class TypeRepository implements TypeRepositoryInterface
     public function showAll($request)
     {
         $types = Type::orderBy('id', 'DESC');
-        if (!empty($request->search)) {
-            $types = $types->where('name', 'LIKE', '%' . $request->search . '%');
+        if (! empty($request->search)) {
+            $types = $types->where('name', 'LIKE', '%'.$request->search.'%');
         }
         $types = $types->paginate(5);
         $types->appends($request->all());
@@ -19,20 +19,19 @@ class TypeRepository implements TypeRepositoryInterface
         return $types;
     }
 
-
     public function getTypesDatatable($request)
     {
-        $columns = array(
+        $columns = [
             0 => 'types.id',
             1 => 'types.name',
             2 => 'types.information',
             3 => 'types.id',
-        );
+        ];
 
-        $limit          = $request->input('length');
-        $start          = $request->input('start');
-        $order          = $columns[$request->input('order.0.column')];
-        $dir            = $request->input('order.0.dir');
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
 
         $main_query = Type::select(
             'types.id as number',
@@ -68,23 +67,23 @@ class TypeRepository implements TypeRepositoryInterface
         $models = $main_query->get();
 
         $data = [];
-        if (!empty($models)) {
+        if (! empty($models)) {
             foreach ($models as $model) {
-                $data[] = array(
-                    "number" => $model->id,
-                    "name" => $model->name,
-                    "information" => $model->information,
-                    "id" => $model->id,
-                );
+                $data[] = [
+                    'number' => $model->id,
+                    'name' => $model->name,
+                    'information' => $model->information,
+                    'id' => $model->id,
+                ];
             }
         }
 
-        $response = array(
-            "draw" => intval($request->input('draw')),
-            "iTotalRecords" => $totalData,
-            "iTotalDisplayRecords" => $totalFiltered,
-            "aaData" => $data
-        );
+        $response = [
+            'draw' => intval($request->input('draw')),
+            'iTotalRecords' => $totalData,
+            'iTotalDisplayRecords' => $totalFiltered,
+            'aaData' => $data,
+        ];
 
         return json_encode($response);
     }

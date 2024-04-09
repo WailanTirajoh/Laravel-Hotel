@@ -26,7 +26,7 @@ class ChooseRoomRequest extends FormRequest
         return [
             'count_person' => 'required|numeric',
             'check_in' => 'required|date|after_or_equal:today',
-            'check_out' => 'required|date|after:check_in'
+            'check_out' => 'required|date|after:check_in',
         ];
     }
 }

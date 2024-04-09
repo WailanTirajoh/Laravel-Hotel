@@ -12,6 +12,6 @@ class RoomStatus extends Model
     protected $fillable = [
         'name',
         'code',
-        'information'
+        'information',
     ];
 }

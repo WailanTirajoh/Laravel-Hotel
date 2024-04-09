@@ -25,7 +25,7 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::whereIn('role', ['Super', 'Admin'])->orderBy('id', 'DESC')
             ->when($request->qu, function ($query) use ($request) {
-                $query->where('email', 'LIKE', '%' . $request->qu . '%');
+                $query->where('email', 'LIKE', '%'.$request->qu.'%');
             })
             ->paginate(5, ['*'], 'users')
             ->appends($request->all());
@@ -35,7 +35,7 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where('role', 'Customer')->orderBy('id', 'DESC')
             ->when($request->qc, function ($query) use ($request) {
-                $query->where('email', 'LIKE', '%' . $request->qc . '%');
+                $query->where('email', 'LIKE', '%'.$request->qc.'%');
             })
             ->paginate(5, ['*'], 'customers')
             ->appends($request->all());

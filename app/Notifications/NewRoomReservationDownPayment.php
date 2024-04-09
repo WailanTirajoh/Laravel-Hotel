@@ -6,7 +6,6 @@ use App\Helpers\Helper;
 use App\Models\Payment;
 use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -14,10 +13,12 @@ use Illuminate\Notifications\Notification;
 class NewRoomReservationDownPayment extends Notification
 {
     use Queueable;
+
     /**
      * @var \App\Models\Transaction
      */
     public $transaction;
+
     /**
      * @var \App\Models\Payment
      */
@@ -45,7 +46,7 @@ class NewRoomReservationDownPayment extends Notification
         return [
             // 'mail',
             'database',
-            'broadcast'
+            'broadcast',
         ];
     }
 
@@ -58,10 +59,10 @@ class NewRoomReservationDownPayment extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Room '.$this->transaction->room->number . ' has been reservated by ' . $this->transaction->customer->name)
-            ->line('Payment: ' . Helper::convertToRupiah($this->payment->price))
-            ->line('Status: ' . $this->payment->status.' Success')
-            ->action('See invoice', route('payment.invoice',['payment'=>$this->payment->id]));
+            ->line('Room '.$this->transaction->room->number.' has been reservated by '.$this->transaction->customer->name)
+            ->line('Payment: '.Helper::convertToRupiah($this->payment->price))
+            ->line('Status: '.$this->payment->status.' Success')
+            ->action('See invoice', route('payment.invoice', ['payment' => $this->payment->id]));
     }
 
     /**
@@ -73,16 +74,16 @@ class NewRoomReservationDownPayment extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Room ' . $this->transaction->room->number . ' reservated by ' . $this->transaction->customer->name . '. Payment: ' . Helper::convertToRupiah($this->payment->price),
-            'url' => route('payment.invoice', ['payment' => $this->payment->id])
+            'message' => 'Room '.$this->transaction->room->number.' reservated by '.$this->transaction->customer->name.'. Payment: '.Helper::convertToRupiah($this->payment->price),
+            'url' => route('payment.invoice', ['payment' => $this->payment->id]),
         ];
     }
 
     public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
-            'message' => 'Room ' . $this->transaction->room->number . ' reservated by ' . $this->transaction->customer->name,
-            'url' => route('payment.invoice', ['payment' => $this->payment->id])
+            'message' => 'Room '.$this->transaction->room->number.' reservated by '.$this->transaction->customer->name,
+            'url' => route('payment.invoice', ['payment' => $this->payment->id]),
         ]);
     }
 }

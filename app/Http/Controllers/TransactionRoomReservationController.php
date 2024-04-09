@@ -13,8 +13,8 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\NewRoomReservationDownPayment;
 use App\Repositories\Interface\CustomerRepositoryInterface;
-use App\Repositories\Interface\ReservationRepositoryInterface;
 use App\Repositories\Interface\PaymentRepositoryInterface;
+use App\Repositories\Interface\ReservationRepositoryInterface;
 use App\Repositories\Interface\TransactionRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -31,9 +31,10 @@ class TransactionRoomReservationController extends Controller
     {
         $customers = $customerRepository->get($request);
         $customersCount = $customerRepository->count($request);
+
         return view('transaction.reservation.pickFromCustomer', [
             'customers' => $customers,
-            'customersCount' => $customersCount
+            'customersCount' => $customersCount,
         ]);
     }
 
@@ -45,15 +46,16 @@ class TransactionRoomReservationController extends Controller
     public function storeCustomer(StoreCustomerRequest $request, CustomerRepositoryInterface $customerRepository)
     {
         $customer = $customerRepository->store($request);
+
         return redirect()
             ->route('transaction.reservation.viewCountPerson', ['customer' => $customer->id])
-            ->with('success', 'Customer ' . $customer->name . ' created!');
+            ->with('success', 'Customer '.$customer->name.' created!');
     }
 
     public function viewCountPerson(Customer $customer)
     {
         return view('transaction.reservation.viewCountPerson', [
-            'customer' => $customer
+            'customer' => $customer,
         ]);
     }
 
@@ -71,7 +73,8 @@ class TransactionRoomReservationController extends Controller
             'customer' => $customer,
             'rooms' => $rooms,
             'stayFrom' => $stayFrom,
-            'stayUntil' => $stayUntil, 'roomsCount' => $roomsCount
+            'stayUntil' => $stayUntil,
+            'roomsCount' => $roomsCount,
         ]);
     }
 
@@ -87,7 +90,7 @@ class TransactionRoomReservationController extends Controller
             'stayFrom' => $stayFrom,
             'stayUntil' => $stayUntil,
             'downPayment' => $downPayment,
-            'dayDifference' => $dayDifference
+            'dayDifference' => $dayDifference,
         ]);
     }
 
@@ -102,14 +105,14 @@ class TransactionRoomReservationController extends Controller
         $minimumDownPayment = ($room->price * $dayDifference) * 0.15;
 
         $request->validate([
-            'downPayment' => 'required|numeric|gte:' . $minimumDownPayment
+            'downPayment' => 'required|numeric|gte:'.$minimumDownPayment,
         ]);
 
         $occupiedRoomId = $this->getOccupiedRoomID($request->check_in, $request->check_out);
         $occupiedRoomIdInArray = $occupiedRoomId->toArray();
 
         if (in_array($room->id, $occupiedRoomIdInArray)) {
-            return redirect()->back()->with('failed', 'Sorry, room ' . $room->number . ' already occupied');
+            return redirect()->back()->with('failed', 'Sorry, room '.$room->number.' already occupied');
         }
 
         $transaction = $transactionRepository->store($request, $customer, $room);
@@ -119,15 +122,15 @@ class TransactionRoomReservationController extends Controller
         $superAdmins = User::where('role', 'Super')->get();
 
         foreach ($superAdmins as $superAdmin) {
-            $message = 'Reservation added by ' . $customer->name;
+            $message = 'Reservation added by '.$customer->name;
             event(new NewReservationEvent($message, $superAdmin));
             $superAdmin->notify(new NewRoomReservationDownPayment($transaction, $payment));
         }
 
-        event(new RefreshDashboardEvent("Someone reserved a room"));
+        event(new RefreshDashboardEvent('Someone reserved a room'));
 
         return redirect()->route('transaction.index')
-            ->with('success', 'Room ' . $room->number . ' has been reservated by ' . $customer->name);
+            ->with('success', 'Room '.$room->number.' has been reservated by '.$customer->name);
     }
 
     private function getOccupiedRoomID($stayFrom, $stayUntil)

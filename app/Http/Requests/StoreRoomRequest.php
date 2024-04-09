@@ -23,23 +23,24 @@ class StoreRoomRequest extends FormRequest
      */
     public function rules()
     {
-        if (!empty($this->room->id)) {
+        if (! empty($this->room->id)) {
             return [
                 'type_id' => 'required',
                 'room_status_id' => 'required',
-                'number' => 'required|unique:rooms,number,' . $this->room->id,
+                'number' => 'required|unique:rooms,number,'.$this->room->id,
                 'capacity' => 'required|numeric',
                 'price' => 'required|numeric',
-                'view' => 'required|max:255'
+                'view' => 'required|max:255',
             ];
         }
+
         return [
             'type_id' => 'required',
             'room_status_id' => 'required',
             'number' => 'required|unique:rooms,number',
             'capacity' => 'required|numeric',
             'price' => 'required|numeric',
-            'view' => 'required|max:255'
+            'view' => 'required|max:255',
         ];
     }
 }
