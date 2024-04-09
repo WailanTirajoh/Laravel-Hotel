@@ -45,8 +45,7 @@ class Transaction extends Model
     {
         $day = Helper::getDateDifference($this->check_in, $this->check_out);
         $room_price = $this->room->price;
-        $total_price = $room_price * $day;
-        return $total_price;
+        return $room_price * $day;
     }
 
     public function getDateDifferenceWithPlural()
@@ -68,7 +67,6 @@ class Transaction extends Model
     public function getMinimumDownPayment()
     {
         $dayDifference = Helper::getDateDifference($this->check_in, $this->check_out);
-        $minimumDownPayment = ($this->room->price * $dayDifference) * 0.15;
-        return $minimumDownPayment;
+        return ($this->room->price * $dayDifference) * 0.15;
     }
 }

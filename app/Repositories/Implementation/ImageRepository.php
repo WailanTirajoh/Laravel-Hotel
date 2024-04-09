@@ -21,7 +21,7 @@ class ImageRepository implements ImageRepositoryInterface
         $fullpathfile = $path . '/' . $url;
         while (file_exists($fullpathfile)) {
             $i++;
-            $url = $filename . '-' . (string)$i . '.' . $urlExtension;
+            $url = $filename . '-' . $i . '.' . $urlExtension;
             $fullpathfile = $path . '/' . $url;
         }
         $img = InterImage::make($file->path());
@@ -37,7 +37,7 @@ class ImageRepository implements ImageRepositoryInterface
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
-                if ($object != "." && $object != "..") {
+                if ($object !== "." && $object !== "..") {
                     filetype($dir . "/" . $object) == "dir" ?
                         $this->destroy($dir . "/" . $object)
                         :

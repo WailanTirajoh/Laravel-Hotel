@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    private $typeRepository;
+    private TypeRepositoryInterface $typeRepository;
 
     public function __construct(TypeRepositoryInterface $typeRepository)
     {
@@ -43,7 +43,9 @@ class TypeController extends Controller
 
     public function edit(Type $type)
     {
-        $view = view('type.edit', compact('type'))->render();
+        $view = view('type.edit', [
+            'type' => $type
+        ])->render();
 
         return response()->json([
             'view' => $view,

@@ -64,7 +64,7 @@ class RoomRepository implements RoomRepositoryInterface
             $query->where(function ($q) use ($search, $columns) {
                 $i = 0;
                 foreach ($columns as $column) {
-                    if ($i = 0) {
+                    if ($i == 0) {
                         $q->where($column, 'LIKE', "%{$search}%");
                     } else {
                         $q->orWhere($column, 'LIKE', "%{$search}%");

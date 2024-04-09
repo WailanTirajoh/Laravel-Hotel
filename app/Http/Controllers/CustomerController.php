@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    private $customerRepository;
+    private CustomerRepositoryInterface $customerRepository;
 
     public function __construct(CustomerRepositoryInterface $customerRepository)
     {
@@ -21,7 +21,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customers = $this->customerRepository->get($request);
-        return view('customer.index', compact('customers'));
+        return view('customer.index', ['customers' => $customers]);
     }
 
     public function create()
@@ -37,7 +37,7 @@ class CustomerController extends Controller
 
     public function show(Customer $customer)
     {
-        return view('customer.show', compact('customer'));
+        return view('customer.show', ['customer' => $customer]);
     }
 
     public function edit(Customer $customer)

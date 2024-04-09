@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    private $imageRepository;
+    private ImageRepositoryInterface $imageRepository;
 
     public function __construct(ImageRepositoryInterface $imageRepository)
     {

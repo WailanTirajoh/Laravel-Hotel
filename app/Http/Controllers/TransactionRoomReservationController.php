@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 
 class TransactionRoomReservationController extends Controller
 {
-    private $reservationRepository;
+    private ReservationRepositoryInterface $reservationRepository;
 
     public function __construct(ReservationRepositoryInterface $reservationRepository)
     {
@@ -31,7 +31,10 @@ class TransactionRoomReservationController extends Controller
     {
         $customers = $customerRepository->get($request);
         $customersCount = $customerRepository->count($request);
-        return view('transaction.reservation.pickFromCustomer', compact('customers', 'customersCount'));
+        return view('transaction.reservation.pickFromCustomer', [
+            'customers' => $customers,
+            'customersCount' => $customersCount
+        ]);
     }
 
     public function createIdentity()
@@ -49,7 +52,9 @@ class TransactionRoomReservationController extends Controller
 
     public function viewCountPerson(Customer $customer)
     {
-        return view('transaction.reservation.viewCountPerson', compact('customer'));
+        return view('transaction.reservation.viewCountPerson', [
+            'customer' => $customer
+        ]);
     }
 
     public function chooseRoom(ChooseRoomRequest $request, Customer $customer)
@@ -62,13 +67,12 @@ class TransactionRoomReservationController extends Controller
         $rooms = $this->reservationRepository->getUnocuppiedroom($request, $occupiedRoomId);
         $roomsCount = $this->reservationRepository->countUnocuppiedroom($request, $occupiedRoomId);
 
-        return view('transaction.reservation.chooseRoom', compact(
-            'customer',
-            'rooms',
-            'stayFrom',
-            'stayUntil',
-            'roomsCount'
-        ));
+        return view('transaction.reservation.chooseRoom', [
+            'customer' => $customer,
+            'rooms' => $rooms,
+            'stayFrom' => $stayFrom,
+            'stayUntil' => $stayUntil, 'roomsCount' => $roomsCount
+        ]);
     }
 
     public function confirmation(Customer $customer, Room $room, $stayFrom, $stayUntil)
@@ -76,14 +80,15 @@ class TransactionRoomReservationController extends Controller
         $price = $room->price;
         $dayDifference = Helper::getDateDifference($stayFrom, $stayUntil);
         $downPayment = ($price * $dayDifference) * 0.15;
-        return view('transaction.reservation.confirmation', compact(
-            'customer',
-            'room',
-            'stayFrom',
-            'stayUntil',
-            'downPayment',
-            'dayDifference'
-        ));
+
+        return view('transaction.reservation.confirmation', [
+            'customer' => $customer,
+            'room' => $room,
+            'stayFrom' => $stayFrom,
+            'stayUntil' => $stayUntil,
+            'downPayment' => $downPayment,
+            'dayDifference' => $dayDifference
+        ]);
     }
 
     public function payDownPayment(

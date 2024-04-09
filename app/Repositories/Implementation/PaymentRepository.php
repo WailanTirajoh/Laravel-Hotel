@@ -12,7 +12,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         return Payment::create([
             'user_id' => Auth()->user()->id,
             'transaction_id' => $transaction->id,
-            'price' => !empty($request->downPayment) ? $request->downPayment : $request->payment,
+            'price' => empty($request->downPayment) ? $request->payment : $request->downPayment,
             'status' => $status
         ]);
     }

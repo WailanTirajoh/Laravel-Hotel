@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class RoomStatusController extends Controller
 {
-    private $roomStatusRepository;
+    private RoomStatusRepositoryInterface $roomStatusRepository;
 
     public function __construct(RoomStatusRepositoryInterface $roomStatusRepository)
     {
@@ -41,7 +41,9 @@ class RoomStatusController extends Controller
 
     public function edit(RoomStatus $roomstatus)
     {
-        $view = view('roomstatus.edit', compact('roomstatus'))->render();
+        $view = view('roomstatus.edit', [
+            'roomstatus' => $roomstatus
+        ])->render();
         return response()->json([
             'view' => $view,
         ]);

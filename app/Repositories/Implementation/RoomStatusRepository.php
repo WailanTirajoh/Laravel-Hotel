@@ -51,7 +51,7 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
             $query->where(function ($query) use ($search, $columns) {
                 $i = 0;
                 foreach ($columns as $column) {
-                    if ($i = 0) {
+                    if ($i == 0) {
                         $query->where($column, 'LIKE', "%{$search}%");
                     } else {
                         $query->orWhere($column, 'LIKE', "%{$search}%");
