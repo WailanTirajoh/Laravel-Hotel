@@ -25,11 +25,11 @@ class PostLoginRequest extends FormRequest
     {
         return [
             'email' => [
-                'required'
+                'required',
             ],
             'password' => [
-                'required'
-            ]
+                'required',
+            ],
         ];
     }
 }

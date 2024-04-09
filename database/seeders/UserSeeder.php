@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'wailantirajoh@gmail.com',
             'password' => Hash::make('wailan'),
             'role' => 'Super',
-            'random_key' => Str::random(60)
+            'random_key' => Str::random(60),
         ]);
     }
 }

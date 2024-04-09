@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('transaction_id')->constrained();
-            $table->decimal('price',65,2);
+            $table->decimal('price', 65, 2);
             $table->timestamps();
         });
     }

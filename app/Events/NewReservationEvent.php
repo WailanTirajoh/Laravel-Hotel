@@ -13,6 +13,7 @@ class NewReservationEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+
     public $random_key;
 
     /**
@@ -33,7 +34,7 @@ class NewReservationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('reservation.' . $this->random_key);
+        return new Channel('reservation.'.$this->random_key);
     }
 
     public function broadcastWith()

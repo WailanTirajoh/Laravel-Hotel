@@ -32,9 +32,10 @@ class RoomController extends Controller
 
         $types = $this->typeRepository->getTypeList($request);
         $roomStatuses = $this->roomStatusRepositoryInterface->getRoomStatusList($request);
+
         return view('room.index', [
             'types' => $types,
-            'roomStatuses' => $roomStatuses
+            'roomStatuses' => $roomStatuses,
         ]);
     }
 
@@ -44,11 +45,11 @@ class RoomController extends Controller
         $roomstatuses = RoomStatus::all();
         $view = view('room.create', [
             'types' => $types,
-            'roomstatuses' => $roomstatuses
+            'roomstatuses' => $roomstatuses,
         ])->render();
 
         return response()->json([
-            'view' => $view
+            'view' => $view,
         ]);
     }
 
@@ -57,7 +58,7 @@ class RoomController extends Controller
         $room = Room::create($request->all());
 
         return response()->json([
-            'message' => 'Room ' . $room->number . ' created'
+            'message' => 'Room '.$room->number.' created',
         ]);
     }
 
@@ -65,12 +66,13 @@ class RoomController extends Controller
     {
         $customer = [];
         $transaction = Transaction::where([['check_in', '<=', Carbon::now()], ['check_out', '>=', Carbon::now()], ['room_id', $room->id]])->first();
-        if (!empty($transaction)) {
+        if (! empty($transaction)) {
             $customer = $transaction->customer;
         }
+
         return view('room.show', [
             'customer' => $customer,
-            'room' => $room
+            'room' => $room,
         ]);
     }
 
@@ -81,11 +83,11 @@ class RoomController extends Controller
         $view = view('room.edit', [
             'room' => $room,
             'types' => $types,
-            'roomstatuses' => $roomstatuses
+            'roomstatuses' => $roomstatuses,
         ])->render();
 
         return response()->json([
-            'view' => $view
+            'view' => $view,
         ]);
     }
 
@@ -94,7 +96,7 @@ class RoomController extends Controller
         $room->update($request->all());
 
         return response()->json([
-            'message' => 'Room ' . $room->number . ' udpated!'
+            'message' => 'Room '.$room->number.' udpated!',
         ]);
     }
 
@@ -103,7 +105,7 @@ class RoomController extends Controller
         try {
             $room->delete();
 
-            $path = 'img/room/' . $room->number;
+            $path = 'img/room/'.$room->number;
             $path = public_path($path);
 
             if (is_dir($path)) {
@@ -111,11 +113,11 @@ class RoomController extends Controller
             }
 
             return response()->json([
-                'message' => 'Room number ' . $room->number . ' deleted!'
+                'message' => 'Room number '.$room->number.' deleted!',
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Customer ' . $room->number . ' cannot be deleted! Error Code:' . $e->errorInfo[1]
+                'message' => 'Customer '.$room->number.' cannot be deleted! Error Code:'.$e->errorInfo[1],
             ], 500);
         }
     }

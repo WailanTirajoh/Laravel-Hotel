@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use App\Events\NewReservationEvent;
 use App\Events\RefreshDashboardEvent;
 use App\Http\Controllers\AuthController;
@@ -13,11 +12,12 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\TransactionRoomReservationController;
 use App\Http\Controllers\RoomStatusController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionRoomReservationController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +30,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 
 Route::group(['middleware' => ['auth', 'checkRole:Super']], function () {
     Route::resource('user', UserController::class);
@@ -71,7 +68,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
 
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
     Route::resource('user', UserController::class)->only([
-        'show'
+        'show',
     ]);
 
     Route::view('/notification', 'notification.index')->name('notification.index');
@@ -104,7 +101,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/sendEvent', function () {
     $superAdmins = User::where('role', 'Super')->get();
-    event(new RefreshDashboardEvent("Someone reserved a room"));
+    event(new RefreshDashboardEvent('Someone reserved a room'));
 
     foreach ($superAdmins as $superAdmin) {
         $message = 'Reservation added by';

@@ -9,7 +9,7 @@ class Helper
 {
     public static function convertToRupiah($price)
     {
-        return "Rp. " . number_format($price, 2, ',', '.');
+        return 'Rp. '.number_format($price, 2, ',', '.');
     }
 
     public static function thisMonth()
@@ -47,6 +47,7 @@ class Helper
         $check_in = strtotime($check_in);
         $check_out = strtotime($check_out);
         $date_difference = $check_out - $check_in;
+
         return round($date_difference / (60 * 60 * 24));
     }
 
@@ -65,6 +66,7 @@ class Helper
         } else {
             $color = 'bg-success';
         }
+
         return $color;
     }
 

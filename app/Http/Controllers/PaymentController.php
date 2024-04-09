@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
 use App\Models\Payment;
 use App\Models\Transaction;
 use App\Repositories\Interface\PaymentRepositoryInterface;
@@ -20,13 +19,14 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::orderBy('id', 'DESC')->paginate(5);
+
         return view('payment.index', ['payments' => $payments]);
     }
 
     public function create(Transaction $transaction)
     {
         return view('transaction.payment.create', [
-            'transaction' => $transaction
+            'transaction' => $transaction,
         ]);
     }
 
@@ -34,18 +34,18 @@ class PaymentController extends Controller
     {
         $insufficient = $transaction->getTotalPrice() - $transaction->getTotalPayment();
         $request->validate([
-            'payment' => 'required|numeric|lte:' . $insufficient
+            'payment' => 'required|numeric|lte:'.$insufficient,
         ]);
 
         $this->paymentRepository->store($request, $transaction, 'Payment');
 
-        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helpers::convertToRupiah($request->payment) . ' paid');
+        return redirect()->route('transaction.index')->with('success', 'Transaction room '.$transaction->room->number.' success, '.Helpers::convertToRupiah($request->payment).' paid');
     }
 
     public function invoice(Payment $payment)
     {
         return view('payment.invoice', [
-            'payment' => $payment
+            'payment' => $payment,
         ]);
     }
 }

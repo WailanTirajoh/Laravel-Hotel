@@ -28,7 +28,7 @@ class CustomerFactory extends Factory
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'job' => $this->faker->jobTitle,
             'birthdate' => $this->faker->date(),
-            'user_id' => User::factory()->isCustomer()
+            'user_id' => User::factory()->isCustomer(),
         ];
     }
 }

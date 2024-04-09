@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,10 +45,11 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
-        if (!$this->avatar) {
+        if (! $this->avatar) {
             return asset('img/default/default-user.jpg');
         }
-        return asset('img/user/' . $this->name . '-' . $this->id . '/' . $this->avatar);
+
+        return asset('img/user/'.$this->name.'-'.$this->id.'/'.$this->avatar);
     }
 
     public function customer()

@@ -21,7 +21,7 @@ class TransactionController extends Controller
 
         return view('transaction.index', [
             'transactions' => $transactions,
-            'transactionsExpired' => $transactionsExpired
+            'transactionsExpired' => $transactionsExpired,
         ]);
     }
 }

@@ -53,7 +53,7 @@ class TypeSeeder extends Seeder
         for ($i = 0; $i < count($name); $i++) {
             Type::create([
                 'name' => $name[$i],
-                'information' => $information[$i]
+                'information' => $information[$i],
             ]);
         }
     }

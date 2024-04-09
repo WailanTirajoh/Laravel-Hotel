@@ -18,7 +18,7 @@ class CreateImagesTable extends Migration
             $table->foreignId('room_id')
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('cascade');;
+                ->onDelete('cascade');
             $table->longText('url');
             $table->timestamps();
         });

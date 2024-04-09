@@ -23,17 +23,18 @@ class StoreRoomStatusRequest extends FormRequest
      */
     public function rules()
     {
-        if (!empty($this->roomstatus->id)) {
+        if (! empty($this->roomstatus->id)) {
             return [
                 'name' => 'required|max:255',
                 'information' => 'required|max:1000',
-                'code' => 'required|unique:room_statuses,code,' . $this->roomstatus->id
+                'code' => 'required|unique:room_statuses,code,'.$this->roomstatus->id,
             ];
         }
+
         return [
             'name' => 'required|max:255',
             'information' => 'required|max:1000',
-            'code' => 'required|unique:room_statuses,code'
+            'code' => 'required|unique:room_statuses,code',
         ];
     }
 }

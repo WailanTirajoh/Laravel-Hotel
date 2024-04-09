@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'room_id',
-        'url'
+        'url',
     ];
 
     public function room()
@@ -20,6 +21,6 @@ class Image extends Model
 
     public function getRoomImage()
     {
-        return asset('img/room/' . $this->room->number . '/' . $this->url);
+        return asset('img/room/'.$this->room->number.'/'.$this->url);
     }
 }
