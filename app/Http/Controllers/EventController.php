@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewReservationEvent;
-use App\Events\TestEvent;
 use App\Models\User;
 
 class EventController extends Controller
