@@ -16,7 +16,7 @@
             <li class="mb-2 bg-white rounded cursor-pointer">
                 <a href="{{ route('dashboard.index') }}"
                     class="nav-link py-3 border-bottom myBtn
-                    {{ in_array(Route::currentRouteName(), ['dashboard.index', 'chart.dialyGuest']) ? 'active' : '' }}
+                    {{ in_array(Route::currentRouteName(), ['dashboard.index', 'chart.dailyGuest']) ? 'active' : '' }}
                     "
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
                     <i class="fas fa-home"></i>

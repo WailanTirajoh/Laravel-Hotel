@@ -21,7 +21,6 @@ class RoomController extends Controller
         private TypeRepositoryInterface $typeRepository,
         private RoomStatusRepositoryInterface $roomStatusRepositoryInterface
     ) {
-        $this->roomRepository = $roomRepository;
     }
 
     public function index(Request $request)

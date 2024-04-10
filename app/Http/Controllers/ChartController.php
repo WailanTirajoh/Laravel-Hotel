@@ -4,51 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ChartController extends Controller
 {
-    public function dialyGuestPerMonth()
+    public function dailyGuestPerMonth()
     {
-        $year = Carbon::now()->format('Y');
-        $month = Carbon::now()->format('m');
-        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $currentDate = Carbon::now();
+        $daysInMonth = $currentDate->daysInMonth;
 
-        $day_array = [];
-        $guests_count_array = [];
+        $days = collect(range(1, $daysInMonth));
+        $guests = $days
+            ->map(function ($day) use ($currentDate) {
+                return $this->dailyTotalGuests($currentDate->year, $currentDate->month, $day);
+            })
+            ->toArray();
 
-        for ($i = 1; $i <= $days_in_month; $i++) {
-            $day_array[] = $i;
-            $guests_count_array[] = $this->countGuestsPerDay($year, $month, $i);
-        }
-
-        $max_no = max($guests_count_array);
-        $max = round(($max_no + 10 / 2) / 10) * 10;
+        $max = (int) ceil((max($guests) + 10) / 10) * 10;
 
         return [
-            'day' => $day_array,
-            'guest_count_data' => $guests_count_array,
+            'day' => $days->toArray(),
+            'guest_count_data' => $guests,
             'max' => $max,
         ];
     }
 
-    private function countGuestsPerDay($year, $month, $day)
+    public function dailyGuest(Request $request)
     {
-        $time = strtotime($month.'/'.$day.'/'.$year);
-        $date = date('Y-m-d', $time);
+        $date = Carbon::createFromDate(
+            year: $request->year,
+            month: $request->month,
+            day: $request->day
+        );
 
-        return Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->count();
-    }
-
-    public function dialyGuest($year, $month, $day)
-    {
-        $time = strtotime($month.'/'.$day.'/'.$year);
-        $date = date('Y-m-d', $time);
-
-        $transactions = Transaction::where([['check_in', '<=', $date], ['check_out', '>=', $date]])->get();
+        $transactions = Transaction::where('check_in', '<=', $date)
+            ->where('check_out', '>=', $date)
+            ->get();
 
         return view('dashboard.chart_detail', [
             'transactions' => $transactions,
-            'date' => $date,
+            'date' => $date->format('Y-m-d'),
         ]);
+    }
+
+    private function dailyTotalGuests($year, $month, $day)
+    {
+        $date = Carbon::createFromDate($year, $month, $day);
+
+        return Transaction::where('check_in', '<=', $date)
+            ->where('check_out', '>=', $date)
+            ->count();
     }
 }

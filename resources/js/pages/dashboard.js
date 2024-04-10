@@ -7,10 +7,10 @@ $(function () {
     let myVisitorChart;
     const charts = {
         init: function () {
-            this.ajaxGetDialyGuestPerMonthData();
+            this.ajaxGetdailyGuestPerMonthData();
         },
 
-        ajaxGetDialyGuestPerMonthData: function () {
+        ajaxGetdailyGuestPerMonthData: function () {
             const urlPath = "/get-dialy-guest-chart-data";
             const request = $.ajax({
                 method: "GET",
@@ -126,7 +126,7 @@ $(function () {
     charts.init();
 
     window.Echo.channel("dashboard").listen(".dashboard.event", (e) => {
-        charts.ajaxGetDialyGuestPerMonthData();
+        charts.ajaxGetdailyGuestPerMonthData();
         // reloadJs("style/js/guestsChart.js");
         toastr.warning(e.message, "Hello");
     });
