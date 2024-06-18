@@ -1,5 +1,6 @@
 @extends('template.master')
 @section('title', 'Dashboard')
+
 @section('content')
     <div id="dashboard">
         <div class="row">
