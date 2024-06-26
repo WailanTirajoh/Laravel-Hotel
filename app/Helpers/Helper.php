@@ -9,7 +9,7 @@ class Helper
 {
     public static function convertToRupiah($price)
     {
-        return 'Rp. '.number_format($price, 2, ',', '.');
+        return '$. '.number_format($price, 2, ',', '.');
     }
 
     public static function thisMonth()

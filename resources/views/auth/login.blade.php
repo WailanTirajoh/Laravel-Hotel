@@ -38,7 +38,11 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5 class="card-title text-center">Hotel Information System</h5>
+                                <h5 class="card-title text-center">
+                                    Sistema Administrativo Hotelero
+                                    <br>
+                                    <strong>Inicio de Sesion</strong>
+                                </h5>
                             </div>
                         </div>
                         <form onsubmit="return disableButton()" class="form-signin" action="/postLogin" method="POST">
@@ -48,7 +52,7 @@
                                     <div class="form-label-group">
                                         <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Email" value="{{ old('email') }}" required autofocus>
-                                        <label for="email">Email</label>
+                                        <label for="email">Correo</label>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -59,7 +63,7 @@
                                         <input type="password" id="password" name="password" autocomplete="new-password"
                                             class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}"
                                             required>
-                                        <label for="password">Password</label>
+                                        <label for="password">Contrasenia</label>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -77,14 +81,14 @@
                                                 style="width: 15px; height: 15px">
                                             </div>
                                             <div id="text_submit">
-                                                Login
+                                                Confirmar
                                             </div>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <hr class="my-4">
-                            <p class="text-center">Forgot Password? <a href="/forgot-password">go here</a></p>
+                            <p hidden class="text-center">Olvidaste la contrasenia? <a href="/forgot-password">Click Aqui</a></p>
                         </form>
                     </div>
                 </div>
