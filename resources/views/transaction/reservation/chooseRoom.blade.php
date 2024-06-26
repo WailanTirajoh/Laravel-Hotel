@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('title', 'Choose Room Reservation')
+@section('title', 'Elije un Cuarto')
 @section('head')
     <link rel="stylesheet" href="{{ asset('style/css/progress-indication.css') }}">
     <style>
@@ -23,10 +23,10 @@
             <div class="col-md-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
-                        <h2>{{ $roomsCount }} Room Available for:</h2>
+                        <h2>{{ $roomsCount }} Cuartos Disponibles para:</h2>
                         <p>{{ request()->input('count_person') }}
-                            {{ Helper::plural('People', request()->input('count_person')) }} on
-                            {{ Helper::dateFormat(request()->input('check_in')) }} to
+                            {{ Helper::plural('Personas', request()->input('count_person')) }} desde
+                            {{ Helper::dateFormat(request()->input('check_in')) }} hasta
                             {{ Helper::dateFormat(request()->input('check_out')) }}</p>
                         <hr>
                         <form method="GET"
@@ -39,20 +39,20 @@
                                 <div class="col-lg-6">
                                     <select class="form-select" id="sort_name" name="sort_name"
                                         aria-label="Default select example">
-                                        <option value="Price" @if (request()->input('sort_name') == 'Price') selected @endif>Price</option>
-                                        <option value="Number" @if (request()->input('sort_name') == 'Number') selected @endif>Number</option>
-                                        <option value="Capacity" @if (request()->input('sort_name') == 'Capacity') selected @endif>Capacity</option>
+                                        <option value="Price" @if (request()->input('sort_name') == 'Price') selected @endif>Precio</option>
+                                        <option value="Number" @if (request()->input('sort_name') == 'Number') selected @endif>Numero</option>
+                                        <option value="Capacity" @if (request()->input('sort_name') == 'Capacity') selected @endif>Capacidad</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-4">
                                     <select class="form-select" id="sort_type" name="sort_type"
                                         aria-label="Default select example">
-                                        <option value="ASC" @if (request()->input('sort_type') == 'ASC') selected @endif>Ascending</option>
-                                        <option value="DESC" @if (request()->input('sort_type') == 'DESC') selected @endif>Descending</option>
+                                        <option value="ASC" @if (request()->input('sort_type') == 'ASC') selected @endif>Ascendente</option>
+                                        <option value="DESC" @if (request()->input('sort_type') == 'DESC') selected @endif>Descendente</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-2">
-                                    <button type="submit" class="btn myBtn shadow-sm border w-100">Search</button>
+                                    <button type="submit" class="btn myBtn shadow-sm border w-100">Buscar</button>
                                 </div>
                             </div>
                         </form>
@@ -63,16 +63,16 @@
                                         class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                                         <div class="col p-4 d-flex flex-column position-static">
                                             <strong class="d-inline-block mb-2 text-secondary">{{ $room->capacity }}
-                                                {{ Str::plural('Person', $room->capacity) }}</strong>
+                                                {{ Str::plural('Personas', $room->capacity) }}</strong>
                                             <h3 class="mb-0">{{ $room->number }} ~ {{ $room->type->name }}</h3>
                                             <div class="mb-1 text-muted">{{ Helper::convertToRupiah($room->price) }} /
-                                                Day
+                                                Día
                                             </div>
                                             <div class="wrapper">
                                                 <p class="card-text mb-auto demo-1">{{ $room->view }}</p>
                                             </div>
                                             <a href="{{ route('transaction.reservation.confirmation', ['customer' => $customer->id, 'room' => $room->id, 'from' => request()->input('check_in'), 'to' => request()->input('check_out')]) }}"
-                                                class="btn myBtn shadow-sm border w-100 m-2">Choose</a>
+                                                class="btn myBtn shadow-sm border w-100 m-2">Elegir</a>
                                         </div>
                                         <div class="col-auto d-none d-lg-block">
                                             <img src="{{ $room->firstImage() }}" width="200" height="250" alt="">
@@ -80,8 +80,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <h3>Theres no available room for {{ request()->input('count_person') }} or more
-                                    person
+                                <h3>No hay habitaciones para {{ request()->input('count_person') }} o mas personas
                                 </h3>
                             @endforelse
                         </div>
