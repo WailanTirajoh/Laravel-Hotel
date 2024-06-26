@@ -17,7 +17,9 @@
                                 <span
                                     class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                                     {{ auth()->user()->unreadNotifications->count() }}
-                                    <span class="visually-hidden">unread messages</span>
+                                    <span class="visually-hidden">
+                                        mensajes sin responder
+                                    </span>
                                 </span>
                             @endif
                         </i>
@@ -27,7 +29,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <li role="presentation">
-                                <div class="dropdown-header">Notifications</div>
+                                <div class="dropdown-header">Notificaciones</div>
                             </li>
                         </div>
                     </div>
@@ -50,7 +52,7 @@
                                     </li>
                                 @empty
                                     <p class="text-center">
-                                        There's no new notification
+                                        No hay notificaciones
                                     </p>
                                 @endforelse
                             </ul>
@@ -63,9 +65,12 @@
                                 <div class="row">
                                     <div class="col-lg-12 text-center">
                                         <a href="{{ route('notification.markAllAsRead') }}"
-                                            class="float-start mb-2 ms-2">Mark all as read</a>
-                                        <a href="{{ route('notification.index') }}" class="float-end mb-2 me-2">See
-                                            All</a>
+                                            class="float-start mb-2 ms-2">
+                                            Marcar Leidas
+                                            </a>
+                                        <a href="{{ route('notification.index') }}" class="float-end mb-2 me-2">
+                                            Ver Todas
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -81,16 +86,16 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item"
-                            href="{{ route('user.show', ['user' => auth()->user()->id]) }}">Profil</a>
+                            href="{{ route('user.show', ['user' => auth()->user()->id]) }}">Perfil</a>
                     </li>
-                    <li><a class="dropdown-item" href="#">Activity</a></li>
-                    <li><a class="dropdown-item" href="#">Setting</a></li>
+                    <li><a class="dropdown-item" href="#">Actividad</a></li>
+                    <li><a class="dropdown-item" href="#">Configuraciones</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <form action="/logout" method="POST">
                         @csrf
-                        <li><button class="dropdown-item" type="submit">Logout</button></li>
+                        <li><button class="dropdown-item" type="submit">Cerrar Sesion</button></li>
                     </form>
                 </ul>
             </div>

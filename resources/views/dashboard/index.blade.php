@@ -9,7 +9,7 @@
                     <div class="col-lg-6">
                         <div class="card shadow-sm border" style="border-radius: 0.5rem">
                             <div class="card-body">
-                                <h5>{{ count($transactions) }} Guests this day</h5>
+                                <h5>{{ count($transactions) }} Hospedados Hoy</h5>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row ">
                                     <div class="col-lg-12 d-flex justify-content-between">
-                                        <h3>Today Guests</h3>
+                                        <h3>Hospedados del dia</h3>
                                         <div>
                                             <a href="#" class="btn btn-tool btn-sm">
                                                 <i class="fas fa-download"></i>
@@ -46,12 +46,12 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Name</th>
-                                            <th>Room</th>
-                                            <th class="text-center">Stay</th>
-                                            <th>Day Left</th>
-                                            <th>Debt</th>
-                                            <th class="text-center">Status</th>
+                                            <th>Nombre</th>
+                                            <th>Cuarto</th>
+                                            <th class="text-center">Estadia</th>
+                                            <th>Dias Restantes</th>
+                                            <th>Debe</th>
+                                            <th class="text-center">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,11 +85,11 @@
                                                 <td>
                                                     <span
                                                         class="justify-content-center badge {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'bg-success' : 'bg-warning' }}">
-                                                        {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'Success' : 'Progress' }}
+                                                        {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'Pagado' : 'En proceso' }}
                                                     </span>
                                                     @if (Helper::getDateDifference(now(), $transaction->check_out) < 1)
                                                         <span class="justify-content-center badge bg-danger">
-                                                            must finish payment
+                                                            Sin pagar
                                                         </span>
                                                     @endif
                                                 </td>
@@ -97,7 +97,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="10" class="text-center">
-                                                    There's no data in this table
+                                                    Sin datos Disponibles
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -127,7 +127,7 @@
                         <div class="card shadow-sm border">
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">Monthly Guests Chart</h3>
+                                    <h3 class="card-title">Usuarios por mes</h3>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -153,7 +153,7 @@
                                         <i class="fas fa-square text-primary"></i> {{ Helper::thisMonth() }}
                                     </span>
                                     <span>
-                                        <i class="fas fa-square text-gray"></i> Last month
+                                        <i class="fas fa-square text-gray"></i> Ultimo Mes
                                     </span>
                                 </div>
                             </div>

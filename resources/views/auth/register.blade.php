@@ -24,7 +24,11 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5 class="card-title text-center">Sistem Informasi Perusahaan</h5>
+                                <h5 class="card-title text-center">
+                                    Sistema Administrativo Hotelero
+                                    <br>
+                                    <strong>Registro de Usuario</strong>
+                                </h5>
                             </div>
                         </div>
                         <form class="form-signin" action="http://localhost:81/sip/pelamar/fungsi_daftar" method="post">
@@ -33,24 +37,28 @@
                                     <div class="form-label-group">
                                         <input type="email" id="email" name="email" class="form-control" placeholder="Email"
                                             value="" required autofocus>
-                                        <label for="email">Email</label>
+                                        <label for="email">Correo</label>
                                     </div>
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" autocomplete="new-password"
                                             class="form-control" placeholder="Password" value="" required>
-                                        <label for="password">Password</label>
+                                        <label for="password">Contrasenia</label>
                                     </div>
                                     <div class="form-label-group">
                                         <input type="password" id="password_konfirmasi" name="password_konfirmasi"
                                             class="form-control" placeholder="Repead Password" value="" required>
-                                        <label for="password_konfirmasi">Konfirmasi password</label>
+                                        <label for="password_konfirmasi">
+                                            Confirmar Contrasenia</label>        
+                                  
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <button class="btn btn-lg btn-primary text-white btn-block text-uppercase"
-                                        type="submit">Daftar</button>
+                                        type="submit">
+                                        Registrarse
+                                    </button>
                                 </div>
                             </div>
                             <hr class="my-4">
