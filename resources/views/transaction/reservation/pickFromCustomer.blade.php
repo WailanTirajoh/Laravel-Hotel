@@ -11,7 +11,7 @@
             <form class="d-flex" method="GET" action="{{ route('transaction.reservation.pickFromCustomer') }}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-user"
                         name="q" value="{{ request()->input('q') }}">
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                    <button class="btn btn-outline-dark" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
@@ -70,14 +70,7 @@
                                                                 </span>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td><i class="fas fa-phone"></i></td>
-                                                            <td>
-                                                                <span>
-                                                                    +6281233808395
-                                                                </span>
-                                                            </td>
-                                                        </tr>
+                                                       
                                                         <tr>
                                                             <td><i class="fas fa-birthday-cake"></i></td>
                                                             <td>
@@ -98,7 +91,7 @@
                                 <div class="col-lg-12">
                                     <div class="d-grid gap-2 col-6 mx-auto">
                                         <a href="{{ route('transaction.reservation.viewCountPerson', ['customer' => $customer->id]) }}"
-                                            class="btn btn-primary">Choose</a>
+                                            class="btn btn-primary">Elegir</a>
                                     </div>
                                 </div>
                             </div>

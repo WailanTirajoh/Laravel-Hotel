@@ -5,14 +5,14 @@
         <div class="col-lg-8">
             <div class="card shadow-sm border">
                 <div class="card-header">
-                    <h2>Add Customer</h2>
+                    <h2>Crear Cliente</h2>
                 </div>
                 <div class="card-body p-3">
                     <form class="row g-3" method="POST" action="{{ route('customer.store') }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nombre</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name') }}">
                             @error('name')
