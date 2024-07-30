@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body p-3">
                     <form class="row g-3" method="POST"
-                        action="{{ route('customer.update', ['customer' => $customer->id]) }}">
+                        action="{{ route('customer.update', ['customer' => $customer->id]) }}"  enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="col-md-12">
@@ -43,6 +43,20 @@
                             @enderror
                         </div>
                         <div class="col-md-12">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender"
+                                aria-label="Default select example">
+                                {{-- <option selected hidden>Select</option> --}}
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            @error('gender')
+                                <div class="text-danger mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12">
                             <label for="job" class="form-label">Job</label>
                             <input type="text" class="form-control @error('job') is-invalid @enderror" id="job" name="job"
                                 value="{{ $customer->job }}">
@@ -64,7 +78,7 @@
                         </div>
                         <div class="col-mg-12">
                             <label for="avatar" class="form-label">Profile Picture</label>
-                            <input class="form-control" type="file" id="avatar">
+                            <input class="form-control" type="file" id="avatar" name="avatar" >
                             @error('avatar')
                                 <div class="text-danger mt-1">
                                     {{ $message }}

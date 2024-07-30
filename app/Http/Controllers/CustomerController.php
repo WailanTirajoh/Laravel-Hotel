@@ -47,7 +47,7 @@ class CustomerController extends Controller
 
     public function update(Customer $customer, StoreCustomerRequest $request)
     {
-        $customer->update($request->all());
+        $customer->update($request->except(['avatar']));
 
         return redirect('customer')->with('success', 'customer '.$customer->name.' udpated!');
     }
