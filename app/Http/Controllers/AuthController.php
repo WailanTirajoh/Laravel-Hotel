@@ -17,6 +17,7 @@ class AuthController extends Controller
     public function postLogin(PostLoginRequest $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
+            activity()   ->causedBy(auth()->user())->log('User logged into the portal'); // Log activity message
             return redirect('dashboard')->with('success', 'Welcome '.auth()->user()->name);
         }
 

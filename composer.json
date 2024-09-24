@@ -14,7 +14,8 @@
         "laravel/framework": "^11.0",
         "laravel/reverb": "@beta",
         "laravel/tinker": "^2.5",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "spatie/laravel-activitylog": "^4.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
