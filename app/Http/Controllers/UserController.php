@@ -35,13 +35,15 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        activity()->causedBy(auth()->user())->log('User ' . $request->name . ' created');
         $user = $this->userRepository->store($request);
 
-        return redirect()->route('user.index')->with('success', 'User '.$user->name.' created');
+        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' created');
     }
 
     public function show(User $user)
     {
+        activity()->causedBy(auth()->user())->log('User ' . $user->name . ' viewed');
         if ($user->role === 'Customer') {
             $customer = Customer::where('user_id', $user->id)->first();
 
@@ -62,6 +64,7 @@ class UserController extends Controller
 
     public function update(User $user, UpdateCustomerRequest $request)
     {
+        activity()->causedBy(auth()->user())->log('User ' . $user->name . ' updated');
         $user->update($request->all());
 
         if ($user->isCustomer()) {
@@ -70,17 +73,18 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('user.index')->with('success', 'User '.$user->name.' udpated!');
+        return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' udpated!');
     }
 
     public function destroy(User $user)
     {
+        activity()->causedBy(auth()->user())->log('User ' . $user->name . ' updated');
         try {
             $user->delete();
 
-            return redirect()->route('user.index')->with('success', 'User '.$user->name.' deleted!');
+            return redirect()->route('user.index')->with('success', 'User ' . $user->name . ' deleted!');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')->with('failed', 'Customer '.$user->name.' cannot be deleted! Error Code:'.$e->errorInfo[1]);
+            return redirect()->route('user.index')->with('failed', 'Customer ' . $user->name . ' cannot be deleted! Error Code:' . $e->errorInfo[1]);
         }
     }
 }

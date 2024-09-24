@@ -19,6 +19,7 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], function () {
+    Route::get('/activity-log', [ActivityController::class, 'index'])->name('activity-log.index');
+    Route::get('/activity-log/all', [ActivityController::class, 'all'])->name('activity-log.all');
     Route::resource('user', UserController::class)->only([
         'show',
     ]);
