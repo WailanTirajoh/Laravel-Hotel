@@ -2,6 +2,7 @@
 
 use App\Events\NewReservationEvent;
 use App\Events\RefreshDashboardEvent;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------

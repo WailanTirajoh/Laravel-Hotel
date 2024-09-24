@@ -23,8 +23,8 @@ class StoreCustomerRequest extends FormRequest
      */
     public function rules()
     {
-      
-        if($this->isMethod('put')){
+
+        if ($this->isMethod('put')) {
             return [
                 'name' => 'required',
                 'address' => 'required|max:255',
@@ -34,6 +34,7 @@ class StoreCustomerRequest extends FormRequest
                 'avatar' => 'mimes:png,jpg',
             ];
         }
+
         return [
             'name' => 'required',
             'address' => 'required|max:255',

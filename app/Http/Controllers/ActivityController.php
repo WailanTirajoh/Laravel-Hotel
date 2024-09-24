@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 
 class ActivityController extends Controller
@@ -14,13 +13,11 @@ class ActivityController extends Controller
 
         return view('activity_log.index', compact('activities'));
     }
+
     public function all()
     {
         $activities = Activity::all();
 
         return view('activity_log.all', compact('activities'));
     }
-
 }
-
-
