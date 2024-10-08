@@ -14,9 +14,7 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
     public function getRoomStatuses(Request $request)
     {
         return RoomStatus::orderBy('id')
-            ->when(! empty($request->search), function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%'.$request->search.'%');
-            })
+            ->filterSearch()
             ->paginate(5)
             ->appends($request->all());
     }
@@ -87,6 +85,6 @@ class RoomStatusRepository implements RoomStatusRepositoryInterface
 
     public function getRoomStatusList(Request $request)
     {
-        return RoomStatus::get();
+        return RoomStatus::filterSearch()->get();
     }
 }

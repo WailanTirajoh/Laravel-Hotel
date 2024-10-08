@@ -12,10 +12,7 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function get($request)
     {
         return Customer::with('user')->orderBy('id', 'DESC')
-            ->when($request->q, function ($query) use ($request) {
-                $query->where('name', 'Like', '%'.$request->q.'%')
-                    ->orWhere('id', 'Like', '%'.$request->q.'%');
-            })
+            ->filterSearch()
             ->paginate(8)
             ->appends($request->all());
     }
@@ -23,10 +20,7 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function count($request)
     {
         return Customer::with('user')->orderBy('id', 'DESC')
-            ->when($request->q, function ($query) use ($request) {
-                $query->where('name', 'Like', '%'.$request->q.'%')
-                    ->orWhere('id', 'Like', '%'.$request->q.'%');
-            })
+            ->filterSearch()
             ->count();
     }
 
