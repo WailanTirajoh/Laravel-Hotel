@@ -33,7 +33,7 @@ class RoomStatusSeeder extends Seeder
             'Expected Arrival',
             'Check Out',
             'Late Check Out',
-            'Occupeid no Luggage',
+            'Occupied no Luggage',
             'Double Lock',
         ];
 
