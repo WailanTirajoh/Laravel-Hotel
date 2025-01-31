@@ -58,7 +58,7 @@
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" autocomplete="new-password"
                                             class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Password" value="{{ old('password') }}" required>
+                                            placeholder="Password" required>
                                         <label for="password">Password</label>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
