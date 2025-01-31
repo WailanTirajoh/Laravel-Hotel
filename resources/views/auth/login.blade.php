@@ -16,7 +16,7 @@
             display: none;
         }
     </style>
-    <link href="{{ asset('\style\css/stylelogin.css') }}" rel="stylesheet">
+    <link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
     <svg class="wavestop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path fill="#0099ff" fill-opacity="1"
             d="M0,224L48,186.7C96,149,192,75,288,42.7C384,11,480,21,576,74.7C672,128,768,224,864,256C960,288,1056,256,1152,234.7C1248,213,1344,203,1392,197.3L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
