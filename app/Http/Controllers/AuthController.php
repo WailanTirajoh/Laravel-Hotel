@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\PostLoginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function postLogin(PostLoginRequest $request)
+    public function login(LoginRequest $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             activity()->causedBy(auth()->user())->log('User logged into the portal'); // Log activity message
@@ -60,7 +60,7 @@ class AuthController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
+            ? redirect()->route('login.index')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
     }
 }

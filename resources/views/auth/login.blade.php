@@ -15,7 +15,6 @@
         .hide {
             display: none;
         }
-
     </style>
     <link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
     <svg class="wavestop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -41,13 +40,14 @@
                                 <h5 class="card-title text-center">Hotel Information System</h5>
                             </div>
                         </div>
-                        <form onsubmit="return disableButton()" class="form-signin" action="/postLogin" method="POST">
+                        <form id="form-login" class="form-signin" action="/login" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-label-group">
-                                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Email" value="{{ old('email') }}" required autofocus>
+                                        <input type="email" id="email" name="email"
+                                            class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                                            value="{{ old('email') }}" required autofocus>
                                         <label for="email">Email</label>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -57,8 +57,8 @@
                                     </div>
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" autocomplete="new-password"
-                                            class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}"
-                                            required>
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="Password" required>
                                         <label for="password">Password</label>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -96,12 +96,4 @@
             d="M0,224L48,213.3C96,203,192,181,288,154.7C384,128,480,96,576,122.7C672,149,768,235,864,234.7C960,235,1056,149,1152,117.3C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
         </path>
     </svg>
-
-    <script>
-        function disableButton() {
-            $("#loading_submit").removeClass("hide");
-            $("#text_submit").addClass("hide");
-            $("#btn_submit").addClass("isLoading").attr('disabled', 'disabled');
-        }
-    </script>
 @endsection

@@ -4,8 +4,6 @@ import popper from "popper.js";
 import sweetalert2 from "sweetalert2";
 import toastr from "toastr";
 import axios from "axios";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -82,6 +80,7 @@ import Pusher from "pusher-js";
         import("./pages/type"),
         import("./pages/room"),
         import("./pages/dashboard"),
+        import("./pages/login"),
         import("./pages/global"),
     ]);
 })();
