@@ -1,7 +1,5 @@
 <?php
 
-use App\Events\NewReservationEvent;
-use App\Events\RefreshDashboardEvent;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChartController;
@@ -18,7 +16,6 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionRoomReservationController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,8 +83,8 @@ Route::group(['middleware' => ['auth', 'checkRole:Super,Admin,Customer']], funct
 });
 
 // Login routes
-Route::view('/login', 'auth.login')->name('login');
-Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postlogin');
+Route::view('/login', 'auth.login')->name('login.index');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Forgot Password routes
 Route::group(['middleware' => 'guest'], function () {
@@ -101,13 +98,3 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/sendEvent', function () {
-    $superAdmins = User::where('role', 'Super')->get();
-    event(new RefreshDashboardEvent('Someone reserved a room'));
-
-    foreach ($superAdmins as $superAdmin) {
-        $message = 'Reservation added by';
-        // event(new NewReservationEvent($message, $superAdmin));
-    }
-});
