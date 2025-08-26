@@ -15,6 +15,7 @@ yarn-error.log
 /public/css/app.css
 /public/js/app.js
 /public/js/app.js.LICENSE.txt
+/public/hot
 
 /public/build
 .idea/
