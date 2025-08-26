@@ -2,38 +2,38 @@
 
 Laravel Hotel is an open-source web application built with laravel 8.0, enchanced with laravel websockets features to have realtime notification experience.
 
-Its now compatible with laravel 11
+Its now compatible with laravel 12
 
 ## Examples
 
--   Reservation
+- Reservation
     ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example-b.png?raw=true)
 
--   Dashboard
+- Dashboard
     ![alt text](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.png?raw=true)
--   And more ...
+- And more ...
 
-## Instalation
+## Installation
 
 ### Init DB
 
--   Create DB Name: hotel_app
+- Create DB Name: hotel_app
     or via terminal
 
-```
+```bash
 mysql -u root -p
 ```
 
 enter your db credential
 
-```
+```bash
 create database hotel_app;
 exit;
 ```
 
-### Init Commands:
+### Init Commands
 
-```
+```bash
 cp .env.example .env // after that start filling credential at .env
 
 composer install
@@ -46,73 +46,74 @@ php artisan reverb:start     => Terminal 2   //run the websocket server for real
 
 ### Development build
 
-```
+```bash
 npm run dev
 ```
 
 ### Production Build
 
-```
-// run this on your terminal to generate production build
+```bash
+
+# run this on your terminal to generate production build
 npm run build
 ```
 
-### Login:
+### Login
 
--   Email: wailantirajoh@gmail.com
--   Password: wailan
+- Email: <wailantirajoh@gmail.com>
+- Password: wailan
 
-## TODO:
+## TODO
 
--   Customer's Room:
+- Customer's Room:
 
-    -   Asks for room to be cleaned
-        -   Update room status
-            -   Auth id must be == room->customer->id
-        -   Send realtime notification to Admin
-    -   Order meals
-        -   Send realtime notification to Admin, and food
+  - Asks for room to be cleaned
+    - Update room status
+      - Auth id must be == room->customer->id
+    - Send realtime notification to Admin
+  - Order meals
+    - Send realtime notification to Admin, and food
 
--   Room Facility:
+- Room Facility:
 
-    -   Create
-    -   Read
-        -   Pagination
-        -   Search
-    -   Update
-    -   Delete
+  - Create
+  - Read
+    - Pagination
+    - Search
+  - Update
+  - Delete
 
--   User Profile
+- User Profile
 
-    -   View
-    -   User Activity Log
-        -   View:
-            -   Paginate
-            -   see all
-    -   User Settings
-        -   Edit Profile
-        -   Edit Password
+  - View
+  - User Activity Log
+    - View:
+      - Paginate
+      - see all
+  - User Settings
+    - Edit Profile
+    - Edit Password
 
--   Dashboard
-    -   Guests Chart
-        -   Get total customer / month
-    -   Income Chart for Super only
-        -   Get total income / month
+- Dashboard
+  - Guests Chart
+    - Get total customer / month
+  - Income Chart for Super only
+    - Get total income / month
 
 ## Modul
 
--   Dashboard
+- Dashboard
 
-    -   Guests Chart
-    -   Guests on this day
+  - Guests Chart
+  - Guests on this day
 
--   Transaction
+- Transaction
 
-    -   Payment
-        -   Create & Store Payment
-        -   Payment History
-    -   Room Reservation
-        -   Step:
+  - Payment
+    - Create & Store Payment
+    - Payment History
+  - Room Reservation
+    - Step:
             1. Choose Customer:
                 - Create New Customer / Pick from existing Customer
             2. Input Form:
@@ -130,58 +131,58 @@ npm run build
                 - Send push notification to Super Role.
                 - Update all dashboard view
 
--   CUSTOMER Management
+- CUSTOMER Management
 
-    -   Create Customer
-    -   Read Customer
-        -   Paginate
-        -   Search
-    -   Update Customer
-    -   Delete Customer
-        -   Cannot be deleted if the customer has transaction
-    -   Customer Detail
+  - Create Customer
+  - Read Customer
+    - Paginate
+    - Search
+  - Update Customer
+  - Delete Customer
+    - Cannot be deleted if the customer has transaction
+  - Customer Detail
 
--   USER Management
+- USER Management
 
-    -   Create User
-    -   Read User (Super, Admin)
-        -   Paginate
-        -   Search
-    -   Read User (Customer)
-        -   Paginate
-        -   Search
-    -   Update User
-    -   Delete User
-        -   Cannot be deleted if the User has transaction
-    -   User Detail
+  - Create User
+  - Read User (Super, Admin)
+    - Paginate
+    - Search
+  - Read User (Customer)
+    - Paginate
+    - Search
+  - Update User
+  - Delete User
+    - Cannot be deleted if the User has transaction
+  - User Detail
 
--   ROOM Management
+- ROOM Management
 
-    -   Create Room
-    -   Read Room
-        -   Paginate
-        -   Search
-    -   Update Room
-    -   Delete Room
-        -   Cannot be deleted if the Room already connected in transaction
-    -   Room Detail
+  - Create Room
+  - Read Room
+    - Paginate
+    - Search
+  - Update Room
+  - Delete Room
+    - Cannot be deleted if the Room already connected in transaction
+  - Room Detail
 
--   CRUD ROOM TYPE
+- CRUD ROOM TYPE
 
-    -   Create Room Type
-    -   Read Room Type
-        -   Paginate
-        -   Search
-    -   Update Room Type
-    -   Delete Room Type
+  - Create Room Type
+  - Read Room Type
+    - Paginate
+    - Search
+  - Update Room Type
+  - Delete Room Type
 
--   CRUD ROOM STATUS
-    -   Create Room Status
-    -   Read Room Status
-        -   Paginate
-        -   Search
-    -   Update Room Status
-    -   Delete Room Status
+- CRUD ROOM STATUS
+  - Create Room Status
+  - Read Room Status
+    - Paginate
+    - Search
+  - Update Room Status
+  - Delete Room Status
 
 ## ERD
 
@@ -189,19 +190,19 @@ npm run build
 
 ## Reservation Plot
 
--   Customer Register to Admin
--   Fill in customer's identity (based on KTP)
-    -   Fill in by the Admin
--   Book a room (how much people? and when?)
-    -   Fill in by the Admin based on customers order
-        -   rooms are recommended by the system based on the input value.
--   Choose the room
-    -   Fill in by the Admin based on customers order
-        -   Choose based on room type, price, and facility.
--   Make a down payment
-    -   Fill in by the Admin based on minimum down payment (15% of total price)
--   Stay
--   Finish (Check Out) and pay the insufficient payment
+- Customer Register to Admin
+- Fill in customer's identity (based on KTP)
+  - Fill in by the Admin
+- Book a room (how much people? and when?)
+  - Fill in by the Admin based on customers order
+    - rooms are recommended by the system based on the input value.
+- Choose the room
+  - Fill in by the Admin based on customers order
+    - Choose based on room type, price, and facility.
+- Make a down payment
+  - Fill in by the Admin based on minimum down payment (15% of total price)
+- Stay
+- Finish (Check Out) and pay the insufficient payment
 
 ## Laravel License
 
