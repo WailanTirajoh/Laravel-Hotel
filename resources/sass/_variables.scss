@@ -2,18 +2,42 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
+$font-family-sans-serif: "Inter", "Nunito", sans-serif;
+$font-size-base: 0.875rem;
 $line-height-base: 1.6;
 
+// Professional Color Palette
+$primary: #2563eb;
+$secondary: #64748b;
+$success: #059669;
+$info: #0891b2;
+$warning: #d97706;
+$danger: #dc2626;
+$light: #f8fafc;
+$dark: #1e293b;
+
+// Custom Hotel Theme Colors
+$hotel-primary: #2563eb;
+$hotel-secondary: #475569;
+$hotel-accent: #f59e0b;
+$hotel-success: #10b981;
+$hotel-danger: #ef4444;
+$hotel-light: #f1f5f9;
+$hotel-dark: #0f172a;
+
+// Sidebar Colors
+$sidebar-bg: #1e293b;
+$sidebar-item-hover: #334155;
+$sidebar-item-active: #2563eb;
+
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$blue: #2563eb;
+$indigo: #6366f1;
+$purple: #8b5cf6;
+$pink: #ec4899;
+$red: #ef4444;
+$orange: #f97316;
+$yellow: #eab308;
+$green: #10b981;
+$teal: #14b8a6;
+$cyan: #06b6d4;
