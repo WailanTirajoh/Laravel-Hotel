@@ -2,42 +2,15 @@
 
 Laravel Hotel is a modern, web application built with Laravel 12, featuring a stunning admin dashboard UI and enhanced with Reverb (Laravel WebSockets-compatible) for real-time notification experiences.
 
-## ✨ What's New in v2.0
-
-### 🎨 UI Redesign
-
-- **Modern Dashboard**: Clean, admin interface with gradient backgrounds and smooth animations
-- **Enhanced Navigation**: Intuitive sidebar with hover effects and improved user experience
-- **Cards**: Beautiful card components with shadows and hover effects
-- **Improved Typography**: Inter font family for better readability
-- **Responsive Design**: Optimized for all devices and screen sizes
-- **Login**: Stunning glassmorphism login page with animated elements
-
-### 🔧 Technical Upgrades
-
-- **Laravel 12**: Latest Laravel framework with all new features
-- **Bootstrap 5**: Updated UI framework with modern components
-- **Font Awesome 6**: Latest icon set for better visual appeal
-- **Chart.js 4**: Enhanced data visualization
-- **Color Scheme**: Blue-based palette for trust and reliability
-
-### 📱 User Experience Improvements
-
-- **Smooth Animations**: CSS transitions and hover effects throughout
-- **Loading States**: loading indicators
-- **Toast Notifications**: Enhanced notification system
-- **Interactive Elements**: Hover states and micro-interactions
-- **Badges**: Color-coded status indicators
-
 ## 🖼️ Screenshots
 
-### Modern Dashboard
+<img width="1919" height="943" alt="image" src="https://github.com/user-attachments/assets/f14318c7-f8ee-4fa0-a2be-8e3dac36cf47" />
 
-![Dashboard](https://github.com/WailanTirajoh/Laravel-Hotel/blob/main/example.png?raw=true)
+<img width="1919" height="943" alt="image" src="https://github.com/user-attachments/assets/ffbb1092-49dd-4e71-bb67-049f17e4d40e" />
 
-### Reservation Interface
+<img width="1919" height="940" alt="image" src="https://github.com/user-attachments/assets/7499816a-0a24-4866-9f15-70d0b335aa85" />
 
-![Reservation](https://github.com/WailanTirajoh/Laravel-Hotel/blob/main/example-b.png?raw=true)
+
 
 ## 🚀 Installation
 
