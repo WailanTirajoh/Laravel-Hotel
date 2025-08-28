@@ -32,9 +32,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card p-0">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-width: calc(100vw - 50px)">
                         <table class="table table-sm table-hover">
                             <thead>
                                 <tr>
@@ -100,9 +100,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card p-0">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-width: calc(100vw - 50px)">
                         <table class="table table-sm table-hover">
                             <thead>
                                 <tr>

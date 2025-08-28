@@ -13,7 +13,7 @@
         </div>
 
         <!-- Table Container -->
-        <div class="lh-table-container">
+        <div class="professional-table-container">
             <!-- Table Header -->
             <div class="table-header">
                 <h4><i class="fas fa-bed me-2"></i>Room Management</h4>
@@ -62,7 +62,7 @@
 
             <!-- Table -->
             <div class="table-responsive">
-                <table id="room-table" class="lh-table table" style="width: 100%;">
+                <table id="room-table" class="professional-table table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th scope="col">

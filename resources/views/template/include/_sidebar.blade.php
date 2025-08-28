@@ -651,25 +651,17 @@
     z-index: 1001;
 }
 
-/* Responsive */
-@media (max-width: 991.98px) {
-    .lh-sidebar {
-        transform: translateX(-100%);
-    }
-
-    .lh-sidebar.show {
-        transform: translateX(0);
-    }
-
-    body.sidebar-layout {
-        margin-left: 0;
-    }
+.lh-sidebar {
+    width: var(--bs-offcanvas-width);
 }
 
 @media (min-width: 992px) {
     /* body.sidebar-layout {
         margin-left: 280px;
     } */
+    .lh-sidebar {
+        width: 280px;
+    }
 
     .sidebar-toggle {
         display: none;

@@ -13,7 +13,7 @@
         </div>
 
         <!-- Table Container -->
-        <div class="lh-table-container">
+        <div class="professional-table-container">
             <!-- Table Header -->
             <div class="table-header">
                 <h4><i class="fas fa-toggle-on me-2"></i>Room Status Management</h4>
@@ -22,7 +22,7 @@
 
             <!-- Table -->
             <div class="table-responsive">
-                <table id="roomstatus-table" class="lh-table table" style="width: 100%;">
+                <table id="roomstatus-table" class="professional-table table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th scope="col">
