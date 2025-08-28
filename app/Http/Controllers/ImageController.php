@@ -11,8 +11,7 @@ class ImageController extends Controller
 {
     public function __construct(
         private ImageRepositoryInterface $imageRepository
-    ) {
-    }
+    ) {}
 
     public function store(StoreImageRequest $request, Room $room)
     {

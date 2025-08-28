@@ -22,8 +22,7 @@ class TransactionRoomReservationController extends Controller
 {
     public function __construct(
         private ReservationRepositoryInterface $reservationRepository
-    ) {
-    }
+    ) {}
 
     public function pickFromCustomer(Request $request, CustomerRepositoryInterface $customerRepository)
     {

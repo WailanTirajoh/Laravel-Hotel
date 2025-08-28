@@ -11,8 +11,7 @@ class PaymentController extends Controller
 {
     public function __construct(
         private PaymentRepositoryInterface $paymentRepository
-    ) {
-    }
+    ) {}
 
     public function index()
     {

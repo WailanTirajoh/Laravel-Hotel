@@ -10,7 +10,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function store($userData)
     {
-        $user = new User();
+        $user = new User;
         $user->name = $userData->name;
         $user->email = $userData->email;
         $user->password = bcrypt($userData->password);
