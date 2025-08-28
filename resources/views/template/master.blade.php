@@ -36,8 +36,11 @@
             </div>
         </div>
 
+        <!-- Mobile Header -->
+        @include('template.include._mobile-header')
+
         <div class="d-flex vh-100" id="wrapper">
-            <!-- Sidebar -->
+            <!-- Desktop Sidebar -->
             @include('template.include._sidebar')
 
             <!-- Page Content -->
@@ -67,6 +70,66 @@
                     document.getElementById('sidebar-wrapper').classList.toggle('collapsed');
                 });
             }
+
+            // Mobile dropdown functionality for offcanvas sidebar
+            const mobileDropdownToggles = document.querySelectorAll('#mobileOffcanvas .nav-toggle[data-bs-toggle="collapse"]');
+
+            mobileDropdownToggles.forEach(toggle => {
+                const targetId = toggle.getAttribute('data-bs-target');
+                const targetElement = document.querySelector(targetId);
+                const arrow = toggle.querySelector('.nav-arrow');
+
+                // Set initial state based on whether submenu is shown (server-side rendered)
+                if (targetElement && targetElement.classList.contains('show')) {
+                    toggle.setAttribute('aria-expanded', 'true');
+                    if (arrow) {
+                        arrow.style.transform = 'rotate(180deg)';
+                    }
+                } else {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    if (arrow) {
+                        arrow.style.transform = 'rotate(0deg)';
+                    }
+                }
+
+                // Handle click events for manual toggle
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    const newState = !isExpanded;
+
+                    this.setAttribute('aria-expanded', newState);
+
+                    if (arrow) {
+                        arrow.style.transform = newState ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+
+                    // Toggle Bootstrap collapse
+                    if (targetElement) {
+                        if (newState) {
+                            targetElement.classList.add('show');
+                        } else {
+                            targetElement.classList.remove('show');
+                        }
+                    }
+                });
+            });
+
+            // Auto-close mobile menu when clicking nav links
+            const mobileNavLinks = document.querySelectorAll('#mobileOffcanvas .nav-item:not(.dropdown-nav), #mobileOffcanvas .nav-subitem');
+            const offcanvasElement = document.getElementById('mobileOffcanvas');
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (offcanvasElement && window.innerWidth <= 768) {
+                        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                        if (offcanvas) {
+                            offcanvas.hide();
+                        }
+                    }
+                });
+            });
         });
     </script>
 
