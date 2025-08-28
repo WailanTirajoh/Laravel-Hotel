@@ -97,4 +97,4 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::redirect('/', '/dashboard');
