@@ -22,7 +22,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
                     <div class="modal-header bg-light border-0">
-                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"></h1>
+                        <h1 class="modal-title fs-5 fw-bold" id="main-modalLabel"></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -96,22 +96,27 @@
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
 
-                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                    const newState = !isExpanded;
+                    // Get or create Bootstrap Collapse instance
+                    const collapse = bootstrap.Collapse.getOrCreateInstance(targetElement, {
+                        toggle: false
+                    });
 
-                    this.setAttribute('aria-expanded', newState);
+                    // Toggle the collapse
+                    collapse.toggle();
+                });
 
+                // Listen to Bootstrap collapse events to update aria and arrow
+                targetElement.addEventListener('shown.bs.collapse', function() {
+                    toggle.setAttribute('aria-expanded', 'true');
                     if (arrow) {
-                        arrow.style.transform = newState ? 'rotate(180deg)' : 'rotate(0deg)';
+                        arrow.style.transform = 'rotate(180deg)';
                     }
+                });
 
-                    // Toggle Bootstrap collapse
-                    if (targetElement) {
-                        if (newState) {
-                            targetElement.classList.add('show');
-                        } else {
-                            targetElement.classList.remove('show');
-                        }
+                targetElement.addEventListener('hidden.bs.collapse', function() {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    if (arrow) {
+                        arrow.style.transform = 'rotate(0deg)';
                     }
                 });
             });

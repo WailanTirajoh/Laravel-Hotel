@@ -48,13 +48,13 @@
                 <div class="notifications-title">
                     <i class="fas fa-bell me-2"></i>
                     Notifications
-                    @if (auth()->user()->unreadNotifications->count() > 0)
-                        <span class="notification-badge">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @if (auth()->user()->unreadNotifications()->count() > 0)
+                        <span class="notification-badge">{{ auth()->user()->unreadNotifications()->count() }}</span>
                     @endif
                 </div>
             </div>
             <div class="notifications-content">
-                @forelse (auth()->user()->unreadNotifications->take(3) as $notification)
+                @forelse (auth()->user()->unreadNotifications()->latest()->limit(3)->get() as $notification)
                     <a href="{{ route('notification.routeTo', ['id' => $notification->id]) }}" class="notification-item">
                         <div class="notification-icon">
                             <i class="fas fa-bell"></i>
@@ -71,10 +71,10 @@
                     </div>
                 @endforelse
 
-                @if (auth()->user()->unreadNotifications->count() > 3)
+                @if (auth()->user()->unreadNotifications()->count() > 3)
                     <div class="notifications-footer">
                         <a href="{{ route('notification.index') }}" class="view-all-notifications">
-                            View all ({{ auth()->user()->unreadNotifications->count() }})
+                            View all ({{ auth()->user()->unreadNotifications()->count() }})
                         </a>
                     </div>
                 @endif
@@ -696,18 +696,27 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
 
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            const newState = !isExpanded;
+            // Get or create Bootstrap Collapse instance
+            const collapse = bootstrap.Collapse.getOrCreateInstance(targetElement, {
+                toggle: false
+            });
 
-            this.setAttribute('aria-expanded', newState);
+            // Toggle the collapse
+            collapse.toggle();
+        });
 
+        // Listen to Bootstrap collapse events to update aria and arrow
+        targetElement.addEventListener('shown.bs.collapse', function() {
+            toggle.setAttribute('aria-expanded', 'true');
             if (arrow) {
-                arrow.style.transform = newState ? 'rotate(180deg)' : 'rotate(0deg)';
+                arrow.style.transform = 'rotate(180deg)';
             }
+        });
 
-            // Toggle Bootstrap collapse
-            if (targetElement) {
-                targetElement.classList.remove('show');
+        targetElement.addEventListener('hidden.bs.collapse', function() {
+            toggle.setAttribute('aria-expanded', 'false');
+            if (arrow) {
+                arrow.style.transform = 'rotate(0deg)';
             }
         });
     });

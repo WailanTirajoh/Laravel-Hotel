@@ -788,12 +788,6 @@ body.sidebar-layout {
                     font-weight: 700;
                     color: #059669;
                     font-size: 0.95rem;
-
-                    &::before {
-                        content: "$";
-                        margin-right: 0.125rem;
-                        opacity: 0.7;
-                    }
                 }
 
                 // Action buttons

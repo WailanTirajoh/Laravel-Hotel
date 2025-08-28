@@ -1,6 +1,6 @@
 # Laravel Hotel - Admin Dashboard
 
-Laravel Hotel is a modern, web application built with Laravel 12, featuring a stunning admin dashboard UI and enhanced with Laravel WebSockets for real-time notification experiences.
+Laravel Hotel is a modern, web application built with Laravel 12, featuring a stunning admin dashboard UI and enhanced with Reverb (Laravel WebSockets-compatible) for real-time notification experiences.
 
 ## ✨ What's New in v2.0
 
@@ -99,16 +99,18 @@ php artisan migrate:fresh --seed
 # Terminal 1: Application Server
 php artisan serve
 
-# Terminal 2: WebSocket Server (for real-time notifications)
+# Terminal 2: Reverb Server (for real-time notifications)
 php artisan reverb:start
 ```
 
 ## 🔐 Demo Login
 
-Access the admin dashboard:
+Access the admin dashboard with seeded demo accounts:
 
-- **Email**: <wailantirajoh@gmail.com>
-- **Password**: wailan
+- **Email**: <demo@example.com>
+- **Password**: demo_pass
+
+> **Note**: Use the database seeders to create demo accounts, or check your `.env` file for configured test credentials.
 
 ## 🏗️ Architecture & Features
 
@@ -155,7 +157,7 @@ Access the admin dashboard:
 
 ### 🔔 Real-time Features
 
-- WebSocket notifications for new reservations
+- Reverb notifications for new reservations
 - Live dashboard updates
 - Push notifications for staff
 - Real-time payment status updates
@@ -229,7 +231,7 @@ Access the admin dashboard:
 
 ### Notification System
 
-- Real-time WebSocket notifications
+- Real-time Reverb notifications
 - Email notifications for important events
 - Push notifications for mobile devices
 - Activity logging for audit trails
