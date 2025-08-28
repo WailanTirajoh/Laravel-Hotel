@@ -33,11 +33,11 @@ Laravel Hotel is a modern, web application built with Laravel 12, featuring a st
 
 ### Modern Dashboard
 
-![Dashboard](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.png?raw=true)
+![Dashboard](https://github.com/WailanTirajoh/Laravel-Hotel/blob/main/example.png?raw=true)
 
 ### Reservation Interface
 
-![Reservation](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example-b.png?raw=true)
+![Reservation](https://github.com/WailanTirajoh/Laravel-Hotel/blob/main/example-b.png?raw=true)
 
 ## 🚀 Installation
 
@@ -66,8 +66,8 @@ EXIT;
 1. **Clone & Configure**
 
 ```bash
-git clone https://github.com/WailanTirajoh/laravel_hotel.git
-cd laravel_hotel
+git clone https://github.com/WailanTirajoh/Laravel-Hotel.git
+cd Laravel-Hotel
 cp .env.example .env
 ```
 
@@ -238,7 +238,7 @@ Access the admin dashboard with seeded demo accounts:
 
 ## 🗄️ Database Schema
 
-![ERD](https://github.com/WailanTirajoh/laravel_hotel/blob/main/erd.PNG?raw=true)
+![ERD](https://github.com/WailanTirajoh/Laravel-Hotel/blob/main/erd.PNG?raw=true)
 
 ### Key Relationships
 
