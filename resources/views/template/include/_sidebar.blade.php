@@ -1,4 +1,4 @@
-<div id="sidebar-wrapper" class="professional-sidebar">
+<div id="sidebar-wrapper" class="lh-sidebar">
     <div class="sidebar-content">
         <!-- Brand Header -->
         <div class="sidebar-brand">
@@ -70,7 +70,7 @@
                         <span>No new notifications</span>
                     </div>
                 @endforelse
-                
+
                 @if (auth()->user()->unreadNotifications->count() > 3)
                     <div class="notifications-footer">
                         <a href="{{ route('notification.index') }}" class="view-all-notifications">
@@ -224,7 +224,7 @@
 </div>
 
 <style>
-.professional-sidebar {
+.lh-sidebar {
     width: 280px;
     background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
     position: fixed;
@@ -653,11 +653,11 @@
 
 /* Responsive */
 @media (max-width: 991.98px) {
-    .professional-sidebar {
+    .lh-sidebar {
         transform: translateX(-100%);
     }
 
-    .professional-sidebar.show {
+    .lh-sidebar.show {
         transform: translateX(0);
     }
 

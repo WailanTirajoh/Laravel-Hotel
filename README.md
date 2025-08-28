@@ -1,17 +1,17 @@
-# Laravel Hotel - Professional Admin Dashboard
+# Laravel Hotel - Admin Dashboard
 
-Laravel Hotel is a modern, professional web application built with Laravel 12, featuring a stunning admin dashboard UI and enhanced with Laravel WebSockets for real-time notification experiences.
+Laravel Hotel is a modern, web application built with Laravel 12, featuring a stunning admin dashboard UI and enhanced with Laravel WebSockets for real-time notification experiences.
 
 ## ✨ What's New in v2.0
 
-### 🎨 Professional UI Redesign
+### 🎨 UI Redesign
 
-- **Modern Dashboard**: Clean, professional admin interface with gradient backgrounds and smooth animations
+- **Modern Dashboard**: Clean, admin interface with gradient backgrounds and smooth animations
 - **Enhanced Navigation**: Intuitive sidebar with hover effects and improved user experience
-- **Professional Cards**: Beautiful card components with shadows and hover effects
+- **Cards**: Beautiful card components with shadows and hover effects
 - **Improved Typography**: Inter font family for better readability
 - **Responsive Design**: Optimized for all devices and screen sizes
-- **Professional Login**: Stunning glassmorphism login page with animated elements
+- **Login**: Stunning glassmorphism login page with animated elements
 
 ### 🔧 Technical Upgrades
 
@@ -19,15 +19,15 @@ Laravel Hotel is a modern, professional web application built with Laravel 12, f
 - **Bootstrap 5**: Updated UI framework with modern components
 - **Font Awesome 6**: Latest icon set for better visual appeal
 - **Chart.js 4**: Enhanced data visualization
-- **Professional Color Scheme**: Blue-based palette for trust and reliability
+- **Color Scheme**: Blue-based palette for trust and reliability
 
 ### 📱 User Experience Improvements
 
 - **Smooth Animations**: CSS transitions and hover effects throughout
-- **Loading States**: Professional loading indicators
+- **Loading States**: loading indicators
 - **Toast Notifications**: Enhanced notification system
 - **Interactive Elements**: Hover states and micro-interactions
-- **Professional Badges**: Color-coded status indicators
+- **Badges**: Color-coded status indicators
 
 ## 🖼️ Screenshots
 
@@ -35,7 +35,7 @@ Laravel Hotel is a modern, professional web application built with Laravel 12, f
 
 ![Dashboard](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example.png?raw=true)
 
-### Professional Reservation Interface
+### Reservation Interface
 
 ![Reservation](https://github.com/WailanTirajoh/laravel_hotel/blob/main/example-b.png?raw=true)
 
@@ -105,7 +105,7 @@ php artisan reverb:start
 
 ## 🔐 Demo Login
 
-Access the professional admin dashboard:
+Access the admin dashboard:
 
 - **Email**: <wailantirajoh@gmail.com>
 - **Password**: wailan
@@ -114,25 +114,25 @@ Access the professional admin dashboard:
 
 ### 📊 Dashboard Modules
 
-#### **Professional Dashboard**
+#### **Dashboard**
 
 - Real-time guest statistics with animated counters
 - Monthly charts with Chart.js integration
-- Today's guest overview with professional table design
+- Today's guest overview with table design
 - Quick action buttons for common tasks
 - Welcome message with current date/time
 
 #### **Transaction Management**
 
 - Complete reservation workflow with step-by-step process
-- Payment tracking with professional status badges
+- Payment tracking with status badges
 - Down payment system (15% minimum)
 - Real-time email and push notifications
-- Professional invoice generation
+- invoice generation
 
 #### **Customer Management**
 
-- CRUD operations with professional forms
+- CRUD operations with forms
 - Advanced search and pagination
 - Customer profile pages with activity history
 - Avatar integration with fallback images
@@ -141,7 +141,7 @@ Access the professional admin dashboard:
 #### **Room Management**
 
 - Multi-level room management (Rooms, Types, Status, Facilities)
-- Professional image galleries
+- image galleries
 - Availability checking system
 - Capacity-based room recommendations
 - Status tracking with color-coded indicators
@@ -150,7 +150,7 @@ Access the professional admin dashboard:
 
 - Role-based access control (Super, Admin, Customer)
 - User activity logging with Spatie ActivityLog
-- Professional user profiles
+- user profiles
 - Permission management
 
 ### 🔔 Real-time Features
@@ -160,34 +160,34 @@ Access the professional admin dashboard:
 - Push notifications for staff
 - Real-time payment status updates
 
-### 📱 Professional UI Components
+### 📱 UI Components
 
 #### **Modern Navigation**
 
 - Sleek sidebar with gradient background
 - Tooltip-enabled navigation icons
 - Dropdown menus with smooth animations
-- Professional user profile dropdown
+- user profile dropdown
 
 #### **Enhanced Forms**
 
 - Floating labels with smooth transitions
-- Professional validation styling
+- validation styling
 - Select2 integration for dropdowns
 - Date pickers with modern styling
 
 #### **Data Visualization**
 
-- Professional tables with hover effects
+- tables with hover effects
 - Chart.js integration for analytics
 - Progress bars and status indicators
-- Professional badge system
+- badge system
 
 ## 🎨 Design System
 
 ### Color Palette
 
-- **Primary**: `#2563eb` (Professional Blue)
+- **Primary**: `#2563eb` (Blue)
 - **Success**: `#10b981` (Success Green)  
 - **Warning**: `#f59e0b` (Warning Amber)
 - **Danger**: `#ef4444` (Error Red)
@@ -203,9 +203,9 @@ Access the professional admin dashboard:
 ### Components
 
 - **Cards**: 12px border radius with subtle shadows
-- **Buttons**: Professional gradients with hover effects
+- **Buttons**: gradients with hover effects
 - **Forms**: Floating labels with focus states
-- **Tables**: Hover effects with professional styling
+- **Tables**: Hover effects with styling
 
 ## 📋 Business Logic
 
@@ -224,7 +224,7 @@ Access the professional admin dashboard:
 
 - Down payment calculation (15% minimum)
 - Balance tracking and payment completion
-- Professional invoice generation
+- invoice generation
 - Payment history with status indicators
 
 ### Notification System
@@ -260,10 +260,10 @@ Access the professional admin dashboard:
 ### Frontend  
 
 - **Bootstrap 5**: Modern CSS framework
-- **Font Awesome 6**: Professional icon set
+- **Font Awesome 6**: icon set
 - **Chart.js 4**: Data visualization
 - **Select2**: Enhanced select dropdowns
-- **DataTables**: Professional table management
+- **DataTables**: table management
 - **SweetAlert2**: Beautiful alerts and modals
 
 ### Development Tools
@@ -299,7 +299,7 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 - Hotel and hospitality management
 - Learning Laravel development
-- Professional dashboard implementations
+- dashboard implementations
 - Real-time web application examples
 - Modern UI/UX design patterns
 

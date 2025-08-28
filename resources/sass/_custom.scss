@@ -13,7 +13,7 @@ body.sidebar-layout {
     padding-left: 280px;
 }
 
-// Professional Layout Container
+// Layout Container
 .container-fluid {
     padding: 0 !important;
 }
@@ -52,8 +52,8 @@ body {
     color: #334155;
 }
 
-// Professional Button Styles
-.btn-professional {
+// Button Styles
+.btn-lh {
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     border-radius: 0.5rem;
@@ -86,7 +86,7 @@ body {
     }
 }
 
-// Professional Card Styles
+// Card Styles
 .card {
     border: none;
     border-radius: 12px;
@@ -101,7 +101,7 @@ body {
 }
 
 // Dashboard Cards and Tables
-.card-professional {
+.card-lh {
     border: none;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -151,7 +151,7 @@ body {
     }
 }
 
-.table-professional {
+.table-lh {
     th {
         background-color: #f8fafc;
         border-bottom: 2px solid #e2e8f0;
@@ -186,7 +186,7 @@ body {
 
 // Responsive Dashboard Improvements
 @media (max-width: 1400px) {
-    .card-professional .card-body {
+    .card-lh .card-body {
         padding: 1.25rem;
     }
 }
@@ -200,7 +200,7 @@ body {
         font-size: 0.8rem !important;
     }
 
-    .card-professional .card-header h5 {
+    .card-lh .card-header h5 {
         font-size: 1.1rem;
     }
 }
@@ -210,14 +210,14 @@ body {
         font-size: 0.875rem;
     }
 
-    .btn-professional {
+    .btn-lh {
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
     }
 }
 
 @media (max-width: 768px) {
-    .table-professional {
+    .table-lh {
         th,
         td {
             padding: 0.5rem 0.25rem;
@@ -233,12 +233,12 @@ body {
         }
     }
 
-    .badge-professional {
+    .badge-lh {
         font-size: 0.7rem;
         padding: 0.25rem 0.5rem;
     }
 
-    .btn-professional {
+    .btn-lh {
         font-size: 0.75rem;
         padding: 0.5rem 0.75rem;
 
@@ -386,8 +386,8 @@ body {
     }
 }
 
-// Professional Table Styles
-.table-professional {
+// Table Styles
+.table-lh {
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -444,7 +444,7 @@ body {
 }
 
 // Enhanced Badge Styles
-.badge-professional {
+.badge-lh {
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
     font-weight: 500;
@@ -492,7 +492,7 @@ body {
 }
 
 // Navigation Improvements
-.navbar-professional {
+.navbar-lh {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border-bottom: 1px solid #e2e8f0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -504,8 +504,8 @@ body {
     }
 }
 
-// Professional Form Styles
-.form-control-professional {
+// Form Styles
+.form-control-lh {
     border: 1px solid #d1d5db;
     border-radius: 8px;
     padding: 0.75rem 1rem;
@@ -547,11 +547,11 @@ body {
 }
 
 // Utility Classes
-.shadow-professional {
+.shadow-lh {
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
 }
 
-.border-professional {
+.border-lh {
     border: 1px solid #e2e8f0;
 }
 
@@ -664,7 +664,7 @@ body {
     }
 }
 
-/* Professional Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -751,7 +751,7 @@ a:active {
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
 }
 
-// Professional Modal Styles
+// Modal Styles
 .modal-content {
     border: none;
     border-radius: 12px;
@@ -772,8 +772,8 @@ a:active {
     padding: 1.5rem;
 }
 
-// Professional Search Bar
-.search-professional {
+// Search Bar
+.search-lh {
     position: relative;
 
     .form-control {
@@ -798,7 +798,7 @@ a:active {
     }
 }
 
-// Professional Pagination
+// Pagination
 .pagination {
     .page-link {
         border: none;
@@ -821,7 +821,7 @@ a:active {
     }
 }
 
-// Professional Alert Styles
+// Alert Styles
 .alert {
     border: none;
     border-radius: 8px;

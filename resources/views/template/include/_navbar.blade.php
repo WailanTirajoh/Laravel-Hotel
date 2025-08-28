@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-professional px-3 fixed-top" style="height: 65px">
+<nav class="navbar navbar-expand navbar-lh px-3 fixed-top" style="height: 65px">
     <div class="container-fluid">
         <!-- Menu Toggle -->
         <div id="menu-toggle" class="btn btn-outline-secondary d-flex justify-content-center align-items-center me-3"

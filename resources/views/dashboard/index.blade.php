@@ -76,7 +76,7 @@
         <div class="row">
             <!-- Today's Guests Table -->
             <div class="col-lg-8 mb-4">
-                <div class="card card-professional h-100">
+                <div class="card card-lh h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="mb-0 fw-bold">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-professional mb-0">
+                            <table class="table table-lh mb-0">
                                 <thead>
                                     <tr>
                                         <th>Guest</th>
@@ -144,7 +144,7 @@
                                                 @php
                                                     $daysLeft = Helper::getDateDifference(now(), $transaction->check_out);
                                                 @endphp
-                                                <span class="badge {{ $daysLeft <= 0 ? 'bg-danger' : ($daysLeft <= 1 ? 'bg-warning' : 'bg-success') }} badge-professional">
+                                                <span class="badge {{ $daysLeft <= 0 ? 'bg-danger' : ($daysLeft <= 1 ? 'bg-warning' : 'bg-success') }} badge-lh">
                                                     {{ $daysLeft == 0 ? 'Last Day' : $daysLeft . ' ' . Helper::plural('Day', $daysLeft) }}
                                                 </span>
                                             </td>
@@ -160,11 +160,11 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-column gap-1">
-                                                    <span class="badge {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'bg-success' : 'bg-warning' }} badge-professional">
+                                                    <span class="badge {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'bg-success' : 'bg-warning' }} badge-lh">
                                                         {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() == 0 ? 'Completed' : 'In Progress' }}
                                                     </span>
                                                     @if (Helper::getDateDifference(now(), $transaction->check_out) < 1 && $transaction->getTotalPrice() - $transaction->getTotalPayment() > 0)
-                                                        <span class="badge bg-danger badge-professional">
+                                                        <span class="badge bg-danger badge-lh">
                                                             <i class="fas fa-exclamation-triangle me-1"></i>
                                                             Urgent
                                                         </span>
@@ -192,7 +192,7 @@
 
             <!-- Monthly Chart -->
             <div class="col-lg-4 mb-4">
-                <div class="card card-professional h-100">
+                <div class="card card-lh h-100">
                     <div class="card-header">
                         <h5 class="mb-0 fw-bold">
                             <i class="fas fa-chart-line text-primary me-2"></i>
@@ -237,7 +237,7 @@
         <!-- Quick Actions -->
         <div class="row">
             <div class="col-12">
-                <div class="card card-professional">
+                <div class="card card-lh">
                     <div class="card-header">
                         <h5 class="mb-0 fw-bold">
                             <i class="fas fa-bolt text-warning me-2"></i>
@@ -249,7 +249,7 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-6 mb-3">
                                 <a href="{{ route('transaction.reservation.createIdentity') }}"
-                                   class="btn btn-hotel-primary btn-professional w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                                   class="btn btn-hotel-primary btn-lh w-100 h-100 d-flex flex-column align-items-center justify-content-center"
                                    style="min-height: 80px;">
                                     <i class="fas fa-plus-circle mb-2" style="font-size: 1.5rem;"></i>
                                     <span>New Reservation</span>
@@ -257,7 +257,7 @@
                             </div>
                             <div class="col-lg-3 col-md-6 mb-3">
                                 <a href="{{ route('customer.index') }}"
-                                   class="btn btn-hotel-success btn-professional w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                                   class="btn btn-hotel-success btn-lh w-100 h-100 d-flex flex-column align-items-center justify-content-center"
                                    style="min-height: 80px;">
                                     <i class="fas fa-users mb-2" style="font-size: 1.5rem;"></i>
                                     <span>Manage Customers</span>
@@ -265,7 +265,7 @@
                             </div>
                             <div class="col-lg-3 col-md-6 mb-3">
                                 <a href="{{ route('room.index') }}"
-                                   class="btn btn-outline-primary btn-professional w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                                   class="btn btn-outline-primary btn-lh w-100 h-100 d-flex flex-column align-items-center justify-content-center"
                                    style="min-height: 80px;">
                                     <i class="fas fa-bed mb-2" style="font-size: 1.5rem;"></i>
                                     <span>Room Management</span>
@@ -273,7 +273,7 @@
                             </div>
                             <div class="col-lg-3 col-md-6 mb-3">
                                 <a href="{{ route('payment.index') }}"
-                                   class="btn btn-outline-secondary btn-professional w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                                   class="btn btn-outline-secondary btn-lh w-100 h-100 d-flex flex-column align-items-center justify-content-center"
                                    style="min-height: 80px;">
                                     <i class="fas fa-credit-card mb-2" style="font-size: 1.5rem;"></i>
                                     <span>Payment History</span>
