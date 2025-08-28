@@ -11,8 +11,7 @@ class RoomStatusController extends Controller
 {
     public function __construct(
         private RoomStatusRepositoryInterface $roomStatusRepository
-    ) {
-    }
+    ) {}
 
     public function index(Request $request)
     {

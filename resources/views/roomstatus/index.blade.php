@@ -1,57 +1,56 @@
 @extends('template.master')
-@section('title', 'Room')
-@section('head')
-    <style>
-        .text {
-            display: block;
-            width: 150px;
-            height: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
-@endsection
+@section('title', 'Room Status')
 @section('content')
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="row mt-2 mb-2">
-                <div class="col-lg-12 mb-2">
-                    <div class="d-grid gap-2 d-md-block">
-                        <button id="add-button" type="button" class="btn btn-sm shadow-sm myBtn border rounded">
-                            <svg width="25" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke="black">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <!-- Add Status Button -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <button id="add-button" type="button" class="add-item-btn">
+                    <i class="fas fa-plus"></i>
+                    Add New Status
+                </button>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card shadow-sm border">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="roomstatus-table" class="table table-sm table-hover" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Code</th>
-                                            <th scope="col">Information</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <h3>Room Status</h3>
-                        </div>
-                    </div>
-                </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="professional-table-container">
+            <!-- Table Header -->
+            <div class="table-header">
+                <h4><i class="fas fa-toggle-on me-2"></i>Room Status Management</h4>
+                <p>Manage room availability statuses and their codes</p>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table id="roomstatus-table" class="professional-table table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <i class="fas fa-hashtag me-1"></i>#
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-tag me-1"></i>Name
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-code me-1"></i>Code
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-info-circle me-1"></i>Information
+                            </th>
+                            <th scope="col">
+                                <i class="fas fa-cog me-1"></i>Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- DataTable will populate this -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Footer -->
+            <div class="table-footer">
+                <h3><i class="fas fa-toggle-on me-2"></i>Room Status</h3>
             </div>
         </div>
     </div>

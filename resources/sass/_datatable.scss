@@ -1,0 +1,401 @@
+/* ===================================
+   DataTable Styling
+   =================================== */
+
+.lh-table-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+}
+
+.table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    margin: 0;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+            repeat;
+        opacity: 0.1;
+    }
+
+    h4 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+        font-size: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.filters-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filters-title {
+    color: #475569;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+
+    i {
+        margin-right: 0.5rem;
+        color: #667eea;
+    }
+}
+
+// Enhanced form controls for datatable pages
+.lh-table-container {
+    .form-select,
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background-color: white;
+
+        &:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+            outline: none;
+        }
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+select.form-select.form-select-sm {
+    padding-right: 3rem;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    padding-right: 1.5rem;
+}
+
+div.table-responsive > div.dataTables_wrapper > div.row:first-child,
+div.table-responsive > div.dataTables_wrapper > div.row:last-child {
+    padding: 1rem !important;
+}
+
+.lh-table {
+    margin: 0;
+    background: white;
+    font-size: 0.95rem;
+
+    thead th {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        color: #475569;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+        padding: 1.25rem 1.5rem;
+        border: none;
+        border-bottom: 3px solid #e2e8f0;
+        position: relative;
+    }
+
+    tbody {
+        td {
+            padding: 1.25rem 1.5rem;
+            border: none;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            transition: all 0.3s ease;
+        }
+
+        tr {
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+        }
+    }
+}
+
+// Common DataTable element styles
+.item-number,
+.room-number {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+
+.item-type,
+.room-type {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.capacity-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+
+    i {
+        margin-right: 0.25rem;
+    }
+}
+
+.price-amount {
+    font-weight: 700;
+    color: #059669;
+    font-size: 1.05rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    border: 2px solid;
+
+    &.status-active,
+    &.status-vacant {
+        background: linear-gradient(135deg, #dcfdf7 0%, #a7f3d0 100%);
+        color: #047857;
+        border-color: #059669;
+    }
+
+    &.status-inactive,
+    &.status-occupied {
+        background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%);
+        color: #dc2626;
+        border-color: #ef4444;
+    }
+
+    &.status-maintenance {
+        background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+        color: #d97706;
+        border-color: #f59e0b;
+    }
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+
+    &.btn-view {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+    }
+
+    &.btn-edit {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+
+    &.btn-delete {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+// Add buttons for DataTable pages
+.add-item-btn,
+.add-room-btn,
+.add-type-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        color: white;
+    }
+}
+
+.table-footer {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e2e8f0;
+
+    h3 {
+        margin: 0;
+        color: #475569;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+}
+
+/* ===================================
+   DataTables Plugin Customization
+   =================================== */
+
+.dataTables_wrapper {
+    .dataTables_length {
+        select {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.5rem;
+            background-color: white;
+
+            &:focus {
+                border-color: #667eea;
+                outline: none;
+            }
+        }
+    }
+
+    .dataTables_filter {
+        input {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.5rem;
+            background-color: white;
+
+            &:focus {
+                border-color: #667eea;
+                outline: none;
+                box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+            }
+        }
+    }
+
+    .dataTables_paginate {
+        .paginate_button {
+            &.current {
+                background: linear-gradient(
+                    135deg,
+                    #667eea 0%,
+                    #764ba2 100%
+                ) !important;
+                border: none !important;
+                color: white !important;
+                border-radius: 8px !important;
+            }
+
+            &:hover {
+                background: #f1f5f9 !important;
+                border: none !important;
+                color: #667eea !important;
+            }
+        }
+    }
+
+    .dataTables_info {
+        color: #64748b;
+        font-weight: 500;
+    }
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 768px) {
+    .table-header {
+        padding: 1.5rem;
+    }
+
+    .filters-section {
+        padding: 1.5rem;
+    }
+
+    .lh-table {
+        thead th,
+        tbody td {
+            padding: 1rem;
+        }
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ===================================
+   Text Overflow Utilities
+   =================================== */
+
+.text-ellipsis {
+    display: block;
+    width: 150px;
+    height: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-multiline {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100px;
+    line-height: 1.4;
+}

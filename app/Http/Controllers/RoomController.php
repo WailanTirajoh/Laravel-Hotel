@@ -20,8 +20,7 @@ class RoomController extends Controller
         private RoomRepositoryInterface $roomRepository,
         private TypeRepositoryInterface $typeRepository,
         private RoomStatusRepositoryInterface $roomStatusRepositoryInterface
-    ) {
-    }
+    ) {}
 
     public function index(Request $request)
     {

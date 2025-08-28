@@ -9,8 +9,7 @@ class TransactionController extends Controller
 {
     public function __construct(
         private TransactionRepositoryInterface $transactionRepository
-    ) {
-    }
+    ) {}
 
     public function index(Request $request)
     {

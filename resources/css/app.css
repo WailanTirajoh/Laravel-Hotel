@@ -3,5 +3,5 @@
 }
 
 #page-content-wrapper {
-    min-height: calc(100svh - 55px);
+    /* min-height: calc(100svh - 55px); */
 }
