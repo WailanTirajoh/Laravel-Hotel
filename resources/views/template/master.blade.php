@@ -45,7 +45,7 @@
 
             <!-- Page Content -->
             <div id="page-content-wrapper" class="flex-fill">
-                <div class="p-2 h-100">
+                <div class="p-3 h-100">
                     @yield('content')
                 </div>
             </div>
