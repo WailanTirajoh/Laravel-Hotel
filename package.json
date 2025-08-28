@@ -30,7 +30,7 @@
         "jquery": "^3.6.1",
         "popper.js": "^1.16.1",
         "select2": "^4.1.0-rc.0",
-        "sweetalert2": "^11.6.2",
+        "sweetalert2": "^11.22.4",
         "toastr": "^2.1.4"
     }
 }
