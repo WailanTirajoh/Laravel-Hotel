@@ -6,7 +6,6 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;
