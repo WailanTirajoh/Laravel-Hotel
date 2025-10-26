@@ -14,4 +14,10 @@ class RoomStatus extends Model
         'code',
         'information',
     ];
+
+    public function scopeFilterSearch($query){
+        $query->when(request()->get('search'), function ($qr){
+            $qr->where('name', 'LIKE', '%'.request()->get('search').'%');
+        });
+    }
 }

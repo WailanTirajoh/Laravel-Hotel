@@ -23,4 +23,11 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeFilterSearch($query){
+        $query->when(request()->get('q'), function ($qr){
+            $qr->where('name', 'Like', '%'.request()->get('q').'%')
+                ->orWhere('id', 'Like', '%'.request()->get('q').'%');
+        });
+    }
 }

@@ -10,7 +10,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function store($request, $transaction, string $status)
     {
         return Payment::create([
-            'user_id' => Auth()->user()->id,
+            'user_id' => auth()->id(),
             'transaction_id' => $transaction->id,
             'price' => empty($request->downPayment) ? $request->payment : $request->downPayment,
             'status' => $status,
