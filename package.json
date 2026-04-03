@@ -11,7 +11,7 @@
         "axios": "^1.8.2",
         "laravel-echo": "^1.16.0",
         "laravel-vite-plugin": "^1.0.5",
-        "lodash": "^4.17.19",
+        "lodash": "^4.18.1",
         "postcss": "^8.4.31",
         "pusher-js": "^7.6.0",
         "resolve-url-loader": "^5.0.0",
